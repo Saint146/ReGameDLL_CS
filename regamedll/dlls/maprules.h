@@ -57,7 +57,7 @@
 #define SF_PTEAM_KILL			0x0002
 #define SF_PTEAM_GIB			0x0004
 
-class CRuleEntity: public CBaseEntity
+class CRuleEntity : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -87,7 +87,7 @@ private:
 };
 
 // CRulePointEntity -- base class for all rule "point" entities (not brushes)
-class CRulePointEntity: public CRuleEntity
+class CRulePointEntity : public CRuleEntity
 {
 public:
 	virtual void Spawn();
@@ -102,7 +102,7 @@ public:
 
 // CRuleBrushEntity -- base class for all rule "brush" entities (not brushes)
 // Default behavior is to set up like a trigger, invisible, but keep the model for volume testing
-class CRuleBrushEntity: public CRuleEntity
+class CRuleBrushEntity : public CRuleEntity
 {
 public:
 	virtual void Spawn();
@@ -119,7 +119,7 @@ public:
 //	Points +/- total
 //	Flag: Allow negative scores			SF_SCORE_NEGATIVE
 //	Flag: Award points to team in teamplay		SF_SCORE_TEAM
-class CGameScore: public CRulePointEntity
+class CGameScore : public CRulePointEntity
 {
 public:
 	virtual void Spawn();
@@ -143,7 +143,7 @@ public:
 };
 
 // CGameEnd / game_end	-- Ends the game in MP
-class CGameEnd: public CRulePointEntity
+class CGameEnd : public CRulePointEntity
 {
 public:
 	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
@@ -158,7 +158,7 @@ public:
 
 // CGameText / game_text	-- NON-Localized HUD Message (use env_message to display a titles.txt message)
 //	Flag: All players	SF_ENVTEXT_ALLPLAYERS
-class CGameText: public CRulePointEntity
+class CGameText : public CRulePointEntity
 {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);
@@ -193,7 +193,7 @@ private:
 // team index (pulled from server team list "mp_teamlist"
 // Flag: Remove on Fire
 // Flag: Any team until set?		-- Any team can use this until the team is set (otherwise no teams can use it)
-class CGameTeamMaster: public CRulePointEntity
+class CGameTeamMaster : public CRulePointEntity
 {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);
@@ -226,7 +226,7 @@ public:
 // CGameTeamSet / game_team_set	-- Changes the team of the entity it targets to the activator's team
 // Flag: Fire once
 // Flag: Clear team		-- Sets the team to "NONE" instead of activator
-class CGameTeamSet: public CRulePointEntity
+class CGameTeamSet : public CRulePointEntity
 {
 public:
 	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
@@ -244,7 +244,7 @@ public:
 
 // CGamePlayerZone / game_player_zone -- players in the zone fire my target when I'm fired
 // Needs master?
-class CGamePlayerZone: public CRuleBrushEntity
+class CGamePlayerZone : public CRuleBrushEntity
 {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);
@@ -273,7 +273,7 @@ private:
 
 // CGamePlayerHurt / game_player_hurt	-- Damages the player who fires it
 // Flag: Fire once
-class CGamePlayerHurt: public CRulePointEntity
+class CGamePlayerHurt : public CRulePointEntity
 {
 public:
 	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
@@ -291,7 +291,7 @@ public:
 // CGameCounter / game_counter	-- Counts events and fires target
 // Flag: Fire once
 // Flag: Reset on Fire
-class CGameCounter: public CRulePointEntity
+class CGameCounter : public CRulePointEntity
 {
 public:
 	virtual void Spawn();
@@ -323,7 +323,7 @@ private:
 
 // CGameCounterSet / game_counter_set	-- Sets the counter's value
 // Flag: Fire once
-class CGameCounterSet: public CRulePointEntity
+class CGameCounterSet : public CRulePointEntity
 {
 public:
 	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
@@ -340,7 +340,7 @@ public:
 
 // CGamePlayerEquip / game_playerequip	-- Sets the default player equipment
 // Flag: USE Only
-class CGamePlayerEquip: public CRulePointEntity
+class CGamePlayerEquip : public CRulePointEntity
 {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);
@@ -362,15 +362,15 @@ private:
 	void EquipPlayer(CBaseEntity *pPlayer);
 
 public:
-	string_t m_weaponNames[ MAX_EQUIP ];
-	int m_weaponCount[ MAX_EQUIP ];
+	string_t m_weaponNames[MAX_EQUIP];
+	int m_weaponCount[MAX_EQUIP];
 };
 
 // CGamePlayerTeam / game_player_team -- Changes the team of the player who fired it
 // Flag: Fire once
 // Flag: Kill Player
 // Flag: Gib Player
-class CGamePlayerTeam: public CRulePointEntity
+class CGamePlayerTeam : public CRulePointEntity
 {
 public:
 	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);

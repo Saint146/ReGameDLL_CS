@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CBaseSpectator: public CBaseEntity
+class CBaseSpectator : public CBaseEntity
 {
 public:
 	virtual void Spawn();

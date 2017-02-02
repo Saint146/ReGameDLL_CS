@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CFuncMortarField: public CBaseToggle
+class CFuncMortarField : public CBaseToggle
 {
 public:
 	virtual void Spawn();
@@ -68,7 +68,7 @@ public:
 	int m_fControl;
 };
 
-class CMortar: public CGrenade
+class CMortar : public CGrenade
 {
 public:
 	virtual void Spawn();

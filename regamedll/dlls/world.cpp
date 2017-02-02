@@ -71,7 +71,7 @@ TYPEDESCRIPTION gGlobalEntitySaveData[] =
 
 char g_szMapBriefingText[512];
 
-class CDecal: public CBaseEntity
+class CDecal : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -117,17 +117,17 @@ void CDecal::TriggerDecal(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	UTIL_TraceLine(pev->origin - Vector(5, 5, 5), pev->origin + Vector(5, 5, 5), ignore_monsters, ENT(pev), &trace);
 
 	MESSAGE_BEGIN(MSG_BROADCAST, SVC_TEMPENTITY);
-		WRITE_BYTE(TE_BSPDECAL);
-		WRITE_COORD(pev->origin.x);
-		WRITE_COORD(pev->origin.y);
-		WRITE_COORD(pev->origin.z);
-		WRITE_SHORT(int(pev->skin));
-		entityIndex = (short)ENTINDEX(trace.pHit);
-		WRITE_SHORT(entityIndex);
-		if (entityIndex)
-		{
-			WRITE_SHORT(int(VARS(trace.pHit)->modelindex));
-		}
+	WRITE_BYTE(TE_BSPDECAL);
+	WRITE_COORD(pev->origin.x);
+	WRITE_COORD(pev->origin.y);
+	WRITE_COORD(pev->origin.z);
+	WRITE_SHORT(int(pev->skin));
+	entityIndex = (short)ENTINDEX(trace.pHit);
+	WRITE_SHORT(entityIndex);
+	if (entityIndex)
+	{
+		WRITE_SHORT(int(VARS(trace.pHit)->modelindex));
+	}
 	MESSAGE_END();
 
 	SetThink(&CDecal::SUB_Remove);
@@ -169,7 +169,7 @@ void CDecal::KeyValue(KeyValueData *pkvd)
 }
 
 // Body queue class here.... It's really just CBaseEntity
-class CCorpse: public CBaseEntity
+class CCorpse : public CBaseEntity
 {
 public:
 	virtual int ObjectCaps() { return FCAP_DONT_SAVE; }
@@ -262,7 +262,7 @@ void CGlobalState::DumpGlobals()
 
 	while (pTest != NULL)
 	{
-		ALERT(at_console, "%s: %s (%s)\n", pTest->name, pTest->levelName, estates[ pTest->state ]);
+		ALERT(at_console, "%s: %s (%s)\n", pTest->name, pTest->levelName, estates[pTest->state]);
 		pTest = pTest->pNext;
 	}
 }
@@ -432,7 +432,7 @@ void CWorld::__MAKE_VHOOK(Spawn)()
 	if (pFile && flength)
 	{
 		Q_strncpy(g_szMapBriefingText, pFile, ARRAYSIZE(g_szMapBriefingText) - 2);
-		g_szMapBriefingText[ ARRAYSIZE(g_szMapBriefingText) - 2 ] = '\0';
+		g_szMapBriefingText[ARRAYSIZE(g_szMapBriefingText) - 2] = '\0';
 
 		PRECACHE_GENERIC(szMapBriefingFile);
 	}
@@ -442,7 +442,7 @@ void CWorld::__MAKE_VHOOK(Spawn)()
 		if (pFile && flength)
 		{
 			Q_strncpy(g_szMapBriefingText, pFile, ARRAYSIZE(g_szMapBriefingText) - 2);
-			g_szMapBriefingText[ ARRAYSIZE(g_szMapBriefingText) - 2 ] = '\0';
+			g_szMapBriefingText[ARRAYSIZE(g_szMapBriefingText) - 2] = '\0';
 
 			PRECACHE_GENERIC("maps/default.txt");
 		}

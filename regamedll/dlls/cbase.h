@@ -189,9 +189,9 @@
 #define MS_MAX_TARGETS		32
 
 #ifdef _WIN32
-	#define EXPORT __declspec(dllexport)
+#define EXPORT __declspec(dllexport)
 #else
-	#define EXPORT /**/
+#define EXPORT /**/
 #endif // _WIN32
 
 class CGrenade;
@@ -429,7 +429,7 @@ public:
 inline int FNullEnt(CBaseEntity *ent) { return (ent == NULL || FNullEnt(ent->edict())); }
 inline int FNullEnt(EHANDLE hent) { return (hent == NULL || FNullEnt(OFFSET(hent.Get()))); }
 
-class CPointEntity: public CBaseEntity {
+class CPointEntity : public CBaseEntity {
 public:
 	virtual void Spawn();
 	virtual int ObjectCaps() { return (CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
@@ -443,7 +443,7 @@ public:
 };
 
 // MultiSouce
-class CMultiSource: public CPointEntity {
+class CMultiSource : public CPointEntity {
 public:
 	virtual void Spawn();
 	virtual void KeyValue(KeyValueData *pkvd);
@@ -481,7 +481,7 @@ public:
 };
 
 // generic Delay entity.
-class CBaseDelay: public CBaseEntity {
+class CBaseDelay : public CBaseEntity {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);
 	virtual int Save(CSave &save);
@@ -505,7 +505,7 @@ public:
 	int m_iszKillTarget;
 };
 
-class CBaseAnimating: public CBaseDelay {
+class CBaseAnimating : public CBaseDelay {
 public:
 	virtual int Save(CSave &save);
 	virtual int Restore(CRestore &restore);
@@ -553,7 +553,7 @@ public:
 };
 
 // generic Toggle entity.
-class CBaseToggle: public CBaseAnimating {
+class CBaseToggle : public CBaseAnimating {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);
 	virtual int Save(CSave &save);
@@ -616,7 +616,7 @@ public:
 #include "basemonster.h"
 
 // Generic Button
-class CBaseButton: public CBaseToggle {
+class CBaseButton : public CBaseToggle {
 public:
 	virtual void Spawn();
 	virtual void Precache();
@@ -681,7 +681,7 @@ public:
 };
 
 // This spawns first when each level begins.
-class CWorld: public CBaseEntity {
+class CWorld : public CBaseEntity {
 public:
 	virtual void Spawn();
 	virtual void Precache();

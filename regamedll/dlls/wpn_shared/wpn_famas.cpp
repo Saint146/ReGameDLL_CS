@@ -57,7 +57,7 @@ BOOL CFamas::__MAKE_VHOOK(Deploy)()
 	m_iFamasShotsFired = 0;
 	m_flFamasShoot = 0;
 	m_flAccuracy = 0.2f;
-	
+
 	iShellOn = 1;
 
 	return DefaultDeploy("models/v_famas.mdl", "models/p_famas.mdl", FAMAS_DRAW, "carbine", UseDecrement() != FALSE);

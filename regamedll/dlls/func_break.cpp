@@ -177,9 +177,9 @@ void CBreakable::__MAKE_VHOOK(Spawn)()
 	Precache();
 
 	if (pev->spawnflags & SF_BREAK_TRIGGER_ONLY)
-		pev->takedamage	= DAMAGE_NO;
+		pev->takedamage = DAMAGE_NO;
 	else
-		pev->takedamage	= DAMAGE_YES;
+		pev->takedamage = DAMAGE_YES;
 
 	m_flHealth = pev->health;
 	pev->solid = SOLID_BSP;
@@ -312,7 +312,7 @@ void CBreakable::MaterialSoundRandom(edict_t *pEdict, Materials soundMaterial, f
 
 	if (soundCount)
 	{
-		EMIT_SOUND(pEdict, CHAN_BODY, pSoundList[ RANDOM_LONG(0, soundCount - 1) ], volume, 1.0);
+		EMIT_SOUND(pEdict, CHAN_BODY, pSoundList[RANDOM_LONG(0, soundCount - 1)], volume, 1.0);
 	}
 }
 
@@ -558,26 +558,26 @@ void CBreakable::__MAKE_VHOOK(TraceAttack)(entvars_t *pevAttacker, float flDamag
 	{
 		switch (m_Material)
 		{
-			case matComputer:
+		case matComputer:
+		{
+			UTIL_Sparks(ptr->vecEndPos);
+
+			//random volume range
+			float flVolume = RANDOM_FLOAT(0.7, 1.0);
+			switch (RANDOM_LONG(0, 1))
 			{
-				UTIL_Sparks(ptr->vecEndPos);
-
-				//random volume range
-				float flVolume = RANDOM_FLOAT(0.7 , 1.0);
-				switch (RANDOM_LONG(0, 1))
-				{
-				case 0: EMIT_SOUND(ENT(pev), CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM); break;
-				case 1: EMIT_SOUND(ENT(pev), CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM); break;
-				}
-
-				break;
+			case 0: EMIT_SOUND(ENT(pev), CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM); break;
+			case 1: EMIT_SOUND(ENT(pev), CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM); break;
 			}
 
-			case matUnbreakableGlass:
-			{
-				UTIL_Ricochet(ptr->vecEndPos, RANDOM_FLOAT(0.5, 1.5));
-				break;
-			}
+			break;
+		}
+
+		case matUnbreakableGlass:
+		{
+			UTIL_Ricochet(ptr->vecEndPos, RANDOM_FLOAT(0.5, 1.5));
+			break;
+		}
 		}
 	}
 
@@ -783,21 +783,21 @@ void CBreakable::Die()
 	vecSpot = pev->origin + (pev->mins + pev->maxs) * 0.5f;
 
 	MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, vecSpot);
-		WRITE_BYTE(TE_BREAKMODEL);
-		WRITE_COORD(vecSpot.x);		// position
-		WRITE_COORD(vecSpot.y);
-		WRITE_COORD(vecSpot.z);
-		WRITE_COORD(pev->size.x);	// size
-		WRITE_COORD(pev->size.y);
-		WRITE_COORD(pev->size.z);
-		WRITE_COORD(vecVelocity.x);	// velocity
-		WRITE_COORD(vecVelocity.y);
-		WRITE_COORD(vecVelocity.z);
-		WRITE_BYTE(10);			// randomization
-		WRITE_SHORT(m_idShard);		// model id#
-		WRITE_BYTE(0);			// # of shards, let client decide
-		WRITE_BYTE(25);			// duration, 2.5 seconds
-		WRITE_BYTE(cFlag);		// flags
+	WRITE_BYTE(TE_BREAKMODEL);
+	WRITE_COORD(vecSpot.x);		// position
+	WRITE_COORD(vecSpot.y);
+	WRITE_COORD(vecSpot.z);
+	WRITE_COORD(pev->size.x);	// size
+	WRITE_COORD(pev->size.y);
+	WRITE_COORD(pev->size.z);
+	WRITE_COORD(vecVelocity.x);	// velocity
+	WRITE_COORD(vecVelocity.y);
+	WRITE_COORD(vecVelocity.z);
+	WRITE_BYTE(10);			// randomization
+	WRITE_SHORT(m_idShard);		// model id#
+	WRITE_BYTE(0);			// # of shards, let client decide
+	WRITE_BYTE(25);			// duration, 2.5 seconds
+	WRITE_BYTE(cFlag);		// flags
 	MESSAGE_END();
 
 	float size = pev->size.x;

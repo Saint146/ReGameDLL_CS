@@ -51,7 +51,7 @@ void CCSBot::StuckCheck()
 		float moveDist = vel.Length();
 		float deltaT = g_flBotFullThinkInterval;
 
-		m_avgVel[ m_avgVelIndex++ ] = moveDist / deltaT;
+		m_avgVel[m_avgVelIndex++] = moveDist / deltaT;
 
 		if (m_avgVelIndex == MAX_VEL_SAMPLES)
 			m_avgVelIndex = 0;
@@ -256,7 +256,7 @@ void CCSBot::MoveTowardsPosition(const Vector *pos)
 NOXREF void CCSBot::MoveAwayFromPosition(const Vector *pos)
 {
 	// compute our current forward and lateral vectors
-	float angle = pev->v_angle[ YAW ];
+	float angle = pev->v_angle[YAW];
 
 	Vector2D dir(BotCOS(angle), BotSIN(angle));
 	Vector2D lat(-dir.y, dir.x);
@@ -285,7 +285,7 @@ NOXREF void CCSBot::MoveAwayFromPosition(const Vector *pos)
 void CCSBot::StrafeAwayFromPosition(const Vector *pos)
 {
 	// compute our current forward and lateral vectors
-	float angle = pev->v_angle[ YAW ];
+	float angle = pev->v_angle[YAW];
 
 	Vector2D dir(BotCOS(angle), BotSIN(angle));
 	Vector2D lat(-dir.y, dir.x);
@@ -384,7 +384,7 @@ void CCSBot::ComputeApproachPoints()
 		Vector bendPoint;
 		if (BendLineOfSight(&eye, &ap, &bendPoint))
 		{
-			m_approachPoint[ m_approachPointCount++ ] = bendPoint;
+			m_approachPoint[m_approachPointCount++] = bendPoint;
 		}
 	}
 }

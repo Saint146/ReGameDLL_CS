@@ -86,7 +86,7 @@ enum ItemID
 	ITEM_BATTERY
 };
 
-class CItem: public CBaseEntity
+class CItem : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -105,7 +105,7 @@ public:
 	void EXPORT Materialize();
 };
 
-class CWorldItem: public CBaseEntity
+class CWorldItem : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -122,7 +122,7 @@ public:
 	int m_iType;
 };
 
-class CItemSuit: public CItem
+class CItemSuit : public CItem
 {
 public:
 	virtual void Spawn();
@@ -139,7 +139,7 @@ public:
 
 };
 
-class CItemBattery: public CItem
+class CItemBattery : public CItem
 {
 public:
 	virtual void Spawn();
@@ -156,7 +156,7 @@ public:
 
 };
 
-class CItemAntidote: public CItem
+class CItemAntidote : public CItem
 {
 public:
 	virtual void Spawn();
@@ -173,7 +173,7 @@ public:
 
 };
 
-class CItemSecurity: public CItem
+class CItemSecurity : public CItem
 {
 public:
 	virtual void Spawn();
@@ -190,7 +190,7 @@ public:
 
 };
 
-class CItemLongJump: public CItem
+class CItemLongJump : public CItem
 {
 public:
 	virtual void Spawn();
@@ -207,7 +207,7 @@ public:
 
 };
 
-class CItemKevlar: public CItem
+class CItemKevlar : public CItem
 {
 public:
 	virtual void Spawn();
@@ -224,7 +224,7 @@ public:
 
 };
 
-class CItemAssaultSuit: public CItem
+class CItemAssaultSuit : public CItem
 {
 public:
 	virtual void Spawn();
@@ -241,7 +241,7 @@ public:
 
 };
 
-class CItemThighPack: public CItem
+class CItemThighPack : public CItem
 {
 public:
 	virtual void Spawn();

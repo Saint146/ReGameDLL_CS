@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CHealthKit: public CItem
+class CHealthKit : public CItem
 {
 public:
 	virtual void Spawn();
@@ -49,7 +49,7 @@ public:
 
 };
 
-class CWallHealth: public CBaseToggle
+class CWallHealth : public CBaseToggle
 {
 public:
 	virtual void Spawn();

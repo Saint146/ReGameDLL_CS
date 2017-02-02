@@ -46,7 +46,7 @@
 
 #define FGUNTARGET_START_ON	0x0001
 
-class CBasePlatTrain: public CBaseToggle
+class CBasePlatTrain : public CBaseToggle
 {
 public:
 	virtual void Precache();
@@ -75,7 +75,7 @@ public:
 	float m_volume;
 };
 
-class CFuncPlat: public CBasePlatTrain
+class CFuncPlat : public CBasePlatTrain
 {
 public:
 	virtual void Spawn();
@@ -106,7 +106,7 @@ public:
 	void EXPORT CallHitBottom();
 };
 
-class CPlatTrigger: public CBaseEntity
+class CPlatTrigger : public CBaseEntity
 {
 public:
 	virtual int ObjectCaps() { return (CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DONT_SAVE; }
@@ -124,7 +124,7 @@ public:
 	CFuncPlat *m_pPlatform;
 };
 
-class CFuncPlatRot: public CFuncPlat
+class CFuncPlatRot : public CFuncPlat
 {
 public:
 	virtual void Spawn();
@@ -159,7 +159,7 @@ public:
 	Vector m_start;
 };
 
-class CFuncTrain: public CBasePlatTrain
+class CFuncTrain : public CBasePlatTrain
 {
 public:
 	virtual void Spawn();
@@ -202,7 +202,7 @@ public:
 	BOOL m_activated;
 };
 
-class CFuncTrainControls: public CBaseEntity
+class CFuncTrainControls : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -218,7 +218,7 @@ public:
 	void EXPORT Find();
 };
 
-class CFuncTrackChange: public CFuncPlatRot
+class CFuncTrackChange : public CFuncPlatRot
 {
 public:
 	virtual void Spawn();
@@ -283,7 +283,7 @@ public:
 	int m_use;
 };
 
-class CFuncTrackAuto: public CFuncTrackChange
+class CFuncTrackAuto : public CFuncTrackChange
 {
 public:
 	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
@@ -298,7 +298,7 @@ public:
 
 };
 
-class CGunTarget: public CBaseMonster
+class CGunTarget : public CBaseMonster
 {
 public:
 	virtual void Spawn();

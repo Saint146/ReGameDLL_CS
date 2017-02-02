@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class C9MMAmmo: public CBasePlayerAmmo
+class C9MMAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -49,7 +49,7 @@ public:
 
 };
 
-class CBuckShotAmmo: public CBasePlayerAmmo
+class CBuckShotAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -66,7 +66,7 @@ public:
 
 };
 
-class C556NatoAmmo: public CBasePlayerAmmo
+class C556NatoAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -83,7 +83,7 @@ public:
 
 };
 
-class C556NatoBoxAmmo: public CBasePlayerAmmo
+class C556NatoBoxAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -100,7 +100,7 @@ public:
 
 };
 
-class C762NatoAmmo: public CBasePlayerAmmo
+class C762NatoAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -117,7 +117,7 @@ public:
 
 };
 
-class C45ACPAmmo: public CBasePlayerAmmo
+class C45ACPAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -134,7 +134,7 @@ public:
 
 };
 
-class C50AEAmmo: public CBasePlayerAmmo
+class C50AEAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -151,7 +151,7 @@ public:
 
 };
 
-class C338MagnumAmmo: public CBasePlayerAmmo
+class C338MagnumAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -168,7 +168,7 @@ public:
 
 };
 
-class C57MMAmmo: public CBasePlayerAmmo
+class C57MMAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();
@@ -184,7 +184,7 @@ public:
 #endif
 };
 
-class C357SIGAmmo: public CBasePlayerAmmo
+class C357SIGAmmo : public CBasePlayerAmmo
 {
 public:
 	virtual void Spawn();

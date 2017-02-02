@@ -67,7 +67,7 @@ T *CreateBot(const BotProfile *profile)
 }
 
 // The base bot class from which bots for specific games are derived
-class CBot: public CBasePlayer
+class CBot : public CBasePlayer
 {
 public:
 	// constructor initializes all values to zero
@@ -114,7 +114,7 @@ public:
 	virtual void StrafeRight();
 
 	// returns true if jump was started
-	#define MUST_JUMP true
+#define MUST_JUMP true
 	virtual bool Jump(bool mustJump = false);
 
 	// zero any MoveForward(), Jump(), etc
@@ -137,7 +137,7 @@ public:
 	// return true if we can see any part of the player
 	virtual bool IsVisible(CBasePlayer *player, bool testFOV = false, unsigned char *visParts = NULL) const = 0;
 
-	enum VisiblePartType:uint8
+	enum VisiblePartType :uint8
 	{
 		NONE = 0x00,
 		CHEST = 0x01,
@@ -233,10 +233,10 @@ public:
 	bool IsLocalPlayerWatchingMe() const;
 
 	// output message to console
-	void Print(char *format,...) const;
+	void Print(char *format, ...) const;
 
 	// output message to console if we are being watched by the local player
-	void PrintIfWatched(char *format,...) const;
+	void PrintIfWatched(char *format, ...) const;
 
 	void BotThink();
 
@@ -252,7 +252,7 @@ public:
 	// return our personality profile
 	const BotProfile *GetProfile() const { return m_profile; }
 
-	enum BotRelationshipTeam: uint8
+	enum BotRelationshipTeam : uint8
 	{
 		BOT_TEAMMATE = 0,
 		BOT_ENEMY

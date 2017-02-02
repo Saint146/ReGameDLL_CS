@@ -54,7 +54,7 @@ inline char *CloneString(const char *str)
 		return cloneStr;
 	}
 
-	char *cloneStr = new char [Q_strlen(str) + 1];
+	char *cloneStr = new char[Q_strlen(str) + 1];
 	Q_strcpy(cloneStr, str);
 	return cloneStr;
 }
@@ -69,8 +69,7 @@ inline wchar_t *CloneWString(const wchar_t *str)
 		return cloneStr;
 	}
 
-	wchar_t *cloneStr = new wchar_t [wcslen(str) + 1];
+	wchar_t *cloneStr = new wchar_t[wcslen(str) + 1];
 	wcscpy(cloneStr, str);
 	return cloneStr;
 }
-	

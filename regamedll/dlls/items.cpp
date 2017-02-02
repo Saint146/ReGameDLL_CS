@@ -223,7 +223,7 @@ BOOL CItemBattery::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 		EMIT_SOUND(pPlayer->edict(), CHAN_ITEM, "items/gunpickup2.wav", VOL_NORM, ATTN_NORM);
 
 		MESSAGE_BEGIN(MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev);
-			WRITE_STRING(STRING(pev->classname));
+		WRITE_STRING(STRING(pev->classname));
 		MESSAGE_END();
 
 		// Suit reports new power level
@@ -234,7 +234,7 @@ BOOL CItemBattery::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 		if (pct > 0)
 			pct--;
 
-		Q_sprintf(szcharge,"!HEV_%1dP", pct);
+		Q_sprintf(szcharge, "!HEV_%1dP", pct);
 		pPlayer->SetSuitUpdate(szcharge, FALSE, SUIT_NEXT_IN_30SEC);
 
 		return TRUE;
@@ -264,7 +264,7 @@ BOOL CItemAntidote::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 #endif
 
 	pPlayer->SetSuitUpdate("!HEV_DET4", FALSE, SUIT_NEXT_IN_1MIN);
-	pPlayer->m_rgItems[ ITEM_ID_ANTIDOTE ] += 1;
+	pPlayer->m_rgItems[ITEM_ID_ANTIDOTE] += 1;
 
 	return TRUE;
 }
@@ -287,7 +287,7 @@ void CItemSecurity::__MAKE_VHOOK(Precache)()
 
 BOOL CItemSecurity::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 {
-	pPlayer->m_rgItems[ ITEM_ID_SECURITY ] += 1;
+	pPlayer->m_rgItems[ITEM_ID_SECURITY] += 1;
 	return TRUE;
 }
 
@@ -323,7 +323,7 @@ BOOL CItemLongJump::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 		SET_PHYSICS_KEY_VALUE(pPlayer->edict(), "slj", "1");
 
 		MESSAGE_BEGIN(MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev);
-			WRITE_STRING(STRING(pev->classname));
+		WRITE_STRING(STRING(pev->classname));
 		MESSAGE_END();
 
 		// Play the longjump sound UNDONE: Kelly? correct sound?
@@ -362,11 +362,11 @@ BOOL CItemKevlar::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	EMIT_SOUND(pPlayer->edict(), CHAN_ITEM, "items/ammopickup2.wav", VOL_NORM, ATTN_NORM);
 
 	MESSAGE_BEGIN(MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev);
-		WRITE_STRING(STRING(pev->classname));
+	WRITE_STRING(STRING(pev->classname));
 	MESSAGE_END();
 
 	MESSAGE_BEGIN(MSG_ONE, gmsgArmorType, NULL, pPlayer->pev);
-		WRITE_BYTE(0);
+	WRITE_BYTE(0);
 	MESSAGE_END();
 
 	if (TheTutor)
@@ -404,11 +404,11 @@ BOOL CItemAssaultSuit::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	EMIT_SOUND(pPlayer->edict(), CHAN_ITEM, "items/ammopickup2.wav", VOL_NORM, ATTN_NORM);
 
 	MESSAGE_BEGIN(MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev);
-		WRITE_STRING(STRING(pev->classname));
+	WRITE_STRING(STRING(pev->classname));
 	MESSAGE_END();
 
 	MESSAGE_BEGIN(MSG_ONE, gmsgArmorType, NULL, pPlayer->pev);
-		WRITE_BYTE(1);
+	WRITE_BYTE(1);
 	MESSAGE_END();
 
 	if (TheTutor)
@@ -449,11 +449,11 @@ BOOL CItemThighPack::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Got_defuser");
 
 	MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pPlayer->pev);
-		WRITE_BYTE(STATUSICON_SHOW);
-		WRITE_STRING("defuser");
-		WRITE_BYTE(0);
-		WRITE_BYTE(160);
-		WRITE_BYTE(0);
+	WRITE_BYTE(STATUSICON_SHOW);
+	WRITE_STRING("defuser");
+	WRITE_BYTE(0);
+	WRITE_BYTE(160);
+	WRITE_BYTE(0);
 	MESSAGE_END();
 
 	pPlayer->SendItemStatus();

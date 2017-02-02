@@ -215,7 +215,7 @@ void CFuncVehicle::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCall
 		{
 			flSpeedRatio = pev->speed / m_speed;
 
-										// TODO: fix test demo
+			// TODO: fix test demo
 			if (flSpeedRatio > 0)					flSpeedRatio = float(flSpeedRatio) - 0.0125;
 			else if (flSpeedRatio <= 0 && flSpeedRatio > -0.05)	flSpeedRatio = float(flSpeedRatio) - 0.0075;
 			else if (flSpeedRatio <= 0.05 && flSpeedRatio > -0.1)	flSpeedRatio = float(flSpeedRatio) - 0.01;
@@ -681,8 +681,7 @@ void CFuncVehicle::DeadEnd()
 				{
 					pTrack = pNext;
 				}
-			}
-			while (pNext != NULL);
+			} while (pNext != NULL);
 		}
 		else
 		{
@@ -694,8 +693,7 @@ void CFuncVehicle::DeadEnd()
 				{
 					pTrack = pNext;
 				}
-			}
-			while (pNext != NULL);
+			} while (pNext != NULL);
 		}
 	}
 
@@ -929,12 +927,12 @@ void CFuncVehicle::__MAKE_VHOOK(Precache)()
 
 	switch (m_sounds)
 	{
-	case 1: PRECACHE_SOUND("plats/vehicle1.wav");pev->noise = MAKE_STRING("plats/vehicle1.wav"); break;
-	case 2: PRECACHE_SOUND("plats/vehicle2.wav");pev->noise = MAKE_STRING("plats/vehicle2.wav"); break;
-	case 3: PRECACHE_SOUND("plats/vehicle3.wav");pev->noise = MAKE_STRING("plats/vehicle3.wav"); break;
-	case 4: PRECACHE_SOUND("plats/vehicle4.wav");pev->noise = MAKE_STRING("plats/vehicle4.wav"); break;
-	case 5: PRECACHE_SOUND("plats/vehicle6.wav");pev->noise = MAKE_STRING("plats/vehicle6.wav"); break;
-	case 6: PRECACHE_SOUND("plats/vehicle7.wav");pev->noise = MAKE_STRING("plats/vehicle7.wav"); break;
+	case 1: PRECACHE_SOUND("plats/vehicle1.wav"); pev->noise = MAKE_STRING("plats/vehicle1.wav"); break;
+	case 2: PRECACHE_SOUND("plats/vehicle2.wav"); pev->noise = MAKE_STRING("plats/vehicle2.wav"); break;
+	case 3: PRECACHE_SOUND("plats/vehicle3.wav"); pev->noise = MAKE_STRING("plats/vehicle3.wav"); break;
+	case 4: PRECACHE_SOUND("plats/vehicle4.wav"); pev->noise = MAKE_STRING("plats/vehicle4.wav"); break;
+	case 5: PRECACHE_SOUND("plats/vehicle6.wav"); pev->noise = MAKE_STRING("plats/vehicle6.wav"); break;
+	case 6: PRECACHE_SOUND("plats/vehicle7.wav"); pev->noise = MAKE_STRING("plats/vehicle7.wav"); break;
 	}
 
 	PRECACHE_SOUND("plats/vehicle_brake1.wav");
@@ -952,8 +950,7 @@ void CFuncVehicleControls::Find()
 	do
 	{
 		pTarget = FIND_ENTITY_BY_TARGETNAME(pTarget, STRING(pev->target));
-	}
-	while (!FNullEnt(pTarget) && !FClassnameIs(pTarget, "func_vehicle"));
+	} while (!FNullEnt(pTarget) && !FClassnameIs(pTarget, "func_vehicle"));
 
 	if (FNullEnt(pTarget))
 	{

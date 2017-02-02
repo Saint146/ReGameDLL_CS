@@ -37,13 +37,13 @@ const int DebugBufferSize = 1024;
 
 typedef enum
 {
-	DEBUG_NONE	= 0,
-	DEBUG_BOT	= (1 << 0),
-	DEBUG_CAREER	= (1 << 1),
-	DEBUG_TUTOR	= (1 << 2),
-	DEBUG_STATS	= (1 << 3),
-	DEBUG_HOSTAGE	= (1 << 4),
-	DEBUG_ALL	= 0xFFFFFFFF,
+	DEBUG_NONE = 0,
+	DEBUG_BOT = (1 << 0),
+	DEBUG_CAREER = (1 << 1),
+	DEBUG_TUTOR = (1 << 2),
+	DEBUG_STATS = (1 << 3),
+	DEBUG_HOSTAGE = (1 << 4),
+	DEBUG_ALL = 0xFFFFFFFF,
 
 } DebugOutputType;
 

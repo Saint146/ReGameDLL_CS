@@ -42,18 +42,18 @@ enum TutorMessageClass
 
 enum TutorMessageType
 {
-	TUTORMESSAGETYPE_DEFAULT	= (1 << 0),	// icon info  | color green
-	TUTORMESSAGETYPE_FRIEND_DEATH	= (1 << 1),	// icon skull | color red
-	TUTORMESSAGETYPE_ENEMY_DEATH	= (1 << 2),	// icon skull | color blue
-	TUTORMESSAGETYPE_SCENARIO	= (1 << 3),	// icon info  | color yellow
-	TUTORMESSAGETYPE_BUY		= (1 << 4),	// icon info  | color green
-	TUTORMESSAGETYPE_CAREER		= (1 << 5),	// icon info  | color green
-	TUTORMESSAGETYPE_HINT		= (1 << 6),	// icon info  | color green
-	TUTORMESSAGETYPE_INGAME_HINT	= (1 << 7),	// icon info  | color green
-	TUTORMESSAGETYPE_END_GAME	= (1 << 8),	// icon info  | color yellow
+	TUTORMESSAGETYPE_DEFAULT = (1 << 0),	// icon info  | color green
+	TUTORMESSAGETYPE_FRIEND_DEATH = (1 << 1),	// icon skull | color red
+	TUTORMESSAGETYPE_ENEMY_DEATH = (1 << 2),	// icon skull | color blue
+	TUTORMESSAGETYPE_SCENARIO = (1 << 3),	// icon info  | color yellow
+	TUTORMESSAGETYPE_BUY = (1 << 4),	// icon info  | color green
+	TUTORMESSAGETYPE_CAREER = (1 << 5),	// icon info  | color green
+	TUTORMESSAGETYPE_HINT = (1 << 6),	// icon info  | color green
+	TUTORMESSAGETYPE_INGAME_HINT = (1 << 7),	// icon info  | color green
+	TUTORMESSAGETYPE_END_GAME = (1 << 8),	// icon info  | color yellow
 
 	TUTORMESSAGETYPE_LAST,
-	TUTORMESSAGETYPE_ALL		= (1 << 9) - 1
+	TUTORMESSAGETYPE_ALL = (1 << 9) - 1
 };
 
 enum TutorMessageInterruptFlag
@@ -235,8 +235,8 @@ enum TutorMessageID
 	HINT_51,
 	HINT_52,
 	HINT_53,
-	HINT_BOMB_START	= 139,
-	HINT_60	= 139,
+	HINT_BOMB_START = 139,
+	HINT_60 = 139,
 	HINT_61 = 140,
 	HINT_BOMB_END = 140,
 	HINT_HOSTAGE_START = 141,
@@ -265,7 +265,7 @@ struct ClientCorpseStruct
 typedef std::STD_VECTOR<ClientCorpseStruct *> ClientCorpseList;
 typedef ClientCorpseList::iterator ClientCorpseListIter;
 
-class CCSTutor: public CBaseTutor
+class CCSTutor : public CBaseTutor
 {
 public:
 	CCSTutor();

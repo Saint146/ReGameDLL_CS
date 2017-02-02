@@ -71,172 +71,172 @@ void CCSBot::__MAKE_VHOOK(OnEvent)(GameEventType event, CBaseEntity *entity, CBa
 
 	switch (event)
 	{
-		case EVENT_PLAYER_DIED:
+	case EVENT_PLAYER_DIED:
+	{
+		CBasePlayer *victim = player;
+		CBasePlayer *killer = (other != NULL && other->IsPlayer()) ? static_cast<CBasePlayer *>(other) : NULL;
+
+		// if the human player died in the single player game, tell the team
+		if (CSGameRules()->IsCareer() && !victim->IsBot() && BotRelationship(victim) == BOT_TEAMMATE)
 		{
-			CBasePlayer *victim = player;
-			CBasePlayer *killer = (other != NULL && other->IsPlayer()) ? static_cast<CBasePlayer *>(other) : NULL;
+			GetChatter()->Say("CommanderDown", 20.0f);
+		}
 
-			// if the human player died in the single player game, tell the team
-			if (CSGameRules()->IsCareer() && !victim->IsBot() && BotRelationship(victim) == BOT_TEAMMATE)
+		// keep track of the last player we killed
+		if (killer == this)
+		{
+			m_lastVictimID = victim->entindex();
+		}
+
+		// react to teammate death
+		if (BotRelationship(victim) == BOT_TEAMMATE)
+		{
+			// chastise friendly fire from humans
+			if (killer != NULL && !killer->IsBot() && BotRelationship(killer) == BOT_TEAMMATE && killer != this)
 			{
-				GetChatter()->Say("CommanderDown", 20.0f);
+				GetChatter()->KilledFriend();
 			}
 
-			// keep track of the last player we killed
-			if (killer == this)
+			if (IsHunting())
 			{
-				m_lastVictimID = victim->entindex();
+				PrintIfWatched("Rethinking hunt due to teammate death\n");
+				Idle();
+				return;
 			}
 
-			// react to teammate death
-			if (BotRelationship(victim) == BOT_TEAMMATE)
+			if (IsAttacking())
 			{
-				// chastise friendly fire from humans
-				if (killer != NULL && !killer->IsBot() && BotRelationship(killer) == BOT_TEAMMATE && killer != this)
+				if (GetTimeSinceLastSawEnemy() > 0.4f)
 				{
-					GetChatter()->KilledFriend();
-				}
+					PrintIfWatched("Rethinking my attack due to teammate death\n");
 
-				if (IsHunting())
-				{
-					PrintIfWatched("Rethinking hunt due to teammate death\n");
-					Idle();
+					// allow us to sneak past windows, doors, etc
+					IgnoreEnemies(1.0f);
+
+					// move to last known position of enemy - this could cause us to flank if 
+					// the danger has changed due to our teammate's recent death
+					SetTask(MOVE_TO_LAST_KNOWN_ENEMY_POSITION, GetEnemy());
+					MoveTo(&GetLastKnownEnemyPosition());
 					return;
 				}
-
-				if (IsAttacking())
-				{
-					if (GetTimeSinceLastSawEnemy() > 0.4f)
-					{
-						PrintIfWatched("Rethinking my attack due to teammate death\n");
-
-						// allow us to sneak past windows, doors, etc
-						IgnoreEnemies(1.0f);
-
-						// move to last known position of enemy - this could cause us to flank if 
-						// the danger has changed due to our teammate's recent death
-						SetTask(MOVE_TO_LAST_KNOWN_ENEMY_POSITION, GetEnemy());
-						MoveTo(&GetLastKnownEnemyPosition());
-						return;
-					}
-				}
 			}
-			// an enemy was killed
-			else
+		}
+		// an enemy was killed
+		else
+		{
+			if (killer != NULL && BotRelationship(killer) == BOT_TEAMMATE)
 			{
-				if (killer != NULL && BotRelationship(killer) == BOT_TEAMMATE)
+				// only chatter about enemy kills if we see them occur, and they were the last one we see
+				if (GetNearbyEnemyCount() <= 1)
 				{
-					// only chatter about enemy kills if we see them occur, and they were the last one we see
-					if (GetNearbyEnemyCount() <= 1)
-					{
-						// report if number of enemies left is few and we killed the last one we saw locally
-						GetChatter()->EnemiesRemaining();
+					// report if number of enemies left is few and we killed the last one we saw locally
+					GetChatter()->EnemiesRemaining();
 
-						if (IsVisible(&victim->pev->origin, CHECK_FOV))
-						{						
-							// congratulate teammates on their kills
-							if (killer != this)
+					if (IsVisible(&victim->pev->origin, CHECK_FOV))
+					{
+						// congratulate teammates on their kills
+						if (killer != this)
+						{
+							float delay = RANDOM_FLOAT(2.0f, 3.0f);
+							if (killer->IsBot())
 							{
-								float delay = RANDOM_FLOAT(2.0f, 3.0f);
-								if (killer->IsBot())
-								{
-									if (RANDOM_FLOAT(0.0f, 100.0f) < 40.0f)
-										GetChatter()->Say("NiceShot", 3.0f, delay);
-								}
+								if (RANDOM_FLOAT(0.0f, 100.0f) < 40.0f)
+									GetChatter()->Say("NiceShot", 3.0f, delay);
+							}
+							else
+							{
+								// humans get the honorific
+								if (CSGameRules()->IsCareer())
+									GetChatter()->Say("NiceShotCommander", 3.0f, delay);
 								else
-								{
-									// humans get the honorific
-									if (CSGameRules()->IsCareer())
-										GetChatter()->Say("NiceShotCommander", 3.0f, delay);
-									else
-										GetChatter()->Say("NiceShotSir", 3.0f, delay);
-								}
+									GetChatter()->Say("NiceShotSir", 3.0f, delay);
 							}
 						}
 					}
 				}
 			}
-			return;
 		}
-		case EVENT_TERRORISTS_WIN:
-			if (m_iTeam == TERRORIST)
-				GetChatter()->CelebrateWin();
-			return;
-		case EVENT_CTS_WIN:
-			if (m_iTeam == CT)
-				GetChatter()->CelebrateWin();
-			return;
-		case EVENT_BOMB_DEFUSED:
-			if (m_iTeam == CT && TheCSBots()->GetBombTimeLeft() < 2.0)
-				GetChatter()->Say("BarelyDefused");
-			return;
-		case EVENT_BOMB_PICKED_UP:
+		return;
+	}
+	case EVENT_TERRORISTS_WIN:
+		if (m_iTeam == TERRORIST)
+			GetChatter()->CelebrateWin();
+		return;
+	case EVENT_CTS_WIN:
+		if (m_iTeam == CT)
+			GetChatter()->CelebrateWin();
+		return;
+	case EVENT_BOMB_DEFUSED:
+		if (m_iTeam == CT && TheCSBots()->GetBombTimeLeft() < 2.0)
+			GetChatter()->Say("BarelyDefused");
+		return;
+	case EVENT_BOMB_PICKED_UP:
+	{
+		if (m_iTeam == CT && player != NULL)
 		{
-			if (m_iTeam == CT && player != NULL)
+			// check if we're close enough to hear it
+			const float bombPickupHearRangeSq = 1000.0f * 1000.0f;
+			if ((pev->origin - player->pev->origin).LengthSquared() < bombPickupHearRangeSq)
 			{
-				// check if we're close enough to hear it
-				const float bombPickupHearRangeSq = 1000.0f * 1000.0f;
-				if ((pev->origin - player->pev->origin).LengthSquared() < bombPickupHearRangeSq)
+				GetChatter()->TheyPickedUpTheBomb();
+			}
+		}
+		return;
+	}
+	case EVENT_BOMB_BEEP:
+	{
+		// if we don't know where the bomb is, but heard it beep, we've discovered it
+		if (GetGameState()->IsPlantedBombLocationKnown() == false)
+		{
+			// check if we're close enough to hear it
+			const float bombBeepHearRangeSq = 1000.0f * 1000.0f;
+			if ((pev->origin - entity->pev->origin).LengthSquared() < bombBeepHearRangeSq)
+			{
+				// radio the news to our team
+				if (m_iTeam == CT && GetGameState()->GetPlantedBombsite() == CSGameState::UNKNOWN)
 				{
-					GetChatter()->TheyPickedUpTheBomb();
+					const CCSBotManager::Zone *zone = TheCSBots()->GetZone(&entity->pev->origin);
+					if (zone != NULL)
+						GetChatter()->FoundPlantedBomb(zone->m_index);
 				}
-			}
-			return;
-		}
-		case EVENT_BOMB_BEEP:
-		{
-			// if we don't know where the bomb is, but heard it beep, we've discovered it
-			if (GetGameState()->IsPlantedBombLocationKnown() == false)
-			{
-				// check if we're close enough to hear it
-				const float bombBeepHearRangeSq = 1000.0f * 1000.0f;
-				if ((pev->origin - entity->pev->origin).LengthSquared() < bombBeepHearRangeSq)
-				{
-					// radio the news to our team
-					if (m_iTeam == CT && GetGameState()->GetPlantedBombsite() == CSGameState::UNKNOWN)
-					{
-						const CCSBotManager::Zone *zone = TheCSBots()->GetZone(&entity->pev->origin);
-						if (zone != NULL)
-							GetChatter()->FoundPlantedBomb(zone->m_index);
-					}
 
-					// remember where the bomb is
-					GetGameState()->UpdatePlantedBomb(&entity->pev->origin);
-				}
+				// remember where the bomb is
+				GetGameState()->UpdatePlantedBomb(&entity->pev->origin);
 			}
-			return;
 		}
-		case EVENT_BOMB_PLANTED:
+		return;
+	}
+	case EVENT_BOMB_PLANTED:
+	{
+		// if we're a CT, forget what we're doing and go after the bomb
+		if (m_iTeam == CT)
 		{
-			// if we're a CT, forget what we're doing and go after the bomb
-			if (m_iTeam == CT)
-			{
-				Idle();
-			}
-
-			// if we are following someone, stop following
-			if (IsFollowing())
-			{
-				StopFollowing();
-				Idle();
-			}
-
-			OnEvent(EVENT_BOMB_BEEP, other);
-			return;
+			Idle();
 		}
-		case EVENT_BOMB_DEFUSE_ABORTED:
-			PrintIfWatched("BOMB DEFUSE ABORTED\n");
-			return;
-		case EVENT_WEAPON_FIRED:
-		case EVENT_WEAPON_FIRED_ON_EMPTY:
-		case EVENT_WEAPON_RELOADED:
+
+		// if we are following someone, stop following
+		if (IsFollowing())
 		{
-			if (m_enemy == entity && IsUsingKnife())
-				ForceRun(5.0f);
-			break;
+			StopFollowing();
+			Idle();
 		}
-		default:
-			break;
+
+		OnEvent(EVENT_BOMB_BEEP, other);
+		return;
+	}
+	case EVENT_BOMB_DEFUSE_ABORTED:
+		PrintIfWatched("BOMB DEFUSE ABORTED\n");
+		return;
+	case EVENT_WEAPON_FIRED:
+	case EVENT_WEAPON_FIRED_ON_EMPTY:
+	case EVENT_WEAPON_RELOADED:
+	{
+		if (m_enemy == entity && IsUsingKnife())
+			ForceRun(5.0f);
+		break;
+	}
+	default:
+		break;
 	}
 
 	// Process radio events from our team

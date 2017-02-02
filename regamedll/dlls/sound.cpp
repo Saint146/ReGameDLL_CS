@@ -981,7 +981,7 @@ void CEnvSound::__MAKE_VHOOK(Think)()
 
 			//CLIENT_COMMAND(pentPlayer, "room_type %f", m_flRoomtype);
 			MESSAGE_BEGIN(MSG_ONE, SVC_ROOMTYPE, NULL, pentPlayer);	// use the magic #1 for "one client"
-				WRITE_SHORT((short)m_flRoomtype);			// sequence number
+			WRITE_SHORT((short)m_flRoomtype);			// sequence number
 			MESSAGE_END();
 
 			// crank up nextthink rate for new active sound entity
@@ -1602,8 +1602,8 @@ char TEXTURETYPE_Find(char *name)
 
 	for (int i = 0; i < gcTextures; ++i)
 	{
-		if (!Q_strnicmp(name, &(grgszTextureName[ i ][0]), CBTEXTURENAMEMAX - 1))
-			return (grgchTextureType[ i ]);
+		if (!Q_strnicmp(name, &(grgszTextureName[i][0]), CBTEXTURENAMEMAX - 1))
+			return (grgchTextureType[i]);
 	}
 
 	return CHAR_TEX_CONCRETE;
@@ -1795,7 +1795,7 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr, Vector vecSrc, Vector vecEnd, int 
 			UTIL_Sparks(ptr->vecEndPos);
 
 			//random volume range
-			float flVolume = RANDOM_FLOAT(0.7 , 1.0);
+			float flVolume = RANDOM_FLOAT(0.7, 1.0);
 
 			switch (RANDOM_LONG(0, 1))
 			{
@@ -1872,15 +1872,15 @@ void CSpeaker::SpeakerThink()
 		// go lookup preset text, assign szSoundFile
 		switch (m_preset)
 		{
-		case 1: szSoundFile =  "C1A0_"; break;
-		case 2: szSoundFile =  "C1A1_"; break;
-		case 3: szSoundFile =  "C1A2_"; break;
-		case 4: szSoundFile =  "C1A3_"; break;
-		case 5: szSoundFile =  "C1A4_"; break;
-		case 6: szSoundFile =  "C2A1_"; break;
-		case 7: szSoundFile =  "C2A2_"; break;
-		case 8: szSoundFile =  "C2A3_"; break;
-		case 9: szSoundFile =  "C2A4_"; break;
+		case 1: szSoundFile = "C1A0_"; break;
+		case 2: szSoundFile = "C1A1_"; break;
+		case 3: szSoundFile = "C1A2_"; break;
+		case 4: szSoundFile = "C1A3_"; break;
+		case 5: szSoundFile = "C1A4_"; break;
+		case 6: szSoundFile = "C2A1_"; break;
+		case 7: szSoundFile = "C2A2_"; break;
+		case 8: szSoundFile = "C2A3_"; break;
+		case 9: szSoundFile = "C2A4_"; break;
 		case 10: szSoundFile = "C2A5_"; break;
 		case 11: szSoundFile = "C3A1_"; break;
 		case 12: szSoundFile = "C3A2_"; break;

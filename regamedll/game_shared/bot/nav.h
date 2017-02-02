@@ -279,20 +279,20 @@ inline void DirectionToVector2D(NavDirType dir, Vector2D *v)
 	switch (dir)
 	{
 	case NORTH:
-		v->x =  0.0f;
+		v->x = 0.0f;
 		v->y = -1.0f;
 		break;
 	case SOUTH:
-		v->x =  0.0f;
-		v->y =  1.0f;
+		v->x = 0.0f;
+		v->y = 1.0f;
 		break;
 	case EAST:
-		v->x =  1.0f;
-		v->y =  0.0f;
+		v->x = 1.0f;
+		v->y = 0.0f;
 		break;
 	case WEST:
 		v->x = -1.0f;
-		v->y =  0.0f;
+		v->y = 0.0f;
 		break;
 	}
 }

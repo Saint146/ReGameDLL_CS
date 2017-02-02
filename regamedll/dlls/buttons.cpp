@@ -32,7 +32,7 @@ TYPEDESCRIPTION CBaseButton::m_SaveData[] =
 	DEFINE_FIELD(CBaseButton, m_bUnlockedSound, FIELD_CHARACTER),
 	DEFINE_FIELD(CBaseButton, m_bUnlockedSentence, FIELD_CHARACTER),
 	DEFINE_FIELD(CBaseButton, m_strChangeTarget, FIELD_STRING),
-//	DEFINE_FIELD(CBaseButton, m_ls, FIELD_???),   // This is restored in Precache()
+	//	DEFINE_FIELD(CBaseButton, m_ls, FIELD_???),   // This is restored in Precache()
 };
 
 TYPEDESCRIPTION CMomentaryRotButton::m_SaveData[] =
@@ -141,11 +141,11 @@ LINK_ENTITY_TO_CLASS(multisource, CMultiSource, CCSMultiSource)
 void CMultiSource::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 {
 	if (FStrEq(pkvd->szKeyName, "style")
-			|| FStrEq(pkvd->szKeyName, "height")
-			|| FStrEq(pkvd->szKeyName, "killtarget")
-			|| FStrEq(pkvd->szKeyName, "value1")
-			|| FStrEq(pkvd->szKeyName, "value2")
-			|| FStrEq(pkvd->szKeyName, "value3"))
+		|| FStrEq(pkvd->szKeyName, "height")
+		|| FStrEq(pkvd->szKeyName, "killtarget")
+		|| FStrEq(pkvd->szKeyName, "value1")
+		|| FStrEq(pkvd->szKeyName, "value2")
+		|| FStrEq(pkvd->szKeyName, "value3"))
 		pkvd->fHandled = TRUE;
 
 	else if (FStrEq(pkvd->szKeyName, "globalstate"))
@@ -547,7 +547,7 @@ char *ButtonSound(int sound)
 	case 13: pszSound = "buttons/latchunlocked1.wav"; break;
 	case 14: pszSound = "buttons/lightswitch2.wav"; break;
 
-	// next 6 slots reserved for any additional sliding button sounds we may add
+		// next 6 slots reserved for any additional sliding button sounds we may add
 	case 21: pszSound = "buttons/lever1.wav"; break;
 	case 22: pszSound = "buttons/lever2.wav"; break;
 	case 23: pszSound = "buttons/lever3.wav"; break;
@@ -785,7 +785,7 @@ void CBaseButton::ButtonBackHome()
 #ifdef REGAMEDLL_FIXES
 		&& m_hActivator
 #endif
-)
+		)
 	{
 		//EMIT_SOUND(ENT(pev), CHAN_VOICE, (char *)STRING(pev->noise), 1, ATTN_NORM);
 		SUB_UseTargets(m_hActivator, USE_TOGGLE, 0);
@@ -1166,11 +1166,11 @@ void CEnvSpark::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 		pkvd->fHandled = TRUE;
 	}
 	else if (FStrEq(pkvd->szKeyName, "style")
-			|| FStrEq(pkvd->szKeyName, "height")
-			|| FStrEq(pkvd->szKeyName, "killtarget")
-			|| FStrEq(pkvd->szKeyName, "value1")
-			|| FStrEq(pkvd->szKeyName, "value2")
-			|| FStrEq(pkvd->szKeyName, "value3"))
+		|| FStrEq(pkvd->szKeyName, "height")
+		|| FStrEq(pkvd->szKeyName, "killtarget")
+		|| FStrEq(pkvd->szKeyName, "value1")
+		|| FStrEq(pkvd->szKeyName, "value2")
+		|| FStrEq(pkvd->szKeyName, "value3"))
 		pkvd->fHandled = TRUE;
 	else
 		CBaseEntity::KeyValue(pkvd);

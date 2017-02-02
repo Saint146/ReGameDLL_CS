@@ -139,7 +139,7 @@ struct MULTIDAMAGE
 	int type;
 };
 
-class CArmoury: public CBaseEntity
+class CArmoury : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -173,7 +173,7 @@ public:
 	bool m_bAlreadyCounted;
 };
 
-class CGrenade: public CBaseMonster
+class CGrenade : public CBaseMonster
 {
 public:
 	virtual void Spawn();
@@ -266,7 +266,7 @@ public:
 	BOOL m_fRegisteredSound;
 };
 
-class CBasePlayerItem: public CBaseAnimating
+class CBasePlayerItem : public CBaseAnimating
 {
 public:
 	virtual int Save(CSave &save);
@@ -320,15 +320,15 @@ public:
 	void CheckRespawn();
 
 public:
-	inline int iItemPosition() const { return IMPL(ItemInfoArray)[ m_iId ].iPosition; }
-	inline const char *pszAmmo1() const { return IMPL(ItemInfoArray)[ m_iId ].pszAmmo1; }
-	inline int iMaxAmmo1() const { return IMPL(ItemInfoArray)[ m_iId ].iMaxAmmo1; }
-	inline const char *pszAmmo2() const { return IMPL(ItemInfoArray)[ m_iId ].pszAmmo2; }
-	inline int iMaxAmmo2() const { return IMPL(ItemInfoArray)[ m_iId ].iMaxAmmo2; }
-	inline const char *pszName() const { return IMPL(ItemInfoArray)[ m_iId ].pszName; }
-	inline int iMaxClip() const { return IMPL(ItemInfoArray)[ m_iId ].iMaxClip; }
-	inline int iWeight() const { return IMPL(ItemInfoArray)[ m_iId ].iWeight; }
-	inline int iFlags() const { return IMPL(ItemInfoArray)[ m_iId ].iFlags; }
+	inline int iItemPosition() const { return IMPL(ItemInfoArray)[m_iId].iPosition; }
+	inline const char *pszAmmo1() const { return IMPL(ItemInfoArray)[m_iId].pszAmmo1; }
+	inline int iMaxAmmo1() const { return IMPL(ItemInfoArray)[m_iId].iMaxAmmo1; }
+	inline const char *pszAmmo2() const { return IMPL(ItemInfoArray)[m_iId].pszAmmo2; }
+	inline int iMaxAmmo2() const { return IMPL(ItemInfoArray)[m_iId].iMaxAmmo2; }
+	inline const char *pszName() const { return IMPL(ItemInfoArray)[m_iId].pszName; }
+	inline int iMaxClip() const { return IMPL(ItemInfoArray)[m_iId].iMaxClip; }
+	inline int iWeight() const { return IMPL(ItemInfoArray)[m_iId].iWeight; }
+	inline int iFlags() const { return IMPL(ItemInfoArray)[m_iId].iFlags; }
 
 public:
 	static TYPEDESCRIPTION IMPL(m_SaveData)[3];
@@ -340,7 +340,7 @@ public:
 	int m_iId;
 };
 
-class CBasePlayerWeapon: public CBasePlayerItem
+class CBasePlayerWeapon : public CBasePlayerItem
 {
 public:
 	virtual int Save(CSave &save);
@@ -459,7 +459,7 @@ public:
 	float m_flLastFireTime;
 };
 
-class CBasePlayerAmmo: public CBaseEntity
+class CBasePlayerAmmo : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -478,7 +478,7 @@ public:
 	void EXPORT Materialize();
 };
 
-class CWeaponBox: public CBaseEntity
+class CWeaponBox : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -515,14 +515,14 @@ public:
 public:
 	static TYPEDESCRIPTION IMPL(m_SaveData)[4];
 
-	CBasePlayerItem *m_rgpPlayerItems[ MAX_ITEM_TYPES ];
-	int m_rgiszAmmo[ MAX_AMMO_SLOTS ];
-	int m_rgAmmo[ MAX_AMMO_SLOTS ];
+	CBasePlayerItem *m_rgpPlayerItems[MAX_ITEM_TYPES];
+	int m_rgiszAmmo[MAX_AMMO_SLOTS];
+	int m_rgAmmo[MAX_AMMO_SLOTS];
 	int m_cAmmoTypes;
 	bool m_bIsBomb;
 };
 
-class CUSP: public CBasePlayerWeapon
+class CUSP : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -537,11 +537,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 	virtual BOOL IsPistol() { return TRUE; }
 
@@ -569,7 +569,7 @@ private:
 	unsigned short m_usFireUSP;
 };
 
-class CMP5N: public CBasePlayerWeapon
+class CMP5N : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -583,11 +583,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -612,7 +612,7 @@ private:
 	unsigned short m_usFireMP5N;
 };
 
-class CSG552: public CBasePlayerWeapon
+class CSG552 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -627,11 +627,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -658,7 +658,7 @@ private:
 	unsigned short m_usFireSG552;
 };
 
-class CAK47: public CBasePlayerWeapon
+class CAK47 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -673,11 +673,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -703,7 +703,7 @@ private:
 	unsigned short m_usFireAK47;
 };
 
-class CAUG: public CBasePlayerWeapon
+class CAUG : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -718,11 +718,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -748,7 +748,7 @@ private:
 	unsigned short m_usFireAug;
 };
 
-class CAWP: public CBasePlayerWeapon
+class CAWP : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -763,11 +763,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -797,7 +797,7 @@ private:
 #define BOMB_FLAG_DROPPED	0 // if the bomb was dropped due to voluntary dropping or death/disconnect
 #define BOMB_FLAG_PLANTED	1 // if the bomb has been planted will also trigger the round timer to hide will also show where the dropped bomb on the Terrorist team's radar.
 
-class CC4: public CBasePlayerWeapon
+class CC4 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -813,11 +813,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -844,7 +844,7 @@ private:
 	bool m_bHasShield;
 };
 
-class CDEAGLE: public CBasePlayerWeapon
+class CDEAGLE : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -859,11 +859,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 	virtual BOOL IsPistol() { return TRUE; }
 
@@ -889,7 +889,7 @@ private:
 	unsigned short m_usFireDeagle;
 };
 
-class CFlashbang: public CBasePlayerWeapon
+class CFlashbang : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -906,20 +906,20 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 	virtual BOOL IsPistol()
 	{
-	#ifdef REGAMEDLL_FIXES
+#ifdef REGAMEDLL_FIXES
 		return FALSE;
-	#else
+#else
 		// TODO: why the object flashbang is IsPistol?
 		return TRUE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -942,7 +942,7 @@ public:
 	void ResetPlayerShieldAnim();
 };
 
-class CG3SG1: public CBasePlayerWeapon
+class CG3SG1 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -957,11 +957,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -987,7 +987,7 @@ private:
 	unsigned short m_usFireG3SG1;
 };
 
-class CGLOCK18: public CBasePlayerWeapon
+class CGLOCK18 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1002,11 +1002,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 	virtual BOOL IsPistol() { return TRUE; }
 
@@ -1031,7 +1031,7 @@ public:
 	bool m_bBurstFire;
 };
 
-class CHEGrenade: public CBasePlayerWeapon
+class CHEGrenade : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1048,11 +1048,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1078,7 +1078,7 @@ public:
 	unsigned short m_usCreateExplosion;
 };
 
-class CKnife: public CBasePlayerWeapon
+class CKnife : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1093,11 +1093,11 @@ public:
 	virtual void SecondaryAttack();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 	virtual void WeaponIdle();
 
@@ -1132,7 +1132,7 @@ public:
 	unsigned short m_usKnife;
 };
 
-class CM249: public CBasePlayerWeapon
+class CM249 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1146,11 +1146,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1175,7 +1175,7 @@ private:
 	unsigned short m_usFireM249;
 };
 
-class CM3: public CBasePlayerWeapon
+class CM3 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1189,11 +1189,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1216,7 +1216,7 @@ private:
 	unsigned short m_usFireM3;
 };
 
-class CM4A1: public CBasePlayerWeapon
+class CM4A1 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1231,11 +1231,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1262,7 +1262,7 @@ private:
 	unsigned short m_usFireM4A1;
 };
 
-class CMAC10: public CBasePlayerWeapon
+class CMAC10 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1276,11 +1276,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1305,7 +1305,7 @@ private:
 	unsigned short m_usFireMAC10;
 };
 
-class CP228: public CBasePlayerWeapon
+class CP228 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1320,11 +1320,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 	virtual BOOL IsPistol() { return TRUE; }
 
@@ -1353,7 +1353,7 @@ private:
 	unsigned short m_usFireP228;
 };
 
-class CP90: public CBasePlayerWeapon
+class CP90 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1367,11 +1367,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1397,7 +1397,7 @@ private:
 	unsigned short m_usFireP90;
 };
 
-class CSCOUT: public CBasePlayerWeapon
+class CSCOUT : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1412,11 +1412,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1441,7 +1441,7 @@ private:
 	unsigned short m_usFireScout;
 };
 
-class CSmokeGrenade: public CBasePlayerWeapon
+class CSmokeGrenade : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1458,11 +1458,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1488,7 +1488,7 @@ public:
 	unsigned short m_usCreateSmoke;
 };
 
-class CTMP: public CBasePlayerWeapon
+class CTMP : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1502,11 +1502,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1532,7 +1532,7 @@ private:
 	unsigned short m_usFireTMP;
 };
 
-class CXM1014: public CBasePlayerWeapon
+class CXM1014 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1546,11 +1546,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1573,7 +1573,7 @@ private:
 	unsigned short m_usFireXM1014;
 };
 
-class CELITE: public CBasePlayerWeapon
+class CELITE : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1587,11 +1587,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 	virtual BOOL IsPistol() { return TRUE; }
 
@@ -1617,7 +1617,7 @@ private:
 	unsigned short m_usFireELITE_RIGHT;
 };
 
-class CFiveSeven: public CBasePlayerWeapon
+class CFiveSeven : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1632,11 +1632,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 	virtual BOOL IsPistol() { return TRUE; }
 
@@ -1665,7 +1665,7 @@ private:
 	unsigned short m_usFireFiveSeven;
 };
 
-class CUMP45: public CBasePlayerWeapon
+class CUMP45 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1679,11 +1679,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1708,7 +1708,7 @@ private:
 	unsigned short m_usFireUMP45;
 };
 
-class CSG550: public CBasePlayerWeapon
+class CSG550 : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1723,11 +1723,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1752,7 +1752,7 @@ private:
 	unsigned short m_usFireSG550;
 };
 
-class CGalil: public CBasePlayerWeapon
+class CGalil : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1767,11 +1767,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL
@@ -1798,7 +1798,7 @@ private:
 	unsigned short m_usFireGalil;
 };
 
-class CFamas: public CBasePlayerWeapon
+class CFamas : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -1813,11 +1813,11 @@ public:
 	virtual void WeaponIdle();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
+#ifdef CLIENT_WEAPONS
 		return TRUE;
-	#else
+#else
 		return FALSE;
-	#endif
+#endif
 	}
 
 #ifdef HOOK_GAMEDLL

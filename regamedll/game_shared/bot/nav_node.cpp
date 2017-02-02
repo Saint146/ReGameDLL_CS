@@ -5,7 +5,7 @@
 */
 #ifndef HOOK_GAMEDLL
 
-NavDirType Opposite[ NUM_DIRECTIONS ] = { SOUTH, WEST, NORTH, EAST };
+NavDirType Opposite[NUM_DIRECTIONS] = { SOUTH, WEST, NORTH, EAST };
 
 CNavNode *CNavNode::m_list = NULL;
 unsigned int CNavNode::m_listLength = 0;
@@ -41,7 +41,7 @@ CNavNode::CNavNode(const Vector *pos, const Vector *normal, CNavNode *parent)
 // Create a connection FROM this node TO the given node, in the given direction
 void CNavNode::ConnectTo(CNavNode *node, NavDirType dir)
 {
-	m_to[ dir ] = node;
+	m_to[dir] = node;
 }
 
 // Return node at given position
@@ -67,7 +67,7 @@ const CNavNode *CNavNode::GetNode(const Vector *pos)
 // another node in the given direction
 BOOL CNavNode::IsBiLinked(NavDirType dir) const
 {
-	if (m_to[ dir ] &&  m_to[ dir ]->m_to[ Opposite[dir] ] == this)
+	if (m_to[dir] && m_to[dir]->m_to[Opposite[dir]] == this)
 		return true;
 
 	return false;
@@ -77,8 +77,8 @@ BOOL CNavNode::IsBiLinked(NavDirType dir) const
 // that are all bidirectionally linked
 BOOL CNavNode::IsClosedCell() const
 {
-	if (IsBiLinked( SOUTH ) && IsBiLinked( EAST ) && m_to[ EAST ]->IsBiLinked( SOUTH ) && m_to[ SOUTH ]->IsBiLinked( EAST )
-		&& m_to[ EAST ]->m_to[ SOUTH ] == m_to[ SOUTH ]->m_to[ EAST ])
+	if (IsBiLinked(SOUTH) && IsBiLinked(EAST) && m_to[EAST]->IsBiLinked(SOUTH) && m_to[SOUTH]->IsBiLinked(EAST)
+		&& m_to[EAST]->m_to[SOUTH] == m_to[SOUTH]->m_to[EAST])
 		return true;
 
 	return false;

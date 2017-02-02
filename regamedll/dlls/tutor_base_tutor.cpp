@@ -168,25 +168,25 @@ void CBaseTutor::DisplayMessageToPlayer(CBasePlayer *player, int id, const char 
 	definition = GetTutorMessageDefinition(event->GetID());
 
 	MESSAGE_BEGIN(MSG_ONE, gmsgTutorText, NULL, player->pev);
-		WRITE_STRING(szMessage);
-		WRITE_BYTE(numArgs);
+	WRITE_STRING(szMessage);
+	WRITE_BYTE(numArgs);
 
-		for (int arg = 0; arg < numArgs; ++arg)
-		{
-			char *str = event->GetNextParameter(param, sizeof(param));
-			if (str)
-				WRITE_STRING(str);
-			else
-				WRITE_STRING("");
-		}
-
-		WRITE_SHORT(id);
-		WRITE_SHORT(player->IsAlive() == FALSE);
-
-		if (definition)
-			WRITE_SHORT(definition->m_type);
+	for (int arg = 0; arg < numArgs; ++arg)
+	{
+		char *str = event->GetNextParameter(param, sizeof(param));
+		if (str)
+			WRITE_STRING(str);
 		else
-			WRITE_SHORT(TUTORMESSAGETYPE_DEFAULT);
+			WRITE_STRING("");
+	}
+
+	WRITE_SHORT(id);
+	WRITE_SHORT(player->IsAlive() == FALSE);
+
+	if (definition)
+		WRITE_SHORT(definition->m_type);
+	else
+		WRITE_SHORT(TUTORMESSAGETYPE_DEFAULT);
 	MESSAGE_END();
 
 	m_deadAirStartTime = -1.0f;
@@ -219,8 +219,8 @@ void CBaseTutor::DisplayMessageToPlayer(CBasePlayer *player, int id, const char 
 NOXREF void CBaseTutor::DrawLineToEntity(CBasePlayer *player, int entindex, int id)
 {
 	MESSAGE_BEGIN(MSG_ONE, gmsgTutorLine, NULL, player->pev);
-		WRITE_SHORT(entindex);
-		WRITE_SHORT(id);
+	WRITE_SHORT(entindex);
+	WRITE_SHORT(id);
 	MESSAGE_END();
 }
 
@@ -235,7 +235,7 @@ void CBaseTutor::DisplayNewStateDescriptionToPlayer()
 	if (!desc)
 	{
 		MESSAGE_BEGIN(MSG_ONE, gmsgTutorState, NULL, localPlayer->pev);
-			WRITE_STRING(NULL);
+		WRITE_STRING(NULL);
 		MESSAGE_END();
 	}
 }

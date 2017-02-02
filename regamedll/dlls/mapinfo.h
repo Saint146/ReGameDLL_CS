@@ -28,7 +28,7 @@
 
 #pragma once
 
-class CMapInfo: public CPointEntity
+class CMapInfo : public CPointEntity
 {
 public:
 	CMapInfo();

@@ -142,10 +142,10 @@ void CBubbling::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 void CBubbling::FizzThink()
 {
 	MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, VecBModelOrigin(pev));
-		WRITE_BYTE(TE_FIZZ);
-		WRITE_SHORT(ENTINDEX(edict()));
-		WRITE_SHORT(m_bubbleModel);
-		WRITE_BYTE(m_density);
+	WRITE_BYTE(TE_FIZZ);
+	WRITE_SHORT(ENTINDEX(edict()));
+	WRITE_SHORT(m_bubbleModel);
+	WRITE_BYTE(m_density);
 	MESSAGE_END();
 
 	if (m_frequency > 19)
@@ -687,24 +687,24 @@ void CLightning::DamageThink()
 void CLightning::Zap(const Vector &vecSrc, const Vector &vecDest)
 {
 	MESSAGE_BEGIN(MSG_BROADCAST, SVC_TEMPENTITY);
-		WRITE_BYTE(TE_BEAMPOINTS);
-		WRITE_COORD(vecSrc.x);
-		WRITE_COORD(vecSrc.y);
-		WRITE_COORD(vecSrc.z);
-		WRITE_COORD(vecDest.x);
-		WRITE_COORD(vecDest.y);
-		WRITE_COORD(vecDest.z);
-		WRITE_SHORT(m_spriteTexture);
-		WRITE_BYTE(m_frameStart);		// framestart
-		WRITE_BYTE(int(pev->framerate));	// framerate
-		WRITE_BYTE(int(m_life * 10.0));	// life
-		WRITE_BYTE(m_boltWidth);		// width
-		WRITE_BYTE(m_noiseAmplitude);		// noise
-		WRITE_BYTE(int(pev->rendercolor.x));	// r, g, b
-		WRITE_BYTE(int(pev->rendercolor.y));	// r, g, b
-		WRITE_BYTE(int(pev->rendercolor.z));	// r, g, b
-		WRITE_BYTE(int(pev->renderamt));	// brightness
-		WRITE_BYTE(m_speed);		// speed
+	WRITE_BYTE(TE_BEAMPOINTS);
+	WRITE_COORD(vecSrc.x);
+	WRITE_COORD(vecSrc.y);
+	WRITE_COORD(vecSrc.z);
+	WRITE_COORD(vecDest.x);
+	WRITE_COORD(vecDest.y);
+	WRITE_COORD(vecDest.z);
+	WRITE_SHORT(m_spriteTexture);
+	WRITE_BYTE(m_frameStart);		// framestart
+	WRITE_BYTE(int(pev->framerate));	// framerate
+	WRITE_BYTE(int(m_life * 10.0));	// life
+	WRITE_BYTE(m_boltWidth);		// width
+	WRITE_BYTE(m_noiseAmplitude);		// noise
+	WRITE_BYTE(int(pev->rendercolor.x));	// r, g, b
+	WRITE_BYTE(int(pev->rendercolor.y));	// r, g, b
+	WRITE_BYTE(int(pev->rendercolor.z));	// r, g, b
+	WRITE_BYTE(int(pev->renderamt));	// brightness
+	WRITE_BYTE(m_speed);		// speed
 	MESSAGE_END();
 
 	DoSparks(vecSrc, vecDest);
@@ -728,8 +728,7 @@ void CLightning::RandomArea()
 		do
 		{
 			vecDir2 = Vector(RANDOM_FLOAT(-1, 1), RANDOM_FLOAT(-1, 1), RANDOM_FLOAT(-1, 1));
-		}
-		while (DotProduct(vecDir1, vecDir2) > 0);
+		} while (DotProduct(vecDir1, vecDir2) > 0);
 
 		vecDir2 = vecDir2.Normalize();
 
@@ -1022,7 +1021,7 @@ void CGlow::__MAKE_VHOOK(Spawn)()
 
 	if (m_maxFrame > 1.0f && pev->framerate != 0.0f)
 	{
-		pev->nextthink	= gpGlobals->time + 0.1f;
+		pev->nextthink = gpGlobals->time + 0.1f;
 	}
 
 	m_lastTime = gpGlobals->time;
@@ -1855,21 +1854,21 @@ void CEnvFunnel::__MAKE_VHOOK(Precache)()
 void CEnvFunnel::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
 {
 	MESSAGE_BEGIN(MSG_BROADCAST, SVC_TEMPENTITY);
-		WRITE_BYTE(TE_LARGEFUNNEL);
-		WRITE_COORD(pev->origin.x);
-		WRITE_COORD(pev->origin.y);
-		WRITE_COORD(pev->origin.z);
-		WRITE_SHORT(m_iSprite);
+	WRITE_BYTE(TE_LARGEFUNNEL);
+	WRITE_COORD(pev->origin.x);
+	WRITE_COORD(pev->origin.y);
+	WRITE_COORD(pev->origin.z);
+	WRITE_SHORT(m_iSprite);
 
-		// funnel flows in reverse?
-		if (pev->spawnflags & SF_FUNNEL_REVERSE)
-		{
-			WRITE_SHORT(1);
-		}
-		else
-		{
-			WRITE_SHORT(0);
-		}
+	// funnel flows in reverse?
+	if (pev->spawnflags & SF_FUNNEL_REVERSE)
+	{
+		WRITE_SHORT(1);
+	}
+	else
+	{
+		WRITE_SHORT(0);
+	}
 
 
 	MESSAGE_END();

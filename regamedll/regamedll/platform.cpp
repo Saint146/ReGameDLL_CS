@@ -9,7 +9,7 @@ void regamedll_log(const char *fmt, ...)
 	Q_vsnprintf(data, sizeof(data), fmt, argptr);
 	data[sizeof(data) - 1] = 0;
 
-	strcat(data,"\n");
+	strcat(data, "\n");
 
 #ifdef _WIN32
 

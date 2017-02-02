@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CAirtank: public CGrenade
+class CAirtank : public CGrenade
 {
 public:
 	virtual void Spawn();

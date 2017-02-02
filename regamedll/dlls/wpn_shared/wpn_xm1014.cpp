@@ -67,7 +67,7 @@ void CXM1014::__MAKE_VHOOK(PrimaryAttack)()
 	if (m_iClip <= 0)
 	{
 		Reload();
-			
+
 		if (!m_iClip)
 		{
 			PlayEmptySound();

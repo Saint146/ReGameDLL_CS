@@ -3,7 +3,7 @@
 
 __declspec(naked) double _sin_x87(double angle) {
 	__asm {
-		fld qword ptr[esp+4]
+		fld qword ptr[esp + 4]
 		fsin
 		ret
 	}

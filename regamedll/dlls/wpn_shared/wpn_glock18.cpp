@@ -99,7 +99,7 @@ void CGLOCK18::__MAKE_VHOOK(SecondaryAttack)()
 		ClientPrint(m_pPlayer->pev, HUD_PRINTCENTER, "#Switch_To_BurstFire");
 		m_iWeaponState |= WPNSTATE_GLOCK18_BURST_MODE;
 	}
-	
+
 	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.3f;
 }
 
@@ -230,7 +230,7 @@ void CGLOCK18::GLOCK18Fire(float flSpread, float flCycleTime, BOOL bFireBurst)
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, FALSE);
 	}
-	
+
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 2.5f;
 
 	if (bFireBurst)

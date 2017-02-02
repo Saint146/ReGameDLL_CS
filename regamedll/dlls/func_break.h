@@ -67,7 +67,7 @@ typedef enum
 
 } Materials;
 
-class CBreakable: public CBaseDelay
+class CBreakable : public CBaseDelay
 {
 public:
 	// basic functions
@@ -140,7 +140,7 @@ public:
 	float m_flHealth;
 };
 
-class CPushable: public CBreakable
+class CPushable : public CBreakable
 {
 public:
 	virtual void Spawn();

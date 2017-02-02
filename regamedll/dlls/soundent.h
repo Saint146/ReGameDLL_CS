@@ -76,7 +76,7 @@ public:
 // CSoundEnt - a single instance of this entity spawns when
 // the world spawns. The SoundEnt's job is to update the
 // world's Free and Active sound lists.
-class CSoundEnt: public CBaseEntity
+class CSoundEnt : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -120,7 +120,7 @@ public:
 	BOOL m_fShowReport;			// if true, dump information about free/active sounds.
 
 private:
-	CSound m_SoundPool[ MAX_WORLD_SOUNDS ];
+	CSound m_SoundPool[MAX_WORLD_SOUNDS];
 };
 
 extern CSoundEnt *pSoundEnt;

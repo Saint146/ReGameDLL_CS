@@ -623,8 +623,7 @@ void CFuncTank::TankTrace(const Vector &vecStart, const Vector &vecForward, cons
 		x = RANDOM_FLOAT(-0.5, 0.5) + RANDOM_FLOAT(-0.5, 0.5);
 		y = RANDOM_FLOAT(-0.5, 0.5) + RANDOM_FLOAT(-0.5, 0.5);
 		z = x * x + y * y;
-	}
-	while (z > 1);
+	} while (z > 1);
 
 	Vector vecDir = vecForward + x * vecSpread.x * gpGlobals->v_right + y * vecSpread.y * gpGlobals->v_up;
 	Vector vecEnd;
@@ -877,8 +876,7 @@ void CFuncTankControls::__MAKE_VHOOK(Think)()
 	do
 	{
 		pTarget = FIND_ENTITY_BY_TARGETNAME(pTarget, STRING(pev->target));
-	}
-	while (!FNullEnt(pTarget) && Q_strncmp(STRING(pTarget->v.classname), "func_tank", 9) != 0);
+	} while (!FNullEnt(pTarget) && Q_strncmp(STRING(pTarget->v.classname), "func_tank", 9) != 0);
 
 	if (FNullEnt(pTarget))
 	{

@@ -108,7 +108,7 @@ void CEnvExplosion::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCal
 
 	vecSpot = pev->origin + Vector(0, 0, 8);
 
-	UTIL_TraceLine(vecSpot, vecSpot + Vector (0, 0, -40), ignore_monsters, ENT(pev), & tr);
+	UTIL_TraceLine(vecSpot, vecSpot + Vector(0, 0, -40), ignore_monsters, ENT(pev), &tr);
 
 	// Pull out of the wall a bit
 	if (tr.flFraction != 1.0f)
@@ -117,7 +117,7 @@ void CEnvExplosion::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCal
 	}
 
 	// draw decal
-	if (! (pev->spawnflags & SF_ENVEXPLOSION_NODECAL))
+	if (!(pev->spawnflags & SF_ENVEXPLOSION_NODECAL))
 	{
 		if (RANDOM_FLOAT(0, 1) < 0.5f)
 		{
@@ -133,27 +133,27 @@ void CEnvExplosion::__MAKE_VHOOK(Use)(CBaseEntity *pActivator, CBaseEntity *pCal
 	if (!(pev->spawnflags & SF_ENVEXPLOSION_NOFIREBALL))
 	{
 		MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_EXPLOSION);
-			WRITE_COORD(pev->origin.x);
-			WRITE_COORD(pev->origin.y);
-			WRITE_COORD(pev->origin.z);
-			WRITE_SHORT(g_sModelIndexFireball);
-			WRITE_BYTE(byte(m_spriteScale)); // scale * 10
-			WRITE_BYTE(15); // framerate
-			WRITE_BYTE(TE_EXPLFLAG_NONE);
+		WRITE_BYTE(TE_EXPLOSION);
+		WRITE_COORD(pev->origin.x);
+		WRITE_COORD(pev->origin.y);
+		WRITE_COORD(pev->origin.z);
+		WRITE_SHORT(g_sModelIndexFireball);
+		WRITE_BYTE(byte(m_spriteScale)); // scale * 10
+		WRITE_BYTE(15); // framerate
+		WRITE_BYTE(TE_EXPLFLAG_NONE);
 		MESSAGE_END();
 	}
 	else
 	{
 		MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_EXPLOSION);
-			WRITE_COORD(pev->origin.x);
-			WRITE_COORD(pev->origin.y);
-			WRITE_COORD(pev->origin.z);
-			WRITE_SHORT(g_sModelIndexFireball);
-			WRITE_BYTE(0); // no sprite
-			WRITE_BYTE(15); // framerate
-			WRITE_BYTE(TE_EXPLFLAG_NONE);
+		WRITE_BYTE(TE_EXPLOSION);
+		WRITE_COORD(pev->origin.x);
+		WRITE_COORD(pev->origin.y);
+		WRITE_COORD(pev->origin.z);
+		WRITE_SHORT(g_sModelIndexFireball);
+		WRITE_BYTE(0); // no sprite
+		WRITE_BYTE(15); // framerate
+		WRITE_BYTE(TE_EXPLFLAG_NONE);
 		MESSAGE_END();
 	}
 
@@ -183,13 +183,13 @@ void CEnvExplosion::Smoke()
 	if (!(pev->spawnflags & SF_ENVEXPLOSION_NOSMOKE))
 	{
 		MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_SMOKE);
-			WRITE_COORD(pev->origin.x);
-			WRITE_COORD(pev->origin.y);
-			WRITE_COORD(pev->origin.z);
-			WRITE_SHORT(g_sModelIndexSmoke);
-			WRITE_BYTE(byte(m_spriteScale)); // scale * 10
-			WRITE_BYTE(12); // framerate
+		WRITE_BYTE(TE_SMOKE);
+		WRITE_COORD(pev->origin.x);
+		WRITE_COORD(pev->origin.y);
+		WRITE_COORD(pev->origin.z);
+		WRITE_SHORT(g_sModelIndexSmoke);
+		WRITE_BYTE(byte(m_spriteScale)); // scale * 10
+		WRITE_BYTE(12); // framerate
 		MESSAGE_END();
 	}
 

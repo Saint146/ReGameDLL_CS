@@ -127,43 +127,43 @@ void CGrenade::Explode2(TraceResult *pTrace, int bitsDamageType)
 	int iContents = UTIL_PointContents(pev->origin);
 
 	MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-		WRITE_BYTE(TE_SPRITE);
-		WRITE_COORD(pev->origin.x);
-		WRITE_COORD(pev->origin.y);
-		WRITE_COORD(pev->origin.z - 10.0f);
-		WRITE_SHORT(g_sModelIndexFireball3);
-		WRITE_BYTE((pev->dmg - 275.0f) * 0.6f);
-		WRITE_BYTE(150);
+	WRITE_BYTE(TE_SPRITE);
+	WRITE_COORD(pev->origin.x);
+	WRITE_COORD(pev->origin.y);
+	WRITE_COORD(pev->origin.z - 10.0f);
+	WRITE_SHORT(g_sModelIndexFireball3);
+	WRITE_BYTE((pev->dmg - 275.0f) * 0.6f);
+	WRITE_BYTE(150);
 	MESSAGE_END();
 
 	MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-		WRITE_BYTE(TE_SPRITE);
-		WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-512, 512));
-		WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-512, 512));
-		WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
-		WRITE_SHORT(g_sModelIndexFireball2);
-		WRITE_BYTE((pev->dmg - 275.0f) * 0.6f);
-		WRITE_BYTE(150);
+	WRITE_BYTE(TE_SPRITE);
+	WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-512, 512));
+	WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-512, 512));
+	WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
+	WRITE_SHORT(g_sModelIndexFireball2);
+	WRITE_BYTE((pev->dmg - 275.0f) * 0.6f);
+	WRITE_BYTE(150);
 	MESSAGE_END();
 
 	MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-		WRITE_BYTE(TE_SPRITE);
-		WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-512, 512));
-		WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-512, 512));
-		WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
-		WRITE_SHORT(g_sModelIndexFireball3);
-		WRITE_BYTE((pev->dmg - 275.0f) * 0.6f);
-		WRITE_BYTE(150);
+	WRITE_BYTE(TE_SPRITE);
+	WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-512, 512));
+	WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-512, 512));
+	WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
+	WRITE_SHORT(g_sModelIndexFireball3);
+	WRITE_BYTE((pev->dmg - 275.0f) * 0.6f);
+	WRITE_BYTE(150);
 	MESSAGE_END();
 
 	MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-		WRITE_BYTE(TE_SPRITE);
-		WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-512, 512));
-		WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-512, 512));
-		WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
-		WRITE_SHORT(g_sModelIndexFireball);
-		WRITE_BYTE((pev->dmg - 275.0f) * 0.6f);
-		WRITE_BYTE(17);
+	WRITE_BYTE(TE_SPRITE);
+	WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-512, 512));
+	WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-512, 512));
+	WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
+	WRITE_SHORT(g_sModelIndexFireball);
+	WRITE_BYTE((pev->dmg - 275.0f) * 0.6f);
+	WRITE_BYTE(17);
 	MESSAGE_END();
 
 	// Sound! for everyone
@@ -188,11 +188,11 @@ void CGrenade::Explode2(TraceResult *pTrace, int bitsDamageType)
 	// tell director about it
 	// send director message, that something important happed here
 	MESSAGE_BEGIN(MSG_SPEC, SVC_DIRECTOR);
-		WRITE_BYTE(9);		// command length in bytes
-		WRITE_BYTE(DRC_CMD_EVENT);	// bomb explode
-		WRITE_SHORT(ENTINDEX(edict()));	// index number of primary entity
-		WRITE_SHORT(0);		// index number of secondary entity
-		WRITE_LONG(15 | DRC_FLAG_FINAL);	// eventflags (priority and flags)
+	WRITE_BYTE(9);		// command length in bytes
+	WRITE_BYTE(DRC_CMD_EVENT);	// bomb explode
+	WRITE_SHORT(ENTINDEX(edict()));	// index number of primary entity
+	WRITE_SHORT(0);		// index number of secondary entity
+	WRITE_LONG(15 | DRC_FLAG_FINAL);	// eventflags (priority and flags)
 	MESSAGE_END();
 
 	// Decal!
@@ -240,25 +240,25 @@ void CGrenade::Explode3(TraceResult *pTrace, int bitsDamageType)
 	}
 
 	MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-		WRITE_BYTE(TE_EXPLOSION);	// This makes a dynamic light and the explosion sprites/sound
-		WRITE_COORD(pev->origin.x);		// Send to PAS because of the sound
-		WRITE_COORD(pev->origin.y);
-		WRITE_COORD(pev->origin.z + 20.0f);
-		WRITE_SHORT(g_sModelIndexFireball3);
-		WRITE_BYTE(25);			// scale * 10
-		WRITE_BYTE(30);		// framerate
-		WRITE_BYTE(TE_EXPLFLAG_NONE);	// flags
+	WRITE_BYTE(TE_EXPLOSION);	// This makes a dynamic light and the explosion sprites/sound
+	WRITE_COORD(pev->origin.x);		// Send to PAS because of the sound
+	WRITE_COORD(pev->origin.y);
+	WRITE_COORD(pev->origin.z + 20.0f);
+	WRITE_SHORT(g_sModelIndexFireball3);
+	WRITE_BYTE(25);			// scale * 10
+	WRITE_BYTE(30);		// framerate
+	WRITE_BYTE(TE_EXPLFLAG_NONE);	// flags
 	MESSAGE_END();
 
 	MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, pev->origin);
-		WRITE_BYTE(TE_EXPLOSION);	// This makes a dynamic light and the explosion sprites/sound
-		WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-64, 64));	// Send to PAS because of the sound
-		WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-64, 64));
-		WRITE_COORD(pev->origin.z + RANDOM_FLOAT(30, 35));
-		WRITE_SHORT(g_sModelIndexFireball2);
-		WRITE_BYTE(30);			// scale * 10
-		WRITE_BYTE(30);		// framerate
-		WRITE_BYTE(TE_EXPLFLAG_NONE);	// flags
+	WRITE_BYTE(TE_EXPLOSION);	// This makes a dynamic light and the explosion sprites/sound
+	WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-64, 64));	// Send to PAS because of the sound
+	WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-64, 64));
+	WRITE_COORD(pev->origin.z + RANDOM_FLOAT(30, 35));
+	WRITE_SHORT(g_sModelIndexFireball2);
+	WRITE_BYTE(30);			// scale * 10
+	WRITE_BYTE(30);		// framerate
+	WRITE_BYTE(TE_EXPLFLAG_NONE);	// flags
 	MESSAGE_END();
 
 #ifndef REGAMEDLL_FIXES
@@ -360,13 +360,13 @@ void CGrenade::Smoke3_C()
 	else
 	{
 		MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_SMOKE);
-			WRITE_COORD(pev->origin.x);
-			WRITE_COORD(pev->origin.y);
-			WRITE_COORD(pev->origin.z - 5.0f);
-			WRITE_SHORT(g_sModelIndexSmoke);
-			WRITE_BYTE(35 + RANDOM_FLOAT(0, 10)); // scale * 10
-			WRITE_BYTE(5); // framerate
+		WRITE_BYTE(TE_SMOKE);
+		WRITE_COORD(pev->origin.x);
+		WRITE_COORD(pev->origin.y);
+		WRITE_COORD(pev->origin.z - 5.0f);
+		WRITE_SHORT(g_sModelIndexSmoke);
+		WRITE_BYTE(35 + RANDOM_FLOAT(0, 10)); // scale * 10
+		WRITE_BYTE(5); // framerate
 		MESSAGE_END();
 	}
 
@@ -382,13 +382,13 @@ void CGrenade::Smoke3_B()
 	else
 	{
 		MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_SMOKE);
-			WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-128, 128));
-			WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-128, 128));
-			WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
-			WRITE_SHORT(g_sModelIndexSmoke);
-			WRITE_BYTE(15 + RANDOM_FLOAT(0, 10)); // scale * 10
-			WRITE_BYTE(10); // framerate
+		WRITE_BYTE(TE_SMOKE);
+		WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-128, 128));
+		WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-128, 128));
+		WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
+		WRITE_SHORT(g_sModelIndexSmoke);
+		WRITE_BYTE(15 + RANDOM_FLOAT(0, 10)); // scale * 10
+		WRITE_BYTE(10); // framerate
 		MESSAGE_END();
 	}
 
@@ -405,13 +405,13 @@ void CGrenade::Smoke3_A()
 	else
 	{
 		MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_SMOKE);
-			WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-128, 128));
-			WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-128, 128));
-			WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
-			WRITE_SHORT(g_sModelIndexSmoke);
-			WRITE_BYTE(15 + RANDOM_FLOAT(0, 10)); // scale * 10
-			WRITE_BYTE(12); // framerate
+		WRITE_BYTE(TE_SMOKE);
+		WRITE_COORD(pev->origin.x + RANDOM_FLOAT(-128, 128));
+		WRITE_COORD(pev->origin.y + RANDOM_FLOAT(-128, 128));
+		WRITE_COORD(pev->origin.z + RANDOM_FLOAT(-10, 10));
+		WRITE_SHORT(g_sModelIndexSmoke);
+		WRITE_BYTE(15 + RANDOM_FLOAT(0, 10)); // scale * 10
+		WRITE_BYTE(12); // framerate
 		MESSAGE_END();
 	}
 }
@@ -425,13 +425,13 @@ void CGrenade::Smoke2()
 	else
 	{
 		MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_SMOKE);
-			WRITE_COORD(pev->origin.x);
-			WRITE_COORD(pev->origin.y);
-			WRITE_COORD(pev->origin.z);
-			WRITE_SHORT(g_sModelIndexSmoke);
-			WRITE_BYTE(150); // scale * 10
-			WRITE_BYTE(8); // framerate
+		WRITE_BYTE(TE_SMOKE);
+		WRITE_COORD(pev->origin.x);
+		WRITE_COORD(pev->origin.y);
+		WRITE_COORD(pev->origin.z);
+		WRITE_SHORT(g_sModelIndexSmoke);
+		WRITE_BYTE(150); // scale * 10
+		WRITE_BYTE(8); // framerate
 		MESSAGE_END();
 	}
 
@@ -447,13 +447,13 @@ void CGrenade::Smoke()
 	else
 	{
 		MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_SMOKE);
-			WRITE_COORD(pev->origin.x);
-			WRITE_COORD(pev->origin.y);
-			WRITE_COORD(pev->origin.z);
-			WRITE_SHORT(g_sModelIndexSmoke);
-			WRITE_BYTE(25); // scale * 10
-			WRITE_BYTE(6); // framerate
+		WRITE_BYTE(TE_SMOKE);
+		WRITE_COORD(pev->origin.x);
+		WRITE_COORD(pev->origin.y);
+		WRITE_COORD(pev->origin.z);
+		WRITE_SHORT(g_sModelIndexSmoke);
+		WRITE_BYTE(25); // scale * 10
+		WRITE_BYTE(6); // framerate
 		MESSAGE_END();
 	}
 
@@ -1111,11 +1111,11 @@ void AnnounceFlashInterval(float interval, float offset)
 		return;
 
 	MESSAGE_BEGIN(MSG_ALL, gmsgScenarioIcon);
-		WRITE_BYTE(1);
-		WRITE_STRING("bombticking");
-		WRITE_BYTE(255);
-		WRITE_SHORT(int(interval));	// interval
-		WRITE_SHORT(int(offset));
+	WRITE_BYTE(1);
+	WRITE_STRING("bombticking");
+	WRITE_BYTE(255);
+	WRITE_SHORT(int(interval));	// interval
+	WRITE_SHORT(int(offset));
 	MESSAGE_END();
 }
 
@@ -1189,14 +1189,14 @@ void CGrenade::C4Think()
 		m_flNextBlink = gpGlobals->time + 2.0f;
 
 		MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, pev->origin);
-			WRITE_BYTE(TE_GLOWSPRITE);
-			WRITE_COORD(pev->origin.x);
-			WRITE_COORD(pev->origin.y);
-			WRITE_COORD(pev->origin.z + 5.0f);
-			WRITE_SHORT(g_sModelIndexC4Glow);
-			WRITE_BYTE(1);
-			WRITE_BYTE(3);
-			WRITE_BYTE(255);
+		WRITE_BYTE(TE_GLOWSPRITE);
+		WRITE_COORD(pev->origin.x);
+		WRITE_COORD(pev->origin.y);
+		WRITE_COORD(pev->origin.z + 5.0f);
+		WRITE_SHORT(g_sModelIndexC4Glow);
+		WRITE_BYTE(1);
+		WRITE_BYTE(3);
+		WRITE_BYTE(255);
 		MESSAGE_END();
 	}
 
@@ -1209,7 +1209,7 @@ void CGrenade::C4Think()
 		}
 
 		MESSAGE_BEGIN(MSG_ALL, gmsgScenarioIcon);
-			WRITE_BYTE(0);
+		WRITE_BYTE(0);
 		MESSAGE_END();
 
 		if (m_pentCurBombTarget)
@@ -1284,11 +1284,11 @@ void CGrenade::C4Think()
 			}
 
 			MESSAGE_BEGIN(MSG_SPEC, SVC_DIRECTOR);
-				WRITE_BYTE(9);
-				WRITE_BYTE(DRC_CMD_EVENT);
-				WRITE_SHORT(ENTINDEX(m_pBombDefuser->edict()));
-				WRITE_SHORT(0);
-				WRITE_LONG(15 | DRC_FLAG_FINAL | DRC_FLAG_FACEPLAYER | DRC_FLAG_DRAMATIC);
+			WRITE_BYTE(9);
+			WRITE_BYTE(DRC_CMD_EVENT);
+			WRITE_SHORT(ENTINDEX(m_pBombDefuser->edict()));
+			WRITE_SHORT(0);
+			WRITE_LONG(15 | DRC_FLAG_FINAL | DRC_FLAG_FACEPLAYER | DRC_FLAG_DRAMATIC);
 			MESSAGE_END();
 
 			UTIL_LogPrintf("\"%s<%i><%s><CT>\" triggered \"Defused_The_Bomb\"\n",
@@ -1307,7 +1307,7 @@ void CGrenade::C4Think()
 			pPlayer->m_bIsDefusing = false;
 
 			MESSAGE_BEGIN(MSG_ALL, gmsgScenarioIcon);
-				WRITE_BYTE(0);
+			WRITE_BYTE(0);
 			MESSAGE_END();
 
 			if (CSGameRules()->IsCareer() && !pPlayer->IsBot())

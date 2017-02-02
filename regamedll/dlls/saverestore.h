@@ -107,7 +107,7 @@ protected:
 	unsigned int HashString(const char *pszToken);
 };
 
-class CSave: public CSaveRestoreBuffer
+class CSave : public CSaveRestoreBuffer
 {
 public:
 	CSave(SAVERESTOREDATA *pdata) : CSaveRestoreBuffer(pdata) {};
@@ -139,7 +139,7 @@ public:
 	void BufferHeader(const char *pname, int size);
 };
 
-class CRestore: public CSaveRestoreBuffer
+class CRestore : public CSaveRestoreBuffer
 {
 public:
 	CRestore(SAVERESTOREDATA *pdata) : CSaveRestoreBuffer(pdata)

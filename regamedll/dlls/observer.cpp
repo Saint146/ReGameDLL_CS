@@ -94,7 +94,7 @@ void UpdateClientEffects(CBasePlayer *pObserver, int oldMode)
 				if (pPlayer->m_bNightVisionOn != pObserver->m_bNightVisionOn)
 				{
 					MESSAGE_BEGIN(MSG_ONE, gmsgNVGToggle, NULL, pObserver->pev);
-						WRITE_BYTE(pPlayer->m_bNightVisionOn ? STATUS_NIGHTVISION_ON : STATUS_NIGHTVISION_OFF);
+					WRITE_BYTE(pPlayer->m_bNightVisionOn ? STATUS_NIGHTVISION_ON : STATUS_NIGHTVISION_OFF);
 					MESSAGE_END();
 
 					pObserver->m_bNightVisionOn = pPlayer->m_bNightVisionOn;
@@ -118,7 +118,7 @@ void UpdateClientEffects(CBasePlayer *pObserver, int oldMode)
 	if (clearNightvision)
 	{
 		MESSAGE_BEGIN(MSG_ONE, gmsgNVGToggle, NULL, pObserver->pev);
-			WRITE_BYTE(STATUS_NIGHTVISION_OFF);
+		WRITE_BYTE(STATUS_NIGHTVISION_OFF);
 		MESSAGE_END();
 
 		pObserver->m_bNightVisionOn = false;
@@ -169,8 +169,7 @@ void CBasePlayer::Observer_FindNextPlayer(bool bReverse, const char *name)
 			if (!Q_strcmp(name, STRING(pPlayer->pev->netname)))
 				break;
 		}
-	}
-	while (iCurrent != iStart);
+	} while (iCurrent != iStart);
 
 	// Did we find a target?
 	if (m_hObserverTarget)
@@ -182,8 +181,8 @@ void CBasePlayer::Observer_FindNextPlayer(bool bReverse, const char *name)
 			m_hObserverTarget->pev->health = 0.0f;
 
 		MESSAGE_BEGIN(MSG_ONE, gmsgSpecHealth2, NULL, pev);
-			WRITE_BYTE(int(m_hObserverTarget->pev->health));
-			WRITE_BYTE(ENTINDEX(m_hObserverTarget->edict()));
+		WRITE_BYTE(int(m_hObserverTarget->pev->health));
+		WRITE_BYTE(ENTINDEX(m_hObserverTarget->edict()));
 		MESSAGE_END();
 
 		// Store the target in pev so the physics DLL can get to it
@@ -317,16 +316,16 @@ void CBasePlayer::Observer_CheckProperties()
 
 			// write fov before wepon data, so zoomed crosshair is set correctly
 			MESSAGE_BEGIN(MSG_ONE, gmsgSetFOV, NULL, pev);
-				WRITE_BYTE(m_iFOV);
+			WRITE_BYTE(m_iFOV);
 			MESSAGE_END();
 
 			m_iObserverWeapon = weapon;
 
 			//send weapon update
 			MESSAGE_BEGIN(MSG_ONE, gmsgCurWeapon, NULL, pev);
-				WRITE_BYTE(1);	// 1 = current weapon, not on target
-				WRITE_BYTE(m_iObserverWeapon);
-				WRITE_BYTE(0);	// clip
+			WRITE_BYTE(1);	// 1 = current weapon, not on target
+			WRITE_BYTE(m_iObserverWeapon);
+			WRITE_BYTE(0);	// clip
 			MESSAGE_END();
 		}
 
@@ -345,18 +344,18 @@ void CBasePlayer::Observer_CheckProperties()
 			if (targetBombState)
 			{
 				MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pev);
-					WRITE_BYTE(m_iObserverC4State);
-					WRITE_STRING("c4");
-					WRITE_BYTE(0);
-					WRITE_BYTE(160);
-					WRITE_BYTE(0);
+				WRITE_BYTE(m_iObserverC4State);
+				WRITE_STRING("c4");
+				WRITE_BYTE(0);
+				WRITE_BYTE(160);
+				WRITE_BYTE(0);
 				MESSAGE_END();
 			}
 			else
 			{
 				MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pev);
-					WRITE_BYTE(STATUSICON_HIDE);
-					WRITE_STRING("c4");
+				WRITE_BYTE(STATUSICON_HIDE);
+				WRITE_STRING("c4");
 				MESSAGE_END();
 			}
 		}
@@ -368,18 +367,18 @@ void CBasePlayer::Observer_CheckProperties()
 			if (target->m_bHasDefuser)
 			{
 				MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pev);
-					WRITE_BYTE(STATUSICON_SHOW);
-					WRITE_STRING("defuser");
-					WRITE_BYTE(0);
-					WRITE_BYTE(160);
-					WRITE_BYTE(0);
+				WRITE_BYTE(STATUSICON_SHOW);
+				WRITE_STRING("defuser");
+				WRITE_BYTE(0);
+				WRITE_BYTE(160);
+				WRITE_BYTE(0);
 				MESSAGE_END();
 			}
 			else
 			{
 				MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pev);
-					WRITE_BYTE(STATUSICON_HIDE);
-					WRITE_STRING("defuser");
+				WRITE_BYTE(STATUSICON_HIDE);
+				WRITE_STRING("defuser");
 				MESSAGE_END();
 			}
 		}
@@ -393,9 +392,9 @@ void CBasePlayer::Observer_CheckProperties()
 			m_iObserverWeapon = 0;
 
 			MESSAGE_BEGIN(MSG_ONE, gmsgCurWeapon, NULL, pev);
-				WRITE_BYTE(1);	// 1 = current weapon
-				WRITE_BYTE(m_iObserverWeapon);
-				WRITE_BYTE(0);	// clip
+			WRITE_BYTE(1);	// 1 = current weapon
+			WRITE_BYTE(m_iObserverWeapon);
+			WRITE_BYTE(0);	// clip
 			MESSAGE_END();
 		}
 
@@ -404,8 +403,8 @@ void CBasePlayer::Observer_CheckProperties()
 			m_iObserverC4State = 0;
 
 			MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pev);
-				WRITE_BYTE(0);
-				WRITE_STRING("c4");
+			WRITE_BYTE(0);
+			WRITE_STRING("c4");
 			MESSAGE_END();
 		}
 
@@ -414,8 +413,8 @@ void CBasePlayer::Observer_CheckProperties()
 			m_bObserverHasDefuser = false;
 
 			MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pev);
-				WRITE_BYTE(0);
-				WRITE_STRING("defuser");
+			WRITE_BYTE(0);
+			WRITE_STRING("defuser");
 			MESSAGE_END();
 		}
 	}
@@ -489,7 +488,7 @@ void CBasePlayer::Observer_SetMode(int iMode)
 
 #ifndef REGAMEDLL_FIXES
 	MESSAGE_BEGIN(MSG_ONE, gmsgCrosshair, NULL, pev);
-		WRITE_BYTE((iMode == OBS_ROAMING) != 0);
+	WRITE_BYTE((iMode == OBS_ROAMING) != 0);
 	MESSAGE_END();
 #endif
 

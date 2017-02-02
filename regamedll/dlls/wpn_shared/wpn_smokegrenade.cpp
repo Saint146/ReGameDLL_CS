@@ -70,7 +70,7 @@ BOOL CSmokeGrenade::__MAKE_VHOOK(Deploy)()
 void CSmokeGrenade::__MAKE_VHOOK(Holster)(int skiplocal)
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5f;
-	
+
 	if (!m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType])
 	{
 		// no more smokegrenades!

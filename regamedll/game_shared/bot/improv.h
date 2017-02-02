@@ -55,7 +55,7 @@ public:
 // The Improv interface definition
 // An "Improv" is an improvisational actor that simulates the
 // behavor of a human in an unscripted, "make it up as you go" manner.
-class CImprov: public IImprovEvent
+class CImprov : public IImprovEvent
 {
 public:
 	virtual ~CImprov() {};

@@ -57,7 +57,7 @@ void HostageIdleState::__MAKE_VHOOK(OnUpdate)(CHostageImprov *improv)
 
 		improv->Stop();
 		improv->FaceOutwards();
-		
+
 		const float crouchChance = 33.3f;
 		if (improv->IsScared() && !improv->IsAtHome() && RANDOM_FLOAT(0, 100) <= crouchChance)
 		{
@@ -92,7 +92,7 @@ void HostageIdleState::__MAKE_VHOOK(OnUpdate)(CHostageImprov *improv)
 		{
 			const float attentionRange = 700.0f;
 			float rangeT = (improv->GetCentroid() - captor->pev->origin).Length();
-			
+
 			if (rangeT < attentionRange)
 			{
 				const float cosTolerance = 0.95f;

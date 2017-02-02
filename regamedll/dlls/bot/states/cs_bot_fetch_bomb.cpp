@@ -11,7 +11,7 @@ void FetchBombState::__MAKE_VHOOK(OnUpdate)(CCSBot *me)
 {
 	if (me->IsCarryingBomb())
 	{
-		me->PrintIfWatched( "I picked up the bomb\n" );
+		me->PrintIfWatched("I picked up the bomb\n");
 		me->Idle();
 		return;
 	}

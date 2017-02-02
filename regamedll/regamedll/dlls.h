@@ -137,6 +137,9 @@ typedef float& FloatRef;
 
 #include "bot/cs_bot.h"
 
+// Stats
+#include "stats_st/stats.h"
+
 // Tutor
 #include "tutor.h"
 #include "tutor_base_states.h"

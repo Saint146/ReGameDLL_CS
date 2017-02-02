@@ -226,7 +226,7 @@ void CUSP::USPFire(float flSpread, float flCycleTime, BOOL fUseSemi)
 	{
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, FALSE);
 	}
-	
+
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 2.0f;
 	m_pPlayer->pev->punchangle.x -= 2.0f;
 	ResetPlayerShieldAnim();
@@ -256,7 +256,7 @@ void CUSP::__MAKE_VHOOK(WeaponIdle)()
 {
 	ResetEmptySound();
 	m_pPlayer->GetAutoaimVector(AUTOAIM_10DEGREES);
-	
+
 	if (m_flTimeWeaponIdle > 0)
 	{
 		return;
@@ -273,7 +273,7 @@ void CUSP::__MAKE_VHOOK(WeaponIdle)()
 	}
 	else if (m_iClip)
 	{
-		int iAnim = (~m_iWeaponState & WPNSTATE_USP_SILENCED) ? USP_UNSIL_IDLE: USP_IDLE;
+		int iAnim = (~m_iWeaponState & WPNSTATE_USP_SILENCED) ? USP_UNSIL_IDLE : USP_IDLE;
 
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 60.0f;
 		SendWeaponAnim(iAnim, UseDecrement());

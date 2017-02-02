@@ -36,10 +36,10 @@ bool BotProfile::HasPrimaryPreference() const
 		int weaponClass = AliasToWeaponClass(WeaponIDToAlias(m_weaponPreference[i]));
 
 		if (weaponClass == WEAPONCLASS_SUBMACHINEGUN ||
-				weaponClass == WEAPONCLASS_SHOTGUN ||
-				weaponClass == WEAPONCLASS_MACHINEGUN ||
-				weaponClass == WEAPONCLASS_RIFLE ||
-				weaponClass == WEAPONCLASS_SNIPERRIFLE)
+			weaponClass == WEAPONCLASS_SHOTGUN ||
+			weaponClass == WEAPONCLASS_MACHINEGUN ||
+			weaponClass == WEAPONCLASS_RIFLE ||
+			weaponClass == WEAPONCLASS_SNIPERRIFLE)
 			return true;
 	}
 
@@ -182,12 +182,12 @@ void BotProfileManager::Init(const char *filename, unsigned int *checksum)
 			if (m_nextSkin < NumCustomSkins && !skinExists)
 			{
 				// decorate the name
-				m_skins[ m_nextSkin ] = CloneString(decoratedName);
+				m_skins[m_nextSkin] = CloneString(decoratedName);
 
 				// construct the model filename
-				m_skinModelnames[ m_nextSkin ] = CloneString(token);
-				m_skinFilenames[ m_nextSkin ] = new char[ Q_strlen(token) * 2 + Q_strlen("models/player//.mdl") + 1 ];
-				Q_sprintf(m_skinFilenames[ m_nextSkin ], "models/player/%s/%s.mdl", token, token);
+				m_skinModelnames[m_nextSkin] = CloneString(token);
+				m_skinFilenames[m_nextSkin] = new char[Q_strlen(token) * 2 + Q_strlen("models/player//.mdl") + 1];
+				Q_sprintf(m_skinFilenames[m_nextSkin], "models/player/%s/%s.mdl", token, token);
 				++m_nextSkin;
 			}
 
@@ -389,7 +389,7 @@ void BotProfileManager::Init(const char *filename, unsigned int *checksum)
 				{
 					if (profile->m_weaponPreferenceCount < BotProfile::MAX_WEAPON_PREFS)
 					{
-						profile->m_weaponPreference[ profile->m_weaponPreferenceCount++ ] = AliasToWeaponID(token);
+						profile->m_weaponPreference[profile->m_weaponPreferenceCount++] = AliasToWeaponID(token);
 					}
 				}
 			}
@@ -482,7 +482,7 @@ BotProfileManager::~BotProfileManager()
 	Reset();
 
 	for (VoiceBankList::iterator it = m_voiceBanks.begin(); it != m_voiceBanks.end(); ++it)
-		delete[] (*it);
+		delete[](*it);
 
 	m_voiceBanks.clear();
 }
@@ -523,7 +523,7 @@ const char *BotProfileManager::GetCustomSkin(int index)
 		return NULL;
 	}
 
-	return m_skins[ index - FirstCustomSkin ];
+	return m_skins[index - FirstCustomSkin];
 }
 
 // Returns custom skin filename at a particular index
@@ -534,7 +534,7 @@ const char *BotProfileManager::GetCustomSkinFname(int index)
 		return NULL;
 	}
 
-	return m_skinFilenames[ index - FirstCustomSkin ];
+	return m_skinFilenames[index - FirstCustomSkin];
 }
 
 // Returns custom skin modelname at a particular index
@@ -545,7 +545,7 @@ const char *BotProfileManager::GetCustomSkinModelname(int index)
 		return NULL;
 	}
 
-	return m_skinModelnames[ index - FirstCustomSkin ];
+	return m_skinModelnames[index - FirstCustomSkin];
 }
 
 // Looks up a custom skin index by filename-decorated name (will decorate the name if filename is given)

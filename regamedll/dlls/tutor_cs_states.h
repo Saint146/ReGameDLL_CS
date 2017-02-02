@@ -61,7 +61,7 @@ enum TutorStateType
 	TUTORSTATE_WAITING_FOR_START,
 };
 
-class CCSTutorStateSystem: public CBaseTutorStateSystem
+class CCSTutorStateSystem : public CBaseTutorStateSystem
 {
 public:
 	CCSTutorStateSystem();
@@ -82,7 +82,7 @@ protected:
 	virtual CBaseTutorState *ConstructNewState(int stateType);
 };
 
-class CCSTutorUndefinedState: public CBaseTutorState
+class CCSTutorUndefinedState : public CBaseTutorState
 {
 public:
 	CCSTutorUndefinedState();
@@ -102,7 +102,7 @@ protected:
 	int HandlePlayerSpawned(CBaseEntity *entity, CBaseEntity *other);
 };
 
-class CCSTutorWaitingForStartState: public CBaseTutorState
+class CCSTutorWaitingForStartState : public CBaseTutorState
 {
 public:
 	CCSTutorWaitingForStartState();
@@ -123,7 +123,7 @@ protected:
 	int HandleBuyTimeStart(CBaseEntity *entity, CBaseEntity *other);
 };
 
-class CCSTutorBuyMenuState: public CBaseTutorState
+class CCSTutorBuyMenuState : public CBaseTutorState
 {
 public:
 	CCSTutorBuyMenuState();

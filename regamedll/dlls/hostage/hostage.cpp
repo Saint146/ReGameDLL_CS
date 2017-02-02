@@ -446,11 +446,11 @@ void CHostage::IdleThink()
 				SendHostageEventMsg();
 
 				MESSAGE_BEGIN(MSG_SPEC, SVC_DIRECTOR);
-					WRITE_BYTE(9);
-					WRITE_BYTE(DRC_CMD_EVENT);
-					WRITE_SHORT(player != NULL ? player->entindex() : 0);
-					WRITE_SHORT(entindex());
-					WRITE_LONG(15);
+				WRITE_BYTE(9);
+				WRITE_BYTE(DRC_CMD_EVENT);
+				WRITE_SHORT(player != NULL ? player->entindex() : 0);
+				WRITE_SHORT(entindex());
+				WRITE_LONG(15);
 				MESSAGE_END();
 
 				pev->effects |= EF_NODRAW;
@@ -799,11 +799,11 @@ void CHostage::AnnounceDeath(CBasePlayer *pAttacker)
 		GETPLAYERAUTHID(pAttacker->edict()), GetTeam(pAttacker->m_iTeam));
 
 	MESSAGE_BEGIN(MSG_SPEC, SVC_DIRECTOR);
-		WRITE_BYTE(9);
-		WRITE_BYTE(DRC_CMD_EVENT);
-		WRITE_SHORT(ENTINDEX(pAttacker->edict()));
-		WRITE_SHORT(ENTINDEX(edict()));
-		WRITE_LONG(15);
+	WRITE_BYTE(9);
+	WRITE_BYTE(DRC_CMD_EVENT);
+	WRITE_SHORT(ENTINDEX(pAttacker->edict()));
+	WRITE_SHORT(ENTINDEX(edict()));
+	WRITE_LONG(15);
 	MESSAGE_END();
 }
 
@@ -821,11 +821,11 @@ void CHostage::ApplyHostagePenalty(CBasePlayer *pAttacker)
 		}
 		else if (pAttacker->m_iHostagesKilled >= iHostagePenalty)
 		{
-		#ifdef REGAMEDLL_FIXES
+#ifdef REGAMEDLL_FIXES
 			SERVER_COMMAND(UTIL_VarArgs("kick #%d\n", GETPLAYERUSERID(pAttacker->edict())));
-		#else
+#else
 			CLIENT_COMMAND(pAttacker->edict(), "disconnect\n");
-		#endif
+#endif
 		}
 	}
 }
@@ -1090,7 +1090,7 @@ void CHostage::MoveToward(const Vector &vecLoc)
 	pFollowing = GetClassPtr<CCSEntity>((CBaseEntity *)m_hTargetEnt->pev);
 	vecMove = vecLoc - pev->origin;
 
-	Vector vecAng(0, UTIL_VecToAngles(vecMove).y, 0); 
+	Vector vecAng(0, UTIL_VecToAngles(vecMove).y, 0);
 	UTIL_MakeVectorsPrivate(vecAng, vecFwd, NULL, NULL);
 
 	if ((vecFwd * s_flStepSize_LocalNav).Length2D() <= (vecLoc - pev->origin).Length2D())
@@ -1213,11 +1213,11 @@ void CHostage::SendHostagePositionMsg()
 		if (pTempPlayer->pev->deadflag == DEAD_NO && pTempPlayer->m_iTeam == CT)
 		{
 			MESSAGE_BEGIN(MSG_ONE, gmsgHostagePos, NULL, pTempPlayer->pev);
-				WRITE_BYTE(0);
-				WRITE_BYTE(m_iHostageIndex);
-				WRITE_COORD(pev->origin.x);
-				WRITE_COORD(pev->origin.y);
-				WRITE_COORD(pev->origin.z);
+			WRITE_BYTE(0);
+			WRITE_BYTE(m_iHostageIndex);
+			WRITE_COORD(pev->origin.x);
+			WRITE_COORD(pev->origin.y);
+			WRITE_COORD(pev->origin.z);
 			MESSAGE_END();
 		}
 	}
@@ -1242,7 +1242,7 @@ void CHostage::SendHostageEventMsg()
 		if (pTempPlayer->pev->deadflag == DEAD_NO && pTempPlayer->m_iTeam == CT)
 		{
 			MESSAGE_BEGIN(MSG_ONE, gmsgHostageK, NULL, pTempPlayer->pev);
-				WRITE_BYTE(m_iHostageIndex);
+			WRITE_BYTE(m_iHostageIndex);
 			MESSAGE_END();
 		}
 
@@ -1358,7 +1358,7 @@ void CHostage::PreThink()
 
 void Hostage_RegisterCVars()
 {
-// These cvars are only used in czero
+	// These cvars are only used in czero
 #ifdef REGAMEDLL_FIXES
 	if (!AreImprovAllowed())
 		return;
@@ -1493,7 +1493,7 @@ void CHostageManager::OnEvent(GameEventType event, CBaseEntity *entity, CBaseEnt
 {
 	for (int i = 0; i < m_hostageCount; ++i)
 	{
-		CHostageImprov *improv = m_hostage[ i ]->m_improv;
+		CHostageImprov *improv = m_hostage[i]->m_improv;
 
 		if (improv != NULL)
 		{

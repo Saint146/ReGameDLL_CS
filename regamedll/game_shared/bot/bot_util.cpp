@@ -6,7 +6,7 @@
 #ifndef HOOK_GAMEDLL
 
 short s_iBeamSprite = 0;
-float cosTable[ COS_TABLE_SIZE ];
+float cosTable[COS_TABLE_SIZE];
 
 #endif
 
@@ -426,46 +426,46 @@ NOXREF Vector UTIL_ComputeOrigin(edict_t *pentEdict)
 NOXREF void UTIL_DrawBeamFromEnt(int iIndex, Vector vecEnd, int iLifetime, byte bRed, byte bGreen, byte bBlue)
 {
 	MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, vecEnd);
-		WRITE_BYTE(TE_BEAMENTPOINT);
-		WRITE_SHORT(iIndex);
-		WRITE_COORD(vecEnd.x);
-		WRITE_COORD(vecEnd.y);
-		WRITE_COORD(vecEnd.z);
-		WRITE_SHORT(s_iBeamSprite);
-		WRITE_BYTE(0);
-		WRITE_BYTE(0);
-		WRITE_BYTE(iLifetime);
-		WRITE_BYTE(10);
-		WRITE_BYTE(0);
-		WRITE_BYTE(bRed);
-		WRITE_BYTE(bGreen);
-		WRITE_BYTE(bBlue);
-		WRITE_BYTE(255);
-		WRITE_BYTE(0);
+	WRITE_BYTE(TE_BEAMENTPOINT);
+	WRITE_SHORT(iIndex);
+	WRITE_COORD(vecEnd.x);
+	WRITE_COORD(vecEnd.y);
+	WRITE_COORD(vecEnd.z);
+	WRITE_SHORT(s_iBeamSprite);
+	WRITE_BYTE(0);
+	WRITE_BYTE(0);
+	WRITE_BYTE(iLifetime);
+	WRITE_BYTE(10);
+	WRITE_BYTE(0);
+	WRITE_BYTE(bRed);
+	WRITE_BYTE(bGreen);
+	WRITE_BYTE(bBlue);
+	WRITE_BYTE(255);
+	WRITE_BYTE(0);
 	MESSAGE_END();
 }
 
 void UTIL_DrawBeamPoints(Vector vecStart, Vector vecEnd, int iLifetime, byte bRed, byte bGreen, byte bBlue)
 {
 	MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, vecStart);
-		WRITE_BYTE(TE_BEAMPOINTS);
-		WRITE_COORD(vecStart.x);
-		WRITE_COORD(vecStart.y);
-		WRITE_COORD(vecStart.z);
-		WRITE_COORD(vecEnd.x);
-		WRITE_COORD(vecEnd.y);
-		WRITE_COORD(vecEnd.z);
-		WRITE_SHORT(s_iBeamSprite);
-		WRITE_BYTE(0);
-		WRITE_BYTE(0);
-		WRITE_BYTE(iLifetime);
-		WRITE_BYTE(10);
-		WRITE_BYTE(0);
-		WRITE_BYTE(bRed);
-		WRITE_BYTE(bGreen);
-		WRITE_BYTE(bBlue);
-		WRITE_BYTE(255);
-		WRITE_BYTE(0);
+	WRITE_BYTE(TE_BEAMPOINTS);
+	WRITE_COORD(vecStart.x);
+	WRITE_COORD(vecStart.y);
+	WRITE_COORD(vecStart.z);
+	WRITE_COORD(vecEnd.x);
+	WRITE_COORD(vecEnd.y);
+	WRITE_COORD(vecEnd.z);
+	WRITE_SHORT(s_iBeamSprite);
+	WRITE_BYTE(0);
+	WRITE_BYTE(0);
+	WRITE_BYTE(iLifetime);
+	WRITE_BYTE(10);
+	WRITE_BYTE(0);
+	WRITE_BYTE(bRed);
+	WRITE_BYTE(bGreen);
+	WRITE_BYTE(bBlue);
+	WRITE_BYTE(255);
+	WRITE_BYTE(0);
 	MESSAGE_END();
 }
 
@@ -525,14 +525,14 @@ float BotCOS(float angle)
 {
 	angle = NormalizeAnglePositive(angle);
 	int i = angle * ((COS_TABLE_SIZE - 1) / 360.0f);
-	return cosTable[ i ];
+	return cosTable[i];
 }
 
 float BotSIN(float angle)
 {
 	angle = NormalizeAnglePositive(angle - 90);
 	int i = angle * ((COS_TABLE_SIZE - 1) / 360.0f);
-	return cosTable[ i ];
+	return cosTable[i];
 }
 
 // Determine if this event is audible, and if so, return its audible range and priority
@@ -548,8 +548,8 @@ bool IsGameEventAudible(GameEventType event, CBaseEntity *entity, CBaseEntity *o
 
 	switch (event)
 	{
-	// TODO: Check weapon type (knives are pretty quiet)
-	// TODO: Use actual volume, account for silencers, etc.
+		// TODO: Check weapon type (knives are pretty quiet)
+		// TODO: Use actual volume, account for silencers, etc.
 	case EVENT_WEAPON_FIRED:
 	{
 		if (player->m_pActiveItem == NULL)
@@ -557,19 +557,19 @@ bool IsGameEventAudible(GameEventType event, CBaseEntity *entity, CBaseEntity *o
 
 		switch (player->m_pActiveItem->m_iId)
 		{
-		// silent "firing"
+			// silent "firing"
 		case WEAPON_HEGRENADE:
 		case WEAPON_SMOKEGRENADE:
 		case WEAPON_FLASHBANG:
 		case WEAPON_SHIELDGUN:
 		case WEAPON_C4:
 			return false;
-		// quiet
+			// quiet
 		case WEAPON_KNIFE:
 		case WEAPON_TMP:
 			*range = ShortRange;
 			break;
-		// M4A1 - check for silencer
+			// M4A1 - check for silencer
 		case WEAPON_M4A1:
 		{
 			CBasePlayerWeapon *pWeapon = static_cast<CBasePlayerWeapon *>(player->m_pActiveItem);
@@ -593,7 +593,7 @@ bool IsGameEventAudible(GameEventType event, CBaseEntity *entity, CBaseEntity *o
 		case WEAPON_AWP:
 			*range = 99999.0f;
 			break;
-		// normal
+			// normal
 		default:
 			*range = NormalRange;
 			break;

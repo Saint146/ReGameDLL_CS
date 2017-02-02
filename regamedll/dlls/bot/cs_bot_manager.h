@@ -35,7 +35,7 @@
 extern CBotManager *TheBots;
 
 // The manager for Counter-Strike specific bots
-class CCSBotManager: public CBotManager
+class CCSBotManager : public CBotManager
 {
 public:
 	CCSBotManager();
@@ -229,7 +229,7 @@ public:
 	void MaintainBotQuota();
 	bool AddBot(const BotProfile *profile, BotProfileTeamType team);
 
-	#define FROM_CONSOLE true
+#define FROM_CONSOLE true
 	bool BotAddCommand(BotProfileTeamType team, bool isFromConsole = false);			// process the "bot_add" console command
 
 #ifndef HOOK_GAMEDLL

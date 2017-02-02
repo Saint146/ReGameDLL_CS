@@ -149,7 +149,7 @@ edict_t *CHalfLifeRules::__MAKE_VHOOK(GetPlayerSpawnSpot)(CBasePlayer *pPlayer)
 	}
 
 	pPlayer->pev->origin = pSpot->pev->origin + Vector(0, 0, 1);
-	pPlayer->pev->v_angle  = g_vecZero;
+	pPlayer->pev->v_angle = g_vecZero;
 	pPlayer->pev->velocity = g_vecZero;
 	pPlayer->pev->angles = pSpot->pev->angles;
 	pPlayer->pev->punchangle = g_vecZero;

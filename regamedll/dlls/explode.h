@@ -39,7 +39,7 @@
 #define SF_ENVEXPLOSION_NODECAL		(1<<4)	// don't make a scorch mark
 #define SF_ENVEXPLOSION_NOSPARKS	(1<<5)	// don't make a scorch mark
 
-class CShower: public CBaseEntity
+class CShower : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -57,7 +57,7 @@ public:
 
 };
 
-class CEnvExplosion: public CBaseMonster
+class CEnvExplosion : public CBaseMonster
 {
 public:
 	virtual void Spawn();

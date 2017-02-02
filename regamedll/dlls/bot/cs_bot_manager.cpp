@@ -145,7 +145,7 @@ void UTIL_DrawBox(Extent *extent, int lifetime, int red, int green, int blue)
 	{
 		if (restart)
 		{
-			to = v[ edge[i] - 1 ];
+			to = v[edge[i] - 1];
 			restart = false;
 			continue;
 		}
@@ -159,7 +159,7 @@ void UTIL_DrawBox(Extent *extent, int lifetime, int red, int green, int blue)
 			index = -index;
 		}
 
-		to = v[ index - 1 ];
+		to = v[index - 1];
 
 		UTIL_DrawBeamPoints(from, to, lifetime, red, green, blue);
 		UTIL_DrawBeamPoints(to, from, lifetime, red, green, blue);
@@ -222,14 +222,14 @@ bool CCSBotManager::IsOnDefense(CBasePlayer *player) const
 {
 	switch (GetScenario())
 	{
-		case SCENARIO_DEFUSE_BOMB:
-			return (player->m_iTeam == CT);
+	case SCENARIO_DEFUSE_BOMB:
+		return (player->m_iTeam == CT);
 
-		case SCENARIO_RESCUE_HOSTAGES:
-			return (player->m_iTeam == TERRORIST);
+	case SCENARIO_RESCUE_HOSTAGES:
+		return (player->m_iTeam == TERRORIST);
 
-		case SCENARIO_ESCORT_VIP:
-			return (player->m_iTeam == TERRORIST);
+	case SCENARIO_ESCORT_VIP:
+		return (player->m_iTeam == TERRORIST);
 	}
 
 	return false;
@@ -1004,7 +1004,7 @@ public:
 			&& areaExtent->hi.z >= m_zone->m_extent.lo.z && areaExtent->lo.z <= m_zone->m_extent.hi.z)
 		{
 			// area overlaps m_zone
-			m_zone->m_area[ m_zone->m_areaCount++ ] = area;
+			m_zone->m_area[m_zone->m_areaCount++] = area;
 			if (m_zone->m_areaCount == CCSBotManager::MAX_ZONE_NAV_AREAS)
 			{
 				return false;
@@ -1092,10 +1092,10 @@ void CCSBotManager::ValidateMapData()
 		{
 			if (m_zoneCount < MAX_ZONES)
 			{
-				m_zone[ m_zoneCount ].m_center = (isLegacy) ? entity->pev->origin : (entity->pev->absmax + entity->pev->absmin) / 2.0f;
-				m_zone[ m_zoneCount ].m_isLegacy = isLegacy;
-				m_zone[ m_zoneCount ].m_index = m_zoneCount;
-				m_zone[ m_zoneCount ].m_entity = entity;
+				m_zone[m_zoneCount].m_center = (isLegacy) ? entity->pev->origin : (entity->pev->absmax + entity->pev->absmin) / 2.0f;
+				m_zone[m_zoneCount].m_isLegacy = isLegacy;
+				m_zone[m_zoneCount].m_index = m_zoneCount;
+				m_zone[m_zoneCount].m_entity = entity;
 				m_zoneCount++;
 			}
 			else
@@ -1121,10 +1121,10 @@ void CCSBotManager::ValidateMapData()
 
 			if (m_zoneCount < MAX_ZONES)
 			{
-				m_zone[ m_zoneCount ].m_center = entity->pev->origin;
-				m_zone[ m_zoneCount ].m_isLegacy = true;
-				m_zone[ m_zoneCount ].m_index = m_zoneCount;
-				m_zone[ m_zoneCount ].m_entity = entity;
+				m_zone[m_zoneCount].m_center = entity->pev->origin;
+				m_zone[m_zoneCount].m_isLegacy = true;
+				m_zone[m_zoneCount].m_index = m_zoneCount;
+				m_zone[m_zoneCount].m_entity = entity;
 				m_zoneCount++;
 			}
 			else
@@ -1316,7 +1316,7 @@ CNavArea *CCSBotManager::GetRandomAreaInZone(const Zone *zone) const
 	if (!zone->m_areaCount)
 		return NULL;
 
-	return zone->m_area[ RANDOM_LONG(0, zone->m_areaCount - 1) ];
+	return zone->m_area[RANDOM_LONG(0, zone->m_areaCount - 1)];
 }
 
 void CCSBotManager::__MAKE_VHOOK(OnEvent)(GameEventType event, CBaseEntity *entity, CBaseEntity *other)
@@ -1384,26 +1384,26 @@ bool CCSBotManager::__MAKE_VHOOK(IsImportantPlayer)(CBasePlayer *player) const
 {
 	switch (GetScenario())
 	{
-		case SCENARIO_DEFUSE_BOMB:
-		{
-			if (player->m_iTeam == TERRORIST && player->IsBombGuy())
-				return true;
+	case SCENARIO_DEFUSE_BOMB:
+	{
+		if (player->m_iTeam == TERRORIST && player->IsBombGuy())
+			return true;
 
-			// TODO: TEAM_CT's defusing the bomb are important
-			return false;
-		}
-		case SCENARIO_ESCORT_VIP:
-		{
-			if (player->m_iTeam == CT && player->m_bIsVIP)
-				return true;
+		// TODO: TEAM_CT's defusing the bomb are important
+		return false;
+	}
+	case SCENARIO_ESCORT_VIP:
+	{
+		if (player->m_iTeam == CT && player->m_bIsVIP)
+			return true;
 
-			return false;
-		}
-		case SCENARIO_RESCUE_HOSTAGES:
-		{
-			// TODO: TEAM_CT's escorting hostages are important
-			return false;
-		}
+		return false;
+	}
+	case SCENARIO_RESCUE_HOSTAGES:
+	{
+		// TODO: TEAM_CT's escorting hostages are important
+		return false;
+	}
 	}
 
 	// everyone is equally important in a deathmatch
@@ -1427,30 +1427,30 @@ unsigned int CCSBotManager::__MAKE_VHOOK(GetPlayerPriority)(CBasePlayer *player)
 	// bots doing something important for the current scenario have high priority
 	switch (GetScenario())
 	{
-		case SCENARIO_DEFUSE_BOMB:
-		{
-			// the bomb carrier has high priority
-			if (bot->m_iTeam == TERRORIST && bot->m_bHasC4)
-				return 1;
+	case SCENARIO_DEFUSE_BOMB:
+	{
+		// the bomb carrier has high priority
+		if (bot->m_iTeam == TERRORIST && bot->m_bHasC4)
+			return 1;
 
-			break;
-		}
-		case SCENARIO_ESCORT_VIP:
-		{
-			// the VIP has high priority
-			if (bot->m_iTeam == CT && bot->m_bIsVIP)
-				return 1;
+		break;
+	}
+	case SCENARIO_ESCORT_VIP:
+	{
+		// the VIP has high priority
+		if (bot->m_iTeam == CT && bot->m_bIsVIP)
+			return 1;
 
-			break;
-		}
-		case SCENARIO_RESCUE_HOSTAGES:
-		{
-			// TEAM_CT's rescuing hostages have high priority
-			if (bot->m_iTeam == CT && bot->GetHostageEscortCount())
-				return 1;
+		break;
+	}
+	case SCENARIO_RESCUE_HOSTAGES:
+	{
+		// TEAM_CT's rescuing hostages have high priority
+		if (bot->m_iTeam == CT && bot->GetHostageEscortCount())
+			return 1;
 
-			break;
-		}
+		break;
+	}
 	}
 
 	// everyone else is ranked by their unique ID (which cannot be zero)
@@ -1465,7 +1465,7 @@ float CCSBotManager::GetRadioMessageTimestamp(GameEventType event, int teamID) c
 		return 0.0f;
 
 	int i = (teamID == TERRORIST) ? 0 : 1;
-	return m_radioMsgTimestamp[ event - EVENT_START_RADIO_1 ][ i ];
+	return m_radioMsgTimestamp[event - EVENT_START_RADIO_1][i];
 }
 
 // Return the interval since the last time this message was sent
@@ -1475,7 +1475,7 @@ float CCSBotManager::GetRadioMessageInterval(GameEventType event, int teamID) co
 		return 99999999.9f;
 
 	int i = (teamID == TERRORIST) ? 0 : 1;
-	return gpGlobals->time - m_radioMsgTimestamp[ event - EVENT_START_RADIO_1 ][ i ];
+	return gpGlobals->time - m_radioMsgTimestamp[event - EVENT_START_RADIO_1][i];
 }
 
 // Set the given radio message timestamp.
@@ -1486,7 +1486,7 @@ void CCSBotManager::SetRadioMessageTimestamp(GameEventType event, int teamID)
 		return;
 
 	int i = (teamID == TERRORIST) ? 0 : 1;
-	m_radioMsgTimestamp[ event - 1 ][ i ] = gpGlobals->time;
+	m_radioMsgTimestamp[event - 1][i] = gpGlobals->time;
 }
 
 // Reset all radio message timestamps

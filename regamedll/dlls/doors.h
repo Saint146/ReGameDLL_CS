@@ -49,7 +49,7 @@
 #define SF_DOOR_TOUCH_ONLY_CLIENTS	1024		// Only clients can touch
 #define SF_DOOR_SILENT			0x80000000
 
-class CBaseDoor: public CBaseToggle
+class CBaseDoor : public CBaseToggle
 {
 public:
 	virtual void Spawn();
@@ -110,7 +110,7 @@ public:
 	float m_lastBlockedTimestamp;
 };
 
-class CRotDoor: public CBaseDoor
+class CRotDoor : public CBaseDoor
 {
 public:
 	virtual void Spawn();
@@ -127,7 +127,7 @@ public:
 
 };
 
-class CMomentaryDoor: public CBaseToggle
+class CMomentaryDoor : public CBaseToggle
 {
 public:
 	virtual void Spawn();

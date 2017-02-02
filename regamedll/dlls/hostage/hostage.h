@@ -63,7 +63,7 @@ enum HostageChatterType
 	HOSTAGE_CHATTER_PLEASE_RESCUE_ME,
 	HOSTAGE_CHATTER_SEE_RESCUE_ZONE,
 	HOSTAGE_CHATTER_IMPATIENT_FOR_RESCUE,
-	HOSTAGE_CHATTER_CTS_WIN ,
+	HOSTAGE_CHATTER_CTS_WIN,
 	HOSTAGE_CHATTER_TERRORISTS_WIN,
 	HOSTAGE_CHATTER_RESCUED,
 	HOSTAGE_CHATTER_WARN_NEARBY,
@@ -87,7 +87,7 @@ extern cvar_t cv_hostage_debug;
 extern cvar_t cv_hostage_stop;
 
 // A Counter-Strike Hostage Simple
-class CHostage: public CBaseMonster
+class CHostage : public CBaseMonster
 {
 public:
 	virtual void Spawn();

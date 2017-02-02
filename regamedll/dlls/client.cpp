@@ -100,7 +100,7 @@ NOXREF void set_suicide_frame(entvars_t *pev)
 void BlinkAccount(CBasePlayer *player, int numBlinks)
 {
 	MESSAGE_BEGIN(MSG_ONE, gmsgBlinkAcct, NULL, player->pev);
-		WRITE_BYTE(numBlinks);
+	WRITE_BYTE(numBlinks);
 	MESSAGE_END();
 }
 
@@ -200,10 +200,10 @@ LINK_HOOK_VOID_CHAIN(ShowMenu, (CBasePlayer *pPlayer, int bitsValidSlots, int nD
 void EXT_FUNC __API_HOOK(ShowMenu)(CBasePlayer *pPlayer, int bitsValidSlots, int nDisplayTime, BOOL fNeedMore, char *pszText)
 {
 	MESSAGE_BEGIN(MSG_ONE, gmsgShowMenu, NULL, pPlayer->pev);
-		WRITE_SHORT(bitsValidSlots);
-		WRITE_CHAR(nDisplayTime);
-		WRITE_BYTE(fNeedMore);
-		WRITE_STRING(pszText);
+	WRITE_SHORT(bitsValidSlots);
+	WRITE_CHAR(nDisplayTime);
+	WRITE_BYTE(fNeedMore);
+	WRITE_STRING(pszText);
 	MESSAGE_END();
 }
 
@@ -228,11 +228,11 @@ void EXT_FUNC __API_HOOK(ShowVGUIMenu)(CBasePlayer *pPlayer, int MenuType, int B
 	if (pPlayer->m_bVGUIMenus || MenuType > VGUI_Menu_Buy_Item)
 	{
 		MESSAGE_BEGIN(MSG_ONE, gmsgVGUIMenu, NULL, pPlayer->pev);
-			WRITE_BYTE(MenuType);
-			WRITE_SHORT(BitMask);
-			WRITE_CHAR(-1);
-			WRITE_BYTE(0);
-			WRITE_STRING(" ");
+		WRITE_BYTE(MenuType);
+		WRITE_SHORT(BitMask);
+		WRITE_CHAR(-1);
+		WRITE_BYTE(0);
+		WRITE_STRING(" ");
 		MESSAGE_END();
 	}
 	else
@@ -766,15 +766,15 @@ void Host_Say(edict_t *pEntity, BOOL teamonly)
 			|| client->m_iIgnoreGlobalChat == IGNOREMSG_NONE)
 		{
 			MESSAGE_BEGIN(MSG_ONE, gmsgSayText, NULL, client->pev);
-				WRITE_BYTE(ENTINDEX(pEntity));
-				WRITE_STRING(pszFormat);
-				WRITE_STRING("");
-				WRITE_STRING(text);
+			WRITE_BYTE(ENTINDEX(pEntity));
+			WRITE_STRING(pszFormat);
+			WRITE_STRING("");
+			WRITE_STRING(text);
 
-				if (placeName)
-				{
-					WRITE_STRING(placeName);
-				}
+			if (placeName)
+			{
+				WRITE_STRING(placeName);
+			}
 
 			MESSAGE_END();
 		}
@@ -784,15 +784,15 @@ void Host_Say(edict_t *pEntity, BOOL teamonly)
 
 	// print to the sending client
 	MESSAGE_BEGIN(MSG_ONE, gmsgSayText, NULL, &pEntity->v);
-		WRITE_BYTE(ENTINDEX(pEntity));
-		WRITE_STRING(pszFormat);
-		WRITE_STRING("");
-		WRITE_STRING(text);
+	WRITE_BYTE(ENTINDEX(pEntity));
+	WRITE_STRING(pszFormat);
+	WRITE_STRING("");
+	WRITE_STRING(text);
 
-		if (placeName)
-		{
-			WRITE_STRING(placeName);
-		}
+	if (placeName)
+	{
+		WRITE_STRING(placeName);
+	}
 
 	MESSAGE_END();
 
@@ -827,10 +827,10 @@ bool CanBuyThis(CBasePlayer *pPlayer, int iWeapon)
 	if (pPlayer->HasShield() && iWeapon == WEAPON_SHIELDGUN)
 		return false;
 
-	if (pPlayer->m_rgpPlayerItems[ PISTOL_SLOT ] && pPlayer->m_rgpPlayerItems[ PISTOL_SLOT ]->m_iId == WEAPON_ELITE && iWeapon == WEAPON_SHIELDGUN)
+	if (pPlayer->m_rgpPlayerItems[PISTOL_SLOT] && pPlayer->m_rgpPlayerItems[PISTOL_SLOT]->m_iId == WEAPON_ELITE && iWeapon == WEAPON_SHIELDGUN)
 		return false;
 
-	if (pPlayer->m_rgpPlayerItems[ PRIMARY_WEAPON_SLOT ] && pPlayer->m_rgpPlayerItems[ PRIMARY_WEAPON_SLOT ]->m_iId == iWeapon)
+	if (pPlayer->m_rgpPlayerItems[PRIMARY_WEAPON_SLOT] && pPlayer->m_rgpPlayerItems[PRIMARY_WEAPON_SLOT]->m_iId == iWeapon)
 	{
 		if (g_bClientPrintEnable)
 		{
@@ -840,7 +840,7 @@ bool CanBuyThis(CBasePlayer *pPlayer, int iWeapon)
 		return false;
 	}
 
-	if (pPlayer->m_rgpPlayerItems[ PISTOL_SLOT ] && pPlayer->m_rgpPlayerItems[ PISTOL_SLOT ]->m_iId == iWeapon)
+	if (pPlayer->m_rgpPlayerItems[PISTOL_SLOT] && pPlayer->m_rgpPlayerItems[PISTOL_SLOT]->m_iId == iWeapon)
 	{
 		if (g_bClientPrintEnable)
 		{
@@ -1001,262 +1001,262 @@ void BuyItem(CBasePlayer *pPlayer, int iSlot)
 
 	switch (iSlot)
 	{
-		case MENU_SLOT_ITEM_VEST:
-		{
+	case MENU_SLOT_ITEM_VEST:
+	{
 #ifdef REGAMEDLL_ADD
-			if (pPlayer->HasRestrictItem(ITEM_KEVLAR, ITEM_TYPE_BUYING))
-				return;
+		if (pPlayer->HasRestrictItem(ITEM_KEVLAR, ITEM_TYPE_BUYING))
+			return;
 #endif
-			if (bFullArmor)
+		if (bFullArmor)
+		{
+			if (g_bClientPrintEnable)
+			{
+				ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Kevlar");
+			}
+
+			return;
+		}
+
+		if (pPlayer->m_iAccount >= KEVLAR_PRICE)
+		{
+			if (bHasHelmet && g_bClientPrintEnable)
+			{
+				ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Helmet_Bought_Kevlar");
+			}
+
+			bEnoughMoney = true;
+			pszItem = "item_kevlar";
+			iItemPrice = KEVLAR_PRICE;
+		}
+		break;
+	}
+	case MENU_SLOT_ITEM_VESTHELM:
+	{
+#ifdef REGAMEDLL_ADD
+		if (pPlayer->HasRestrictItem(ITEM_ASSAULT, ITEM_TYPE_BUYING))
+			return;
+#endif
+		if (bFullArmor)
+		{
+			if (bHasHelmet)
 			{
 				if (g_bClientPrintEnable)
 				{
-					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Kevlar");
+					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Kevlar_Helmet");
 				}
 
 				return;
 			}
 
-			if (pPlayer->m_iAccount >= KEVLAR_PRICE)
+			if (pPlayer->m_iAccount >= HELMET_PRICE)
 			{
-				if (bHasHelmet && g_bClientPrintEnable)
+				if (g_bClientPrintEnable)
 				{
-					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Helmet_Bought_Kevlar");
+					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Kevlar_Bought_Helmet");
 				}
 
 				bEnoughMoney = true;
-				pszItem = "item_kevlar";
-				iItemPrice = KEVLAR_PRICE;
+				pszItem = "item_assaultsuit";
+				iItemPrice = HELMET_PRICE;
 			}
 			break;
 		}
-		case MENU_SLOT_ITEM_VESTHELM:
+		else
 		{
-#ifdef REGAMEDLL_ADD
-			if (pPlayer->HasRestrictItem(ITEM_ASSAULT, ITEM_TYPE_BUYING))
-				return;
-#endif
-			if (bFullArmor)
+			if (bHasHelmet)
 			{
-				if (bHasHelmet)
+				if (pPlayer->m_iAccount >= KEVLAR_PRICE)
 				{
 					if (g_bClientPrintEnable)
 					{
-						ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Kevlar_Helmet");
-					}
-
-					return;
-				}
-
-				if (pPlayer->m_iAccount >= HELMET_PRICE)
-				{
-					if (g_bClientPrintEnable)
-					{
-						ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Kevlar_Bought_Helmet");
+						ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Helmet_Bought_Kevlar");
 					}
 
 					bEnoughMoney = true;
 					pszItem = "item_assaultsuit";
-					iItemPrice = HELMET_PRICE;
+					iItemPrice = KEVLAR_PRICE;
 				}
-				break;
 			}
 			else
 			{
-				if (bHasHelmet)
+				if (pPlayer->m_iAccount >= ASSAULTSUIT_PRICE)
 				{
-					if (pPlayer->m_iAccount >= KEVLAR_PRICE)
-					{
-						if (g_bClientPrintEnable)
-						{
-							ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_Helmet_Bought_Kevlar");
-						}
-
-						bEnoughMoney = true;
-						pszItem = "item_assaultsuit";
-						iItemPrice = KEVLAR_PRICE;
-					}
-				}
-				else
-				{
-					if (pPlayer->m_iAccount >= ASSAULTSUIT_PRICE)
-					{
-						bEnoughMoney = true;
-						pszItem = "item_assaultsuit";
-						iItemPrice = ASSAULTSUIT_PRICE;
-					}
+					bEnoughMoney = true;
+					pszItem = "item_assaultsuit";
+					iItemPrice = ASSAULTSUIT_PRICE;
 				}
 			}
-			break;
 		}
-		case MENU_SLOT_ITEM_FLASHGREN:
-		{
+		break;
+	}
+	case MENU_SLOT_ITEM_FLASHGREN:
+	{
 #ifdef REGAMEDLL_ADD
-			if (pPlayer->HasRestrictItem(ITEM_FLASHBANG, ITEM_TYPE_BUYING))
-				return;
+		if (pPlayer->HasRestrictItem(ITEM_FLASHBANG, ITEM_TYPE_BUYING))
+			return;
 #endif
-			if (pPlayer->AmmoInventory(AMMO_FLASHBANG) >= MaxAmmoCarry(WEAPON_FLASHBANG))
-			{
-				if (g_bClientPrintEnable)
-				{
-					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Cannot_Carry_Anymore");
-				}
-
-				return;
-			}
-
-			if (pPlayer->m_iAccount >= FLASHBANG_PRICE)
-			{
-				bEnoughMoney = true;
-				pszItem = "weapon_flashbang";
-				iItemPrice = FLASHBANG_PRICE;
-
-			}
-			break;
-		}
-		case MENU_SLOT_ITEM_HEGREN:
+		if (pPlayer->AmmoInventory(AMMO_FLASHBANG) >= MaxAmmoCarry(WEAPON_FLASHBANG))
 		{
+			if (g_bClientPrintEnable)
+			{
+				ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Cannot_Carry_Anymore");
+			}
+
+			return;
+		}
+
+		if (pPlayer->m_iAccount >= FLASHBANG_PRICE)
+		{
+			bEnoughMoney = true;
+			pszItem = "weapon_flashbang";
+			iItemPrice = FLASHBANG_PRICE;
+
+		}
+		break;
+	}
+	case MENU_SLOT_ITEM_HEGREN:
+	{
 #ifdef REGAMEDLL_ADD
-			if (pPlayer->HasRestrictItem(ITEM_HEGRENADE, ITEM_TYPE_BUYING))
-				return;
+		if (pPlayer->HasRestrictItem(ITEM_HEGRENADE, ITEM_TYPE_BUYING))
+			return;
 #endif
-			if (pPlayer->AmmoInventory(AMMO_HEGRENADE) >= MaxAmmoCarry(WEAPON_HEGRENADE))
-			{
-				if (g_bClientPrintEnable)
-				{
-					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Cannot_Carry_Anymore");
-				}
-
-				return;
-			}
-
-			if (pPlayer->m_iAccount >= HEGRENADE_PRICE)
-			{
-				bEnoughMoney = true;
-				pszItem = "weapon_hegrenade";
-				iItemPrice = HEGRENADE_PRICE;
-			}
-			break;
-		}
-		case MENU_SLOT_ITEM_SMOKEGREN:
+		if (pPlayer->AmmoInventory(AMMO_HEGRENADE) >= MaxAmmoCarry(WEAPON_HEGRENADE))
 		{
+			if (g_bClientPrintEnable)
+			{
+				ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Cannot_Carry_Anymore");
+			}
+
+			return;
+		}
+
+		if (pPlayer->m_iAccount >= HEGRENADE_PRICE)
+		{
+			bEnoughMoney = true;
+			pszItem = "weapon_hegrenade";
+			iItemPrice = HEGRENADE_PRICE;
+		}
+		break;
+	}
+	case MENU_SLOT_ITEM_SMOKEGREN:
+	{
 #ifdef REGAMEDLL_ADD
-			if (pPlayer->HasRestrictItem(ITEM_SMOKEGRENADE, ITEM_TYPE_BUYING))
-				return;
+		if (pPlayer->HasRestrictItem(ITEM_SMOKEGRENADE, ITEM_TYPE_BUYING))
+			return;
 #endif
-			if (pPlayer->AmmoInventory(AMMO_SMOKEGRENADE) >= MaxAmmoCarry(WEAPON_SMOKEGRENADE))
-			{
-				if (g_bClientPrintEnable)
-				{
-					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Cannot_Carry_Anymore");
-				}
-
-				return;
-			}
-
-			if (pPlayer->m_iAccount >= SMOKEGRENADE_PRICE)
-			{
-				bEnoughMoney = true;
-				pszItem = "weapon_smokegrenade";
-				iItemPrice = SMOKEGRENADE_PRICE;
-			}
-			break;
-		}
-		case MENU_SLOT_ITEM_NVG:
+		if (pPlayer->AmmoInventory(AMMO_SMOKEGRENADE) >= MaxAmmoCarry(WEAPON_SMOKEGRENADE))
 		{
+			if (g_bClientPrintEnable)
+			{
+				ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Cannot_Carry_Anymore");
+			}
+
+			return;
+		}
+
+		if (pPlayer->m_iAccount >= SMOKEGRENADE_PRICE)
+		{
+			bEnoughMoney = true;
+			pszItem = "weapon_smokegrenade";
+			iItemPrice = SMOKEGRENADE_PRICE;
+		}
+		break;
+	}
+	case MENU_SLOT_ITEM_NVG:
+	{
 #ifdef REGAMEDLL_ADD
-			if (pPlayer->HasRestrictItem(ITEM_NVG, ITEM_TYPE_BUYING))
-				return;
+		if (pPlayer->HasRestrictItem(ITEM_NVG, ITEM_TYPE_BUYING))
+			return;
 #endif
-			if (pPlayer->m_bHasNightVision)
-			{
-				if (g_bClientPrintEnable)
-				{
-					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_One");
-				}
-
-				return;
-			}
-
-			if (pPlayer->m_iAccount >= NVG_PRICE)
-			{
-				if (!(pPlayer->m_flDisplayHistory & DHF_NIGHTVISION))
-				{
-					pPlayer->HintMessage("#Hint_use_nightvision");
-					pPlayer->m_flDisplayHistory |= DHF_NIGHTVISION;
-				}
-
-				EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/equip_nvg.wav", VOL_NORM, ATTN_NORM);
-
-				bEnoughMoney = true;
-				pPlayer->m_bHasNightVision = true;
-				pPlayer->AddAccount(-NVG_PRICE, RT_PLAYER_BOUGHT_SOMETHING);
-				pPlayer->SendItemStatus();
-			}
-			break;
-		}
-		case MENU_SLOT_ITEM_DEFUSEKIT:
+		if (pPlayer->m_bHasNightVision)
 		{
+			if (g_bClientPrintEnable)
+			{
+				ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_One");
+			}
+
+			return;
+		}
+
+		if (pPlayer->m_iAccount >= NVG_PRICE)
+		{
+			if (!(pPlayer->m_flDisplayHistory & DHF_NIGHTVISION))
+			{
+				pPlayer->HintMessage("#Hint_use_nightvision");
+				pPlayer->m_flDisplayHistory |= DHF_NIGHTVISION;
+			}
+
+			EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/equip_nvg.wav", VOL_NORM, ATTN_NORM);
+
+			bEnoughMoney = true;
+			pPlayer->m_bHasNightVision = true;
+			pPlayer->AddAccount(-NVG_PRICE, RT_PLAYER_BOUGHT_SOMETHING);
+			pPlayer->SendItemStatus();
+		}
+		break;
+	}
+	case MENU_SLOT_ITEM_DEFUSEKIT:
+	{
 #ifdef REGAMEDLL_ADD
-			if (pPlayer->HasRestrictItem(ITEM_DEFUSEKIT, ITEM_TYPE_BUYING))
-				return;
+		if (pPlayer->HasRestrictItem(ITEM_DEFUSEKIT, ITEM_TYPE_BUYING))
+			return;
 #endif
-			if (pPlayer->m_iTeam != CT || !CSGameRules()->m_bMapHasBombTarget)
-				return;
+		if (pPlayer->m_iTeam != CT || !CSGameRules()->m_bMapHasBombTarget)
+			return;
 
-			if (pPlayer->m_bHasDefuser)
-			{
-				if (g_bClientPrintEnable)
-				{
-					ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_One");
-				}
-
-				return;
-			}
-
-			if (pPlayer->m_iAccount >= DEFUSEKIT_PRICE)
-			{
-				bEnoughMoney = true;
-				pPlayer->m_bHasDefuser = true;
-
-				MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pPlayer->pev);
-					WRITE_BYTE(STATUSICON_SHOW);
-					WRITE_STRING("defuser");
-					WRITE_BYTE(0);
-					WRITE_BYTE(160);
-					WRITE_BYTE(0);
-				MESSAGE_END();
-
-				pPlayer->pev->body = 1;
-				pPlayer->AddAccount(-DEFUSEKIT_PRICE, RT_PLAYER_BOUGHT_SOMETHING);
-
-				EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/kevlar.wav", VOL_NORM, ATTN_NORM);
-				pPlayer->SendItemStatus();
-			}
-			break;
-		}
-		case MENU_SLOT_ITEM_SHIELD:
+		if (pPlayer->m_bHasDefuser)
 		{
+			if (g_bClientPrintEnable)
+			{
+				ClientPrint(pPlayer->pev, HUD_PRINTCENTER, "#Already_Have_One");
+			}
+
+			return;
+		}
+
+		if (pPlayer->m_iAccount >= DEFUSEKIT_PRICE)
+		{
+			bEnoughMoney = true;
+			pPlayer->m_bHasDefuser = true;
+
+			MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pPlayer->pev);
+			WRITE_BYTE(STATUSICON_SHOW);
+			WRITE_STRING("defuser");
+			WRITE_BYTE(0);
+			WRITE_BYTE(160);
+			WRITE_BYTE(0);
+			MESSAGE_END();
+
+			pPlayer->pev->body = 1;
+			pPlayer->AddAccount(-DEFUSEKIT_PRICE, RT_PLAYER_BOUGHT_SOMETHING);
+
+			EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/kevlar.wav", VOL_NORM, ATTN_NORM);
+			pPlayer->SendItemStatus();
+		}
+		break;
+	}
+	case MENU_SLOT_ITEM_SHIELD:
+	{
 #ifdef REGAMEDLL_ADD
-			if (pPlayer->HasRestrictItem(ITEM_SHIELDGUN, ITEM_TYPE_BUYING))
-				return;
+		if (pPlayer->HasRestrictItem(ITEM_SHIELDGUN, ITEM_TYPE_BUYING))
+			return;
 #endif
 
-			if (!CanBuyThis(pPlayer, WEAPON_SHIELDGUN))
-				return;
+		if (!CanBuyThis(pPlayer, WEAPON_SHIELDGUN))
+			return;
 
-			if (pPlayer->m_iAccount >= SHIELDGUN_PRICE)
-			{
-				bEnoughMoney = true;
+		if (pPlayer->m_iAccount >= SHIELDGUN_PRICE)
+		{
+			bEnoughMoney = true;
 
-				pPlayer->DropPrimary();
-				pPlayer->GiveShield();
-				pPlayer->AddAccount(-SHIELDGUN_PRICE, RT_PLAYER_BOUGHT_SOMETHING);
+			pPlayer->DropPrimary();
+			pPlayer->GiveShield();
+			pPlayer->AddAccount(-SHIELDGUN_PRICE, RT_PLAYER_BOUGHT_SOMETHING);
 
-				EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/gunpickup2.wav", VOL_NORM, ATTN_NORM);
-			}
-			break;
+			EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/gunpickup2.wav", VOL_NORM, ATTN_NORM);
 		}
+		break;
+	}
 	}
 
 	if (!bEnoughMoney)
@@ -1484,7 +1484,7 @@ void EXT_FUNC __API_HOOK(HandleMenu_ChooseAppearance)(CBasePlayer *player, int s
 	player->m_iModelName = appearance.model_id;
 
 	player->SetClientUserInfoModel(GET_INFO_BUFFER(player->edict()), appearance.model_name);
-	player->SetNewPlayerModel(sPlayerModelFiles[ appearance.model_name_index ]);
+	player->SetNewPlayerModel(sPlayerModelFiles[appearance.model_name_index]);
 
 	if (CSGameRules()->m_bMapHasVIPSafetyZone)
 	{
@@ -1625,8 +1625,8 @@ BOOL EXT_FUNC __API_HOOK(HandleMenu_ChooseTeam)(CBasePlayer *player, int slot)
 			player->m_iAccount = 0;
 
 			MESSAGE_BEGIN(MSG_ONE, gmsgMoney, NULL, player->pev);
-				WRITE_LONG(player->m_iAccount);
-				WRITE_BYTE(0);
+			WRITE_LONG(player->m_iAccount);
+			WRITE_BYTE(0);
 			MESSAGE_END();
 #endif
 
@@ -1635,11 +1635,11 @@ BOOL EXT_FUNC __API_HOOK(HandleMenu_ChooseTeam)(CBasePlayer *player, int slot)
 #else
 			MESSAGE_BEGIN(MSG_ALL, gmsgScoreInfo);
 #endif
-				WRITE_BYTE(ENTINDEX(player->edict()));
-				WRITE_SHORT(int(player->pev->frags));
-				WRITE_SHORT(player->m_iDeaths);
-				WRITE_SHORT(0);
-				WRITE_SHORT(0);
+			WRITE_BYTE(ENTINDEX(player->edict()));
+			WRITE_SHORT(int(player->pev->frags));
+			WRITE_SHORT(player->m_iDeaths);
+			WRITE_SHORT(0);
+			WRITE_SHORT(0);
 			MESSAGE_END();
 
 			player->m_pIntroCamera = NULL;
@@ -1658,8 +1658,8 @@ BOOL EXT_FUNC __API_HOOK(HandleMenu_ChooseTeam)(CBasePlayer *player, int slot)
 #ifndef REGAMEDLL_FIXES
 			// TODO: it was already sent in StartObserver
 			MESSAGE_BEGIN(MSG_ALL, gmsgSpectator);
-				WRITE_BYTE(ENTINDEX(player->edict()));
-				WRITE_BYTE(1);
+			WRITE_BYTE(ENTINDEX(player->edict()));
+			WRITE_BYTE(1);
 			MESSAGE_END();
 #endif
 			// do we have fadetoblack on? (need to fade their screen back in)
@@ -1717,7 +1717,7 @@ BOOL EXT_FUNC __API_HOOK(HandleMenu_ChooseTeam)(CBasePlayer *player, int slot)
 #ifdef REGAMEDLL_ADD
 		&& auto_join_team.value != 1.0f
 #endif
-	)
+		)
 	{
 		int humanTeam = UNASSIGNED;
 		if (!Q_stricmp(humans_join_team.string, "CT"))
@@ -1997,7 +1997,7 @@ bool EXT_FUNC __API_HOOK(BuyGunAmmo)(CBasePlayer *player, CBasePlayerItem *weapo
 		return false;
 
 	// Can only buy if the player does not already have full ammo
-	if (player->m_rgAmmo[ nAmmo ] >= weapon->iMaxAmmo1())
+	if (player->m_rgAmmo[nAmmo] >= weapon->iMaxAmmo1())
 		return false;
 
 	WeaponInfoStruct *info = GetWeaponInfo(weapon->m_iId);
@@ -2041,12 +2041,12 @@ bool BuyAmmo(CBasePlayer *player, int nSlot, bool bBlinkMoney)
 	// nSlot == 1 : Primary weapons
 	// nSlot == 2 : Secondary weapons
 
-	CBasePlayerItem *pItem = player->m_rgpPlayerItems[ nSlot ];
+	CBasePlayerItem *pItem = player->m_rgpPlayerItems[nSlot];
 
 	if (player->HasShield())
 	{
-		if (player->m_rgpPlayerItems[ PISTOL_SLOT ])
-			pItem = player->m_rgpPlayerItems[ PISTOL_SLOT ];
+		if (player->m_rgpPlayerItems[PISTOL_SLOT])
+			pItem = player->m_rgpPlayerItems[PISTOL_SLOT];
 	}
 
 	if (pItem)
@@ -2255,7 +2255,7 @@ BOOL HandleBuyAliasCommands(CBasePlayer *pPlayer, const char *pszCommand)
 struct RadioStruct
 {
 	int slot;
-	void (*func)(CBasePlayer *, int);
+	void(*func)(CBasePlayer *, int);
 	const char *alias;
 
 } radioInfo[] = {
@@ -2581,230 +2581,230 @@ void EXT_FUNC InternalCommand(edict_t *pEntity, const char *pcmd, const char *pa
 
 		switch (player->m_iMenu)
 		{
-			case Menu_OFF:
-				break;
+		case Menu_OFF:
+			break;
 
-			case Menu_ChooseTeam:
+		case Menu_ChooseTeam:
+		{
+			if (canOpenOldMenu() && !HandleMenu_ChooseTeam(player, slot))
 			{
-				if (canOpenOldMenu() && !HandleMenu_ChooseTeam(player, slot))
+				player->m_iMenu = Menu_ChooseTeam;
+				if (player->m_iJoiningState == JOINED)
+					ShowVGUIMenu(player, VGUI_Menu_Team, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_5 | MENU_KEY_0), "#IG_Team_Select");
+				else
+					ShowVGUIMenu(player, VGUI_Menu_Team, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_5), "#Team_Select");
+			}
+			break;
+		}
+		case Menu_IGChooseTeam:
+		{
+			if (canOpenOldMenu()) {
+				HandleMenu_ChooseTeam(player, slot);
+			}
+			break;
+		}
+		case Menu_ChooseAppearance:
+		{
+			if (canOpenOldMenu()) {
+				HandleMenu_ChooseAppearance(player, slot);
+			}
+			break;
+		}
+		case Menu_Buy:
+		{
+			if (canOpenOldMenu())
+			{
+				switch (slot)
 				{
-					player->m_iMenu = Menu_ChooseTeam;
-					if (player->m_iJoiningState == JOINED)
-						ShowVGUIMenu(player, VGUI_Menu_Team, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_5 | MENU_KEY_0), "#IG_Team_Select");
+				case VGUI_MenuSlot_Buy_Pistol:
+				{
+					player->m_iMenu = Menu_BuyPistol;
+					if (player->m_iTeam == CT)
+						ShowVGUIMenu(player, VGUI_Menu_Buy_Pistol, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_0), "#CT_BuyPistol");
 					else
-						ShowVGUIMenu(player, VGUI_Menu_Team, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_5), "#Team_Select");
+						ShowVGUIMenu(player, VGUI_Menu_Buy_Pistol, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_0), "#T_BuyPistol");
+					break;
 				}
-				break;
-			}
-			case Menu_IGChooseTeam:
-			{
-				if (canOpenOldMenu()) {
-					HandleMenu_ChooseTeam(player, slot);
-				}
-				break;
-			}
-			case Menu_ChooseAppearance:
-			{
-				if (canOpenOldMenu()) {
-					HandleMenu_ChooseAppearance(player, slot);
-				}
-				break;
-			}
-			case Menu_Buy:
-			{
-				if (canOpenOldMenu())
+				case VGUI_MenuSlot_Buy_ShotGun:
 				{
-					switch (slot)
+					player->m_iMenu = Menu_BuyShotgun;
+					if (CSGameRules()->m_bMapHasVIPSafetyZone && player->m_iTeam == TERRORIST)
+						ShowVGUIMenu(player, VGUI_Menu_Buy_ShotGun, MENU_KEY_0, "#AS_BuyShotgun");
+					else
+						ShowVGUIMenu(player, VGUI_Menu_Buy_ShotGun, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_0), "#BuyShotgun");
+					break;
+				}
+				case VGUI_MenuSlot_Buy_SubMachineGun:
+				{
+					player->m_iMenu = Menu_BuySubMachineGun;
+					if (CSGameRules()->m_bMapHasVIPSafetyZone)
 					{
-						case VGUI_MenuSlot_Buy_Pistol:
+						if (player->m_iTeam == CT)
+							ShowVGUIMenu(player, VGUI_Menu_Buy_SubMachineGun, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_0), "#AS_CT_BuySubMachineGun");
+						else
+							ShowVGUIMenu(player, VGUI_Menu_Buy_SubMachineGun, (MENU_KEY_1 | MENU_KEY_3 | MENU_KEY_0), "#AS_T_BuySubMachineGun");
+					}
+					else
+					{
+						if (player->m_iTeam == CT)
+							ShowVGUIMenu(player, VGUI_Menu_Buy_SubMachineGun, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_0), "#CT_BuySubMachineGun");
+						else
+							ShowVGUIMenu(player, VGUI_Menu_Buy_SubMachineGun, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_0), "#T_BuySubMachineGun");
+					}
+					break;
+				}
+				case VGUI_MenuSlot_Buy_Rifle:
+				{
+					player->m_iMenu = Menu_BuyRifle;
+					if (CSGameRules()->m_bMapHasVIPSafetyZone)
+					{
+						if (player->m_iTeam == CT)
+							ShowVGUIMenu(player, VGUI_Menu_Buy_Rifle, (MENU_KEY_1 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_0), "#AS_CT_BuyRifle");
+						else
+							ShowVGUIMenu(player, VGUI_Menu_Buy_Rifle, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_5 | MENU_KEY_0), "#AS_T_BuyRifle");
+					}
+					else
+					{
+						if (player->m_iTeam == CT)
+							ShowVGUIMenu(player, VGUI_Menu_Buy_Rifle, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_0), "#CT_BuyRifle");
+						else
+							ShowVGUIMenu(player, VGUI_Menu_Buy_Rifle, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_0), "#T_BuyRifle");
+					}
+					break;
+				}
+				case VGUI_MenuSlot_Buy_MachineGun:
+				{
+					player->m_iMenu = Menu_BuyMachineGun;
+					if (CSGameRules()->m_bMapHasVIPSafetyZone && player->m_iTeam == TERRORIST)
+						ShowVGUIMenu(player, VGUI_Menu_Buy_MachineGun, MENU_KEY_0, "#AS_T_BuyMachineGun");
+					else
+						ShowVGUIMenu(player, VGUI_Menu_Buy_MachineGun, (MENU_KEY_1 | MENU_KEY_0), "#BuyMachineGun");
+					break;
+				}
+				case VGUI_MenuSlot_Buy_PrimAmmo:
+				{
+					if (player->m_signals.GetState() & SIGNAL_BUY)
+					{
+						if (BuyAmmo(player, PRIMARY_WEAPON_SLOT, true))
 						{
-							player->m_iMenu = Menu_BuyPistol;
+							while (BuyAmmo(player, PRIMARY_WEAPON_SLOT, false))
+								;
+
+							if (TheTutor)
+							{
+								TheTutor->OnEvent(EVENT_PLAYER_BOUGHT_SOMETHING, player);
+							}
+						}
+
+						player->BuildRebuyStruct();
+					}
+					break;
+				}
+				case VGUI_MenuSlot_Buy_SecAmmo:
+				{
+					if (player->m_signals.GetState() & SIGNAL_BUY)
+					{
+						if (BuyAmmo(player, PISTOL_SLOT, true))
+						{
+							while (BuyAmmo(player, PISTOL_SLOT, false))
+								;
+
+							if (TheTutor)
+							{
+								TheTutor->OnEvent(EVENT_PLAYER_BOUGHT_SOMETHING, player);
+							}
+						}
+
+						player->BuildRebuyStruct();
+					}
+					break;
+				}
+				case VGUI_MenuSlot_Buy_Item:
+				{
+					if (player->m_signals.GetState() & SIGNAL_BUY)
+					{
+						player->m_iMenu = Menu_BuyItem;
+						if (CSGameRules()->m_bMapHasBombTarget)
+						{
 							if (player->m_iTeam == CT)
-								ShowVGUIMenu(player, VGUI_Menu_Buy_Pistol, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_0), "#CT_BuyPistol");
+								ShowVGUIMenu(player, VGUI_Menu_Buy_Item, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_7 | MENU_KEY_8 | MENU_KEY_0), "#DCT_BuyItem");
 							else
-								ShowVGUIMenu(player, VGUI_Menu_Buy_Pistol, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_0), "#T_BuyPistol");
-							break;
+								ShowVGUIMenu(player, VGUI_Menu_Buy_Item, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_0), "#DT_BuyItem");
 						}
-						case VGUI_MenuSlot_Buy_ShotGun:
+						else
 						{
-							player->m_iMenu = Menu_BuyShotgun;
-							if (CSGameRules()->m_bMapHasVIPSafetyZone && player->m_iTeam == TERRORIST)
-								ShowVGUIMenu(player, VGUI_Menu_Buy_ShotGun, MENU_KEY_0, "#AS_BuyShotgun");
+							if (player->m_iTeam == CT)
+								ShowVGUIMenu(player, VGUI_Menu_Buy_Item, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_8 | MENU_KEY_0), "#CT_BuyItem");
 							else
-								ShowVGUIMenu(player, VGUI_Menu_Buy_ShotGun, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_0), "#BuyShotgun");
-							break;
-						}
-						case VGUI_MenuSlot_Buy_SubMachineGun:
-						{
-							player->m_iMenu = Menu_BuySubMachineGun;
-							if (CSGameRules()->m_bMapHasVIPSafetyZone)
-							{
-								if (player->m_iTeam == CT)
-									ShowVGUIMenu(player, VGUI_Menu_Buy_SubMachineGun, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_0), "#AS_CT_BuySubMachineGun");
-								else
-									ShowVGUIMenu(player, VGUI_Menu_Buy_SubMachineGun, (MENU_KEY_1 | MENU_KEY_3 | MENU_KEY_0), "#AS_T_BuySubMachineGun");
-							}
-							else
-							{
-								if (player->m_iTeam == CT)
-									ShowVGUIMenu(player, VGUI_Menu_Buy_SubMachineGun, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_0), "#CT_BuySubMachineGun");
-								else
-									ShowVGUIMenu(player, VGUI_Menu_Buy_SubMachineGun, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_0), "#T_BuySubMachineGun");
-							}
-							break;
-						}
-						case VGUI_MenuSlot_Buy_Rifle:
-						{
-							player->m_iMenu = Menu_BuyRifle;
-							if (CSGameRules()->m_bMapHasVIPSafetyZone)
-							{
-								if (player->m_iTeam == CT)
-									ShowVGUIMenu(player, VGUI_Menu_Buy_Rifle, (MENU_KEY_1 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_0), "#AS_CT_BuyRifle");
-								else
-									ShowVGUIMenu(player, VGUI_Menu_Buy_Rifle, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_5 | MENU_KEY_0), "#AS_T_BuyRifle");
-							}
-							else
-							{
-								if (player->m_iTeam == CT)
-									ShowVGUIMenu(player, VGUI_Menu_Buy_Rifle, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_0), "#CT_BuyRifle");
-								else
-									ShowVGUIMenu(player, VGUI_Menu_Buy_Rifle, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_0), "#T_BuyRifle");
-							}
-							break;
-						}
-						case VGUI_MenuSlot_Buy_MachineGun:
-						{
-							player->m_iMenu = Menu_BuyMachineGun;
-							if (CSGameRules()->m_bMapHasVIPSafetyZone && player->m_iTeam == TERRORIST)
-								ShowVGUIMenu(player, VGUI_Menu_Buy_MachineGun, MENU_KEY_0, "#AS_T_BuyMachineGun");
-							else
-								ShowVGUIMenu(player, VGUI_Menu_Buy_MachineGun, (MENU_KEY_1 | MENU_KEY_0), "#BuyMachineGun");
-							break;
-						}
-						case VGUI_MenuSlot_Buy_PrimAmmo:
-						{
-							if (player->m_signals.GetState() & SIGNAL_BUY)
-							{
-								if (BuyAmmo(player, PRIMARY_WEAPON_SLOT, true))
-								{
-									while (BuyAmmo(player, PRIMARY_WEAPON_SLOT, false))
-										;
-
-									if (TheTutor)
-									{
-										TheTutor->OnEvent(EVENT_PLAYER_BOUGHT_SOMETHING, player);
-									}
-								}
-
-								player->BuildRebuyStruct();
-							}
-							break;
-						}
-						case VGUI_MenuSlot_Buy_SecAmmo:
-						{
-							if (player->m_signals.GetState() & SIGNAL_BUY)
-							{
-								if (BuyAmmo(player, PISTOL_SLOT, true))
-								{
-									while (BuyAmmo(player, PISTOL_SLOT, false))
-										;
-
-									if (TheTutor)
-									{
-										TheTutor->OnEvent(EVENT_PLAYER_BOUGHT_SOMETHING, player);
-									}
-								}
-
-								player->BuildRebuyStruct();
-							}
-							break;
-						}
-						case VGUI_MenuSlot_Buy_Item:
-						{
-							if (player->m_signals.GetState() & SIGNAL_BUY)
-							{
-								player->m_iMenu = Menu_BuyItem;
-								if (CSGameRules()->m_bMapHasBombTarget)
-								{
-									if (player->m_iTeam == CT)
-										ShowVGUIMenu(player, VGUI_Menu_Buy_Item, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_7 | MENU_KEY_8 | MENU_KEY_0), "#DCT_BuyItem");
-									else
-										ShowVGUIMenu(player, VGUI_Menu_Buy_Item, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_0), "#DT_BuyItem");
-								}
-								else
-								{
-									if (player->m_iTeam == CT)
-										ShowVGUIMenu(player, VGUI_Menu_Buy_Item, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_8 | MENU_KEY_0), "#CT_BuyItem");
-									else
-										ShowVGUIMenu(player, VGUI_Menu_Buy_Item, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_0), "#T_BuyItem");
-								}
-							}
-							break;
+								ShowVGUIMenu(player, VGUI_Menu_Buy_Item, (MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_6 | MENU_KEY_0), "#T_BuyItem");
 						}
 					}
+					break;
 				}
-				break;
-			}
-			case Menu_BuyPistol:
-			{
-				if (canOpenOldMenu()) {
-					BuyPistol(player, slot);
 				}
-				break;
 			}
-			case Menu_BuyShotgun:
-			{
-				if (canOpenOldMenu()) {
-					BuyShotgun(player, slot);
-				}
-				break;
+			break;
+		}
+		case Menu_BuyPistol:
+		{
+			if (canOpenOldMenu()) {
+				BuyPistol(player, slot);
 			}
-			case Menu_BuySubMachineGun:
-			{
-				if (canOpenOldMenu()) {
-					BuySubMachineGun(player, slot);
-				}
-				break;
+			break;
+		}
+		case Menu_BuyShotgun:
+		{
+			if (canOpenOldMenu()) {
+				BuyShotgun(player, slot);
 			}
-			case Menu_BuyRifle:
-			{
-				if (canOpenOldMenu()) {
-					BuyRifle(player, slot);
-				}
-				break;
+			break;
+		}
+		case Menu_BuySubMachineGun:
+		{
+			if (canOpenOldMenu()) {
+				BuySubMachineGun(player, slot);
 			}
-			case Menu_BuyMachineGun:
-			{
-				if (canOpenOldMenu()) {
-					BuyMachineGun(player, slot);
-				}
-				break;
+			break;
+		}
+		case Menu_BuyRifle:
+		{
+			if (canOpenOldMenu()) {
+				BuyRifle(player, slot);
 			}
-			case Menu_BuyItem:
-			{
-				if (canOpenOldMenu()) {
-					BuyItem(player, slot);
-				}
-				break;
+			break;
+		}
+		case Menu_BuyMachineGun:
+		{
+			if (canOpenOldMenu()) {
+				BuyMachineGun(player, slot);
 			}
-			case Menu_Radio1:
-			{
-				Radio1(player, slot);
-				break;
+			break;
+		}
+		case Menu_BuyItem:
+		{
+			if (canOpenOldMenu()) {
+				BuyItem(player, slot);
 			}
-			case Menu_Radio2:
-			{
-				Radio2(player, slot);
-				break;
-			}
-			case Menu_Radio3:
-			{
-				Radio3(player, slot);
-				break;
-			}
-			default:
-				ALERT(at_console, "ClientCommand(): Invalid menu selected\n");
-				break;
+			break;
+		}
+		case Menu_Radio1:
+		{
+			Radio1(player, slot);
+			break;
+		}
+		case Menu_Radio2:
+		{
+			Radio2(player, slot);
+			break;
+		}
+		case Menu_Radio3:
+		{
+			Radio3(player, slot);
+			break;
+		}
+		default:
+			ALERT(at_console, "ClientCommand(): Invalid menu selected\n");
+			break;
 		}
 	}
 	else if (FStrEq(pcmd, "chooseteam"))
@@ -3001,7 +3001,7 @@ void EXT_FUNC InternalCommand(edict_t *pEntity, const char *pcmd, const char *pa
 						EMIT_SOUND(ENT(player->pev), CHAN_ITEM, "items/nvg_off.wav", RANDOM_FLOAT(0.92, 1), ATTN_NORM);
 
 						MESSAGE_BEGIN(MSG_ONE, gmsgNVGToggle, NULL, player->pev);
-							WRITE_BYTE(0); // disable nightvision
+						WRITE_BYTE(0); // disable nightvision
 						MESSAGE_END();
 
 						player->m_bNightVisionOn = false;
@@ -3014,7 +3014,7 @@ void EXT_FUNC InternalCommand(edict_t *pEntity, const char *pcmd, const char *pa
 								EMIT_SOUND(ENT(pObserver->pev), CHAN_ITEM, "items/nvg_off.wav", RANDOM_FLOAT(0.92, 1), ATTN_NORM);
 
 								MESSAGE_BEGIN(MSG_ONE, gmsgNVGToggle, NULL, pObserver->pev);
-									WRITE_BYTE(0); // disable nightvision
+								WRITE_BYTE(0); // disable nightvision
 								MESSAGE_END();
 
 								pObserver->m_bNightVisionOn = false;
@@ -3026,7 +3026,7 @@ void EXT_FUNC InternalCommand(edict_t *pEntity, const char *pcmd, const char *pa
 						EMIT_SOUND(ENT(player->pev), CHAN_ITEM, "items/nvg_on.wav", RANDOM_FLOAT(0.92, 1), ATTN_NORM);
 
 						MESSAGE_BEGIN(MSG_ONE, gmsgNVGToggle, NULL, player->pev);
-							WRITE_BYTE(1); // enable nightvision
+						WRITE_BYTE(1); // enable nightvision
 						MESSAGE_END();
 
 						player->m_bNightVisionOn = true;
@@ -3039,7 +3039,7 @@ void EXT_FUNC InternalCommand(edict_t *pEntity, const char *pcmd, const char *pa
 								EMIT_SOUND(ENT(pObserver->pev), CHAN_ITEM, "items/nvg_on.wav", RANDOM_FLOAT(0.92, 1), ATTN_NORM);
 
 								MESSAGE_BEGIN(MSG_ONE, gmsgNVGToggle, NULL, pObserver->pev);
-									WRITE_BYTE(1);  // enable nightvision
+								WRITE_BYTE(1);  // enable nightvision
 								MESSAGE_END();
 
 								pObserver->m_bNightVisionOn = true;
@@ -3474,7 +3474,11 @@ void ClientPrecache()
 	PRECACHE_SOUND("player/die1.wav");
 	PRECACHE_SOUND("player/die2.wav");
 	PRECACHE_SOUND("player/die3.wav");
-	PRECACHE_SOUND("player/death6.wav");
+	PRECACHE_SOUND("player/die4.wav");
+	PRECACHE_SOUND("player/die5.wav");
+	PRECACHE_SOUND("player/die6.wav");
+	PRECACHE_SOUND("player/die7.wav");
+	PRECACHE_SOUND("player/die8.wav");
 	PRECACHE_SOUND("radio/locknload.wav");
 	PRECACHE_SOUND("radio/letsgo.wav");
 	PRECACHE_SOUND("radio/moveout.wav");
@@ -4185,9 +4189,9 @@ void EXT_FUNC CreateBaseline(int player, int eindex, struct entity_state_s *base
 	// render information
 	baseline->rendermode = byte(entity->v.rendermode);
 	baseline->renderamt = byte(entity->v.renderamt);
-	baseline->rendercolor.r	= byte(entity->v.rendercolor.x);
-	baseline->rendercolor.g	= byte(entity->v.rendercolor.y);
-	baseline->rendercolor.b	= byte(entity->v.rendercolor.z);
+	baseline->rendercolor.r = byte(entity->v.rendercolor.x);
+	baseline->rendercolor.g = byte(entity->v.rendercolor.y);
+	baseline->rendercolor.b = byte(entity->v.rendercolor.z);
 	baseline->renderfx = byte(entity->v.renderfx);
 
 	if (player)
@@ -4223,12 +4227,12 @@ void EXT_FUNC CreateBaseline(int player, int eindex, struct entity_state_s *base
 
 void Entity_FieldInit(struct delta_s *pFields)
 {
-	entity_field_alias[ FIELD_ORIGIN0 ].field = DELTA_FINDFIELD(pFields, entity_field_alias[ FIELD_ORIGIN0 ].name);
-	entity_field_alias[ FIELD_ORIGIN1 ].field = DELTA_FINDFIELD(pFields, entity_field_alias[ FIELD_ORIGIN1 ].name);
-	entity_field_alias[ FIELD_ORIGIN2 ].field = DELTA_FINDFIELD(pFields, entity_field_alias[ FIELD_ORIGIN2 ].name);
-	entity_field_alias[ FIELD_ANGLES0 ].field = DELTA_FINDFIELD(pFields, entity_field_alias[ FIELD_ANGLES0 ].name);
-	entity_field_alias[ FIELD_ANGLES1 ].field = DELTA_FINDFIELD(pFields, entity_field_alias[ FIELD_ANGLES1 ].name);
-	entity_field_alias[ FIELD_ANGLES2 ].field = DELTA_FINDFIELD(pFields, entity_field_alias[ FIELD_ANGLES2 ].name);
+	entity_field_alias[FIELD_ORIGIN0].field = DELTA_FINDFIELD(pFields, entity_field_alias[FIELD_ORIGIN0].name);
+	entity_field_alias[FIELD_ORIGIN1].field = DELTA_FINDFIELD(pFields, entity_field_alias[FIELD_ORIGIN1].name);
+	entity_field_alias[FIELD_ORIGIN2].field = DELTA_FINDFIELD(pFields, entity_field_alias[FIELD_ORIGIN2].name);
+	entity_field_alias[FIELD_ANGLES0].field = DELTA_FINDFIELD(pFields, entity_field_alias[FIELD_ANGLES0].name);
+	entity_field_alias[FIELD_ANGLES1].field = DELTA_FINDFIELD(pFields, entity_field_alias[FIELD_ANGLES1].name);
+	entity_field_alias[FIELD_ANGLES2].field = DELTA_FINDFIELD(pFields, entity_field_alias[FIELD_ANGLES2].name);
 }
 
 // Callback for sending entity_state_t info over network.
@@ -4252,39 +4256,39 @@ void Entity_Encode(struct delta_s *pFields, const unsigned char *from, const uns
 
 	if (localplayer)
 	{
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN0 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN1 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN2 ].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN0].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN1].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN2].field);
 	}
 	if (t->impacttime != 0 && t->starttime != 0)
 	{
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN0 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN1 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN2 ].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN0].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN1].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN2].field);
 
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ANGLES0 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ANGLES1 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ANGLES2 ].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ANGLES0].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ANGLES1].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ANGLES2].field);
 	}
 	if (t->movetype == MOVETYPE_FOLLOW && t->aiment != 0)
 	{
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN0 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN1 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN2 ].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN0].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN1].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN2].field);
 	}
 	else if (t->aiment != f->aiment)
 	{
-		DELTA_SETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN0 ].field);
-		DELTA_SETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN1 ].field);
-		DELTA_SETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN2 ].field);
+		DELTA_SETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN0].field);
+		DELTA_SETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN1].field);
+		DELTA_SETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN2].field);
 	}
 }
 
 void Player_FieldInit(struct delta_s *pFields)
 {
-	player_field_alias[ FIELD_ORIGIN0 ].field = DELTA_FINDFIELD(pFields, player_field_alias[ FIELD_ORIGIN0 ].name);
-	player_field_alias[ FIELD_ORIGIN1 ].field = DELTA_FINDFIELD(pFields, player_field_alias[ FIELD_ORIGIN1 ].name);
-	player_field_alias[ FIELD_ORIGIN2 ].field = DELTA_FINDFIELD(pFields, player_field_alias[ FIELD_ORIGIN2 ].name);
+	player_field_alias[FIELD_ORIGIN0].field = DELTA_FINDFIELD(pFields, player_field_alias[FIELD_ORIGIN0].name);
+	player_field_alias[FIELD_ORIGIN1].field = DELTA_FINDFIELD(pFields, player_field_alias[FIELD_ORIGIN1].name);
+	player_field_alias[FIELD_ORIGIN2].field = DELTA_FINDFIELD(pFields, player_field_alias[FIELD_ORIGIN2].name);
 }
 
 // Callback for sending entity_state_t for players info over network.
@@ -4308,35 +4312,35 @@ void Player_Encode(struct delta_s *pFields, const unsigned char *from, const uns
 
 	if (localplayer)
 	{
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN0 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN1 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN2 ].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN0].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN1].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN2].field);
 	}
 	if (t->movetype == MOVETYPE_FOLLOW && t->aiment != 0)
 	{
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN0 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN1 ].field);
-		DELTA_UNSETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN2 ].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN0].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN1].field);
+		DELTA_UNSETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN2].field);
 	}
 	else if (t->aiment != f->aiment)
 	{
-		DELTA_SETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN0 ].field);
-		DELTA_SETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN1 ].field);
-		DELTA_SETBYINDEX(pFields, entity_field_alias[ FIELD_ORIGIN2 ].field);
+		DELTA_SETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN0].field);
+		DELTA_SETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN1].field);
+		DELTA_SETBYINDEX(pFields, entity_field_alias[FIELD_ORIGIN2].field);
 	}
 }
 
 void Custom_Entity_FieldInit(delta_s *pFields)
 {
-	custom_entity_field_alias[ CUSTOMFIELD_ORIGIN0 ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_ORIGIN0 ].name);
-	custom_entity_field_alias[ CUSTOMFIELD_ORIGIN1 ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_ORIGIN1 ].name);
-	custom_entity_field_alias[ CUSTOMFIELD_ORIGIN2 ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_ORIGIN2 ].name);
-	custom_entity_field_alias[ CUSTOMFIELD_ANGLES0 ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_ANGLES0 ].name);
-	custom_entity_field_alias[ CUSTOMFIELD_ANGLES1 ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_ANGLES1 ].name);
-	custom_entity_field_alias[ CUSTOMFIELD_ANGLES2 ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_ANGLES2 ].name);
-	custom_entity_field_alias[ CUSTOMFIELD_SKIN ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_SKIN ].name);
-	custom_entity_field_alias[ CUSTOMFIELD_SEQUENCE ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_SEQUENCE ].name);
-	custom_entity_field_alias[ CUSTOMFIELD_ANIMTIME ].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[ CUSTOMFIELD_ANIMTIME ].name);
+	custom_entity_field_alias[CUSTOMFIELD_ORIGIN0].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_ORIGIN0].name);
+	custom_entity_field_alias[CUSTOMFIELD_ORIGIN1].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_ORIGIN1].name);
+	custom_entity_field_alias[CUSTOMFIELD_ORIGIN2].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_ORIGIN2].name);
+	custom_entity_field_alias[CUSTOMFIELD_ANGLES0].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_ANGLES0].name);
+	custom_entity_field_alias[CUSTOMFIELD_ANGLES1].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_ANGLES1].name);
+	custom_entity_field_alias[CUSTOMFIELD_ANGLES2].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_ANGLES2].name);
+	custom_entity_field_alias[CUSTOMFIELD_SKIN].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_SKIN].name);
+	custom_entity_field_alias[CUSTOMFIELD_SEQUENCE].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_SEQUENCE].name);
+	custom_entity_field_alias[CUSTOMFIELD_ANIMTIME].field = DELTA_FINDFIELD(pFields, custom_entity_field_alias[CUSTOMFIELD_ANIMTIME].name);
 }
 
 // Callback for sending entity_state_t info ( for custom entities ) over network.
@@ -4361,27 +4365,27 @@ void Custom_Encode(struct delta_s *pFields, const unsigned char *from, const uns
 	{
 		if (beamType != BEAM_ENTPOINT)
 		{
-			DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_ORIGIN0 ].field);
-			DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_ORIGIN1 ].field);
-			DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_ORIGIN2 ].field);
+			DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_ORIGIN0].field);
+			DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_ORIGIN1].field);
+			DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_ORIGIN2].field);
 		}
 
-		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_ANGLES0 ].field);
-		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_ANGLES1 ].field);
-		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_ANGLES2 ].field);
+		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_ANGLES0].field);
+		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_ANGLES1].field);
+		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_ANGLES2].field);
 	}
 
 	if (beamType != BEAM_ENTS && beamType != BEAM_ENTPOINT)
 	{
-		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_SKIN ].field);
-		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_SEQUENCE ].field);
+		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_SKIN].field);
+		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_SEQUENCE].field);
 	}
 
 	// animtime is compared by rounding first
 	// see if we really shouldn't actually send it
 	if (int(f->animtime) == int(t->animtime))
 	{
-		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[ CUSTOMFIELD_ANIMTIME ].field);
+		DELTA_UNSETBYINDEX(pFields, custom_entity_field_alias[CUSTOMFIELD_ANIMTIME].field);
 	}
 }
 
@@ -4557,7 +4561,7 @@ void EXT_FUNC UpdateClientData(const struct edict_s *ent, int sendweapons, struc
 				if ((unsigned int)weapon->m_iPrimaryAmmoType < MAX_AMMO_SLOTS)
 				{
 					cd->vuser4.x = weapon->m_iPrimaryAmmoType;
-					cd->vuser4.y = pPlayer->m_rgAmmo[ weapon->m_iPrimaryAmmoType ];
+					cd->vuser4.y = pPlayer->m_rgAmmo[weapon->m_iPrimaryAmmoType];
 				}
 				else
 				{

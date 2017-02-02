@@ -162,7 +162,7 @@ void CDEAGLE::DEAGLEFire(float flSpread, float flCycleTime, BOOL fUseSemi)
 	{
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, FALSE);
 	}
-	
+
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.8f;
 	m_pPlayer->pev->punchangle.x -= 2;
 	ResetPlayerShieldAnim();

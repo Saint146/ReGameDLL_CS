@@ -84,7 +84,7 @@ class CUtlSymbolTable
 {
 public:
 	// constructor, destructor
-	CUtlSymbolTable(int growSize = 0,int initSize = 32,bool caseInsensitive = false);
+	CUtlSymbolTable(int growSize = 0, int initSize = 32, bool caseInsensitive = false);
 	~CUtlSymbolTable();
 
 	CUtlSymbol AddString(const char *pString);		// Finds and/or creates a symbol based on the string

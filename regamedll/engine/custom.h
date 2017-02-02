@@ -49,13 +49,13 @@ typedef struct
 
 typedef struct resourceinfo_s
 {
-	_resourceinfo_t info[ 8 ];
+	_resourceinfo_t info[8];
 } resourceinfo_t;
 
 #define RES_FATALIFMISSING (1<<0)   // Disconnect if we can't get this file.
 #define RES_WASMISSING     (1<<1)   // Do we have the file locally, did we get it ok?
 #define RES_CUSTOM         (1<<2)   // Is this resource one that corresponds to another player's customization
-								    //  or is it a server startup resource.
+//  or is it a server startup resource.
 #define RES_REQUESTED	   (1<<3)	// Already requested a download of this one
 #define RES_PRECACHED	   (1<<4)	// Already precached
 
@@ -69,11 +69,11 @@ typedef struct resource_s
 	int               nDownloadSize;       // Size in Bytes if this must be downloaded.
 	unsigned char     ucFlags;
 
-// For handling client to client resource propagation
+	// For handling client to client resource propagation
 	unsigned char     rgucMD5_hash[16];    // To determine if we already have it.
 	unsigned char     playernum;           // Which player index this resource is associated with, if it's a custom resource.
 
-	unsigned char	  rguc_reserved[ 32 ]; // For future expansion
+	unsigned char	  rguc_reserved[32]; // For future expansion
 	struct resource_s *pNext;              // Next in chain.
 	struct resource_s *pPrev;
 } resource_t;
@@ -95,9 +95,9 @@ typedef struct customization_s
 #define FCUST_WIPEDATA		( 1<<1 )
 #define FCUST_IGNOREINIT	( 1<<2 )
 
-void		COM_ClearCustomizationList( struct customization_s *pHead, qboolean bCleanDecals);
-qboolean	COM_CreateCustomization( struct customization_s *pListHead, struct resource_s *pResource, int playernumber, int flags,
-				struct customization_s **pCustomization, int *nLumps );
-int			COM_SizeofResourceList ( struct resource_s *pList, struct resourceinfo_s *ri );
+void		COM_ClearCustomizationList(struct customization_s *pHead, qboolean bCleanDecals);
+qboolean	COM_CreateCustomization(struct customization_s *pListHead, struct resource_s *pResource, int playernumber, int flags,
+	struct customization_s **pCustomization, int *nLumps);
+int			COM_SizeofResourceList(struct resource_s *pList, struct resourceinfo_s *ri);
 
 #endif // CUSTOM_H

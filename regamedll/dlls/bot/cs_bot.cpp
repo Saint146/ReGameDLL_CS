@@ -27,8 +27,8 @@ int GetBotFollowCount(CBasePlayer *leader)
 		if (!player->IsBot())
 			continue;
 
- 		if (!player->IsAlive())
- 			continue;
+		if (!player->IsAlive())
+			continue;
 
 		CCSBot *bot = reinterpret_cast<CCSBot *>(player);
 		if (bot->IsBot() && bot->GetFollowLeader() == leader)
@@ -563,15 +563,15 @@ void CCSBot::SetHidingSpotCheckTimestamp(HidingSpot *spot)
 	// if there is room for more spots, append this one
 	if (m_checkedHidingSpotCount < MAX_CHECKED_SPOTS)
 	{
-		m_checkedHidingSpot[ m_checkedHidingSpotCount ].spot = spot;
-		m_checkedHidingSpot[ m_checkedHidingSpotCount ].timestamp = gpGlobals->time;
+		m_checkedHidingSpot[m_checkedHidingSpotCount].spot = spot;
+		m_checkedHidingSpot[m_checkedHidingSpotCount].timestamp = gpGlobals->time;
 		++m_checkedHidingSpotCount;
 	}
 	else
 	{
 		// replace the least recent spot
-		m_checkedHidingSpot[ leastRecent ].spot = spot;
-		m_checkedHidingSpot[ leastRecent ].timestamp = gpGlobals->time;
+		m_checkedHidingSpot[leastRecent].spot = spot;
+		m_checkedHidingSpot[leastRecent].timestamp = gpGlobals->time;
 	}
 }
 
@@ -839,7 +839,7 @@ const Vector *FindNearbyRetreatSpot(CCSBot *me, float maxRange)
 
 	// select a hiding spot at random
 	int which = RANDOM_LONG(0, collector.m_count - 1);
-	return collector.m_spot[ which ];
+	return collector.m_spot[which];
 }
 
 // Return euclidean distance to farthest escorted hostage.

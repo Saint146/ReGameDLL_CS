@@ -68,7 +68,7 @@
 #define SF_MESSAGE_ONCE			0x0001	// Fade in, not out
 #define SF_MESSAGE_ALL			0x0002	// Send to all clients
 
-class CSprite: public CPointEntity
+class CSprite : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -153,7 +153,7 @@ private:
 	float m_maxFrame;
 };
 
-class CBeam: public CBaseEntity
+class CBeam : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -235,7 +235,7 @@ public:
 	}
 };
 
-class CLaser: public CBeam
+class CLaser : public CBeam
 {
 public:
 	virtual void Spawn();
@@ -272,7 +272,7 @@ public:
 	Vector m_firePosition;
 };
 
-class CBubbling: public CBaseEntity
+class CBubbling : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -306,7 +306,7 @@ public:
 	int m_state;
 };
 
-class CLightning: public CBeam
+class CLightning : public CBeam
 {
 public:
 	virtual void Spawn();
@@ -363,7 +363,7 @@ public:
 	float m_radius;
 };
 
-class CGlow: public CPointEntity
+class CGlow : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -389,7 +389,7 @@ public:
 	float m_maxFrame;
 };
 
-class CBombGlow: public CSprite
+class CBombGlow : public CSprite
 {
 public:
 	virtual void Spawn();
@@ -408,7 +408,7 @@ public:
 	bool m_bSetModel;
 };
 
-class CGibShooter: public CBaseDelay
+class CGibShooter : public CBaseDelay
 {
 public:
 	virtual void Spawn();
@@ -447,7 +447,7 @@ public:
 	float m_flGibLife;
 };
 
-class CEnvShooter: public CGibShooter
+class CEnvShooter : public CGibShooter
 {
 public:
 	virtual void Precache();
@@ -466,7 +466,7 @@ public:
 
 #define MAX_BEAM 24
 
-class CTestEffect: public CBaseDelay
+class CTestEffect : public CBaseDelay
 {
 public:
 	virtual void Spawn();
@@ -488,13 +488,13 @@ public:
 	int m_iLoop;
 	int m_iBeam;
 
-	CBeam *m_pBeam[ MAX_BEAM ];
+	CBeam *m_pBeam[MAX_BEAM];
 
-	float m_flBeamTime[ MAX_BEAM ];
+	float m_flBeamTime[MAX_BEAM];
 	float m_flStartTime;
 };
 
-class CBlood: public CPointEntity
+class CBlood : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -521,7 +521,7 @@ public:
 	Vector BloodPosition(CBaseEntity *pActivator);
 };
 
-class CShake: public CPointEntity
+class CShake : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -548,7 +548,7 @@ public:
 	void SetRadius(float radius) { pev->dmg = radius; }
 };
 
-class CFade: public CPointEntity
+class CFade : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -571,7 +571,7 @@ public:
 	void SetHoldTime(float hold) { pev->dmg_save = hold; }
 };
 
-class CMessage: public CPointEntity
+class CMessage : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -590,7 +590,7 @@ public:
 
 };
 
-class CEnvFunnel: public CBaseDelay
+class CEnvFunnel : public CBaseDelay
 {
 public:
 	virtual void Spawn();
@@ -609,7 +609,7 @@ public:
 	int m_iSprite;
 };
 
-class CEnvBeverage: public CBaseDelay
+class CEnvBeverage : public CBaseDelay
 {
 public:
 	virtual void Spawn();
@@ -626,7 +626,7 @@ public:
 
 };
 
-class CItemSoda: public CBaseEntity
+class CItemSoda : public CBaseEntity
 {
 public:
 	virtual void Spawn();

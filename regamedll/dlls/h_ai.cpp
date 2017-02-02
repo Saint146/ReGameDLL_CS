@@ -102,7 +102,7 @@ NOXREF Vector VecCheckToss(entvars_t *pev, const Vector &vecSpot1, Vector vecSpo
 	vecGrenadeVel.z = flGravity * time1;
 
 	// find the apex
-	vecApex  = vecSpot1 + vecGrenadeVel * time1;
+	vecApex = vecSpot1 + vecGrenadeVel * time1;
 	vecApex.z = vecMidPoint.z;
 
 	UTIL_TraceLine(vecSpot1, vecApex, dont_ignore_monsters, ENT(pev), &tr);

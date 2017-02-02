@@ -40,19 +40,19 @@
 #pragma warning (disable:4100)
 #pragma warning (disable:4514)
 
-/*template <class T> 
+/*template <class T>
 inline void Construct(T *pMemory)
 {
 	::new(pMemory) T;
 }
 
-template <class T> 
+template <class T>
 inline void CopyConstruct(T *pMemory,T const& src)
 {
 	::new(pMemory) T(src);
 }
 
-template <class T> 
+template <class T>
 inline void Destruct(T *pMemory)
 {
 	pMemory->~T();

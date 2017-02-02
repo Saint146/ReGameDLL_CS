@@ -59,7 +59,7 @@ struct sentenceg
 {
 	char szgroupname[16];
 	int count;
-	unsigned char rgblru[ CSENTENCE_LRU_MAX ];
+	unsigned char rgblru[CSENTENCE_LRU_MAX];
 };
 
 // runtime pitch shift and volume fadein/out structure
@@ -105,7 +105,7 @@ typedef struct dynpitchvol
 
 } dynpitchvol_t;
 
-class CAmbientGeneric: public CBaseEntity
+class CAmbientGeneric : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -141,7 +141,7 @@ public:
 	BOOL m_fLooping;	// TRUE when the sound played will loop
 };
 
-class CEnvSound: public CPointEntity
+class CEnvSound : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -167,7 +167,7 @@ public:
 	float m_flRoomtype;
 };
 
-class CSpeaker: public CBaseEntity
+class CSpeaker : public CBaseEntity
 {
 public:
 	virtual void Spawn();

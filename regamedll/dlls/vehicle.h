@@ -51,7 +51,7 @@
 #define VEHICLE_MAXPITCH		200
 #define VEHICLE_MAXSPEED		1500
 
-class CFuncVehicleControls: public CBaseEntity
+class CFuncVehicleControls : public CBaseEntity
 {
 public:
 	virtual void Spawn();

@@ -5,7 +5,7 @@
 */
 #ifndef HOOK_GAMEDLL
 
-char s_shared_token[ 1500 ];
+char s_shared_token[1500];
 char s_shared_quote = '\"';
 
 #endif
@@ -33,16 +33,16 @@ char *SharedVarArgs(char *format, ...)
 	const int BufLen = 1024;
 	const int NumBuffers = 4;
 
-	static char string[ NumBuffers ][ BufLen ];
+	static char string[NumBuffers][BufLen];
 	static int curstring = 0;
 
 	curstring = (curstring + 1) % NumBuffers;
 
 	va_start(argptr, format);
-	Q_vsnprintf(string[ curstring ], BufLen, format, argptr);
+	Q_vsnprintf(string[curstring], BufLen, format, argptr);
 	va_end(argptr);
 
-	return string[ curstring ];
+	return string[curstring];
 }
 
 char *BufPrintf(char *buf, int &len, const char *fmt, ...)
@@ -95,7 +95,7 @@ const char *NumAsString(int val)
 	const int BufLen = 16;
 	const int NumBuffers = 4;
 
-	static char string[ NumBuffers ][ BufLen ];
+	static char string[NumBuffers][BufLen];
 	static int curstring = 0;
 
 	int len = 16;
@@ -130,7 +130,7 @@ const char *SharedParse(const char *data)
 	if (!data)
 		return NULL;
 
-// skip whitespace
+	// skip whitespace
 skipwhite:
 	while ((c = *data) <= ' ')
 	{
@@ -172,7 +172,7 @@ skipwhite:
 	}
 
 	// parse single characters
-	if (c == '{' || c == '}'|| c == ')'|| c == '(' || c == '\'' || c == ',')
+	if (c == '{' || c == '}' || c == ')' || c == '(' || c == '\'' || c == ',')
 	{
 		s_shared_token[len] = c;
 		len++;
@@ -188,11 +188,10 @@ skipwhite:
 		len++;
 		c = *data;
 
-		if (c == '{' || c == '}'|| c == ')'|| c == '(' || c == '\'' || c == ',')
+		if (c == '{' || c == '}' || c == ')' || c == '(' || c == '\'' || c == ',')
 			break;
 
-	}
-	while (c > 32);
+	} while (c > 32);
 
 	s_shared_token[len] = '\0';
 	return data;
@@ -204,7 +203,7 @@ NOXREF bool SharedTokenWaiting(const char *buffer)
 	const char *p;
 
 	p = buffer;
-	while (*p && *p!='\n')
+	while (*p && *p != '\n')
 	{
 		if (!Q_isspace(*p) || Q_isalnum(*p))
 			return true;

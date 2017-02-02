@@ -48,7 +48,7 @@ enum TANKBULLET
 	TANK_BULLET_12MM,	// explosion?
 };
 
-class CFuncTank: public CBaseEntity
+class CFuncTank : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -156,7 +156,7 @@ protected:
 	int m_iszMaster;		// Master entity (game_team_master or multisource)
 };
 
-class CFuncTankGun: public CFuncTank
+class CFuncTankGun : public CFuncTank
 {
 public:
 	virtual void Fire(const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker);
@@ -167,7 +167,7 @@ public:
 
 };
 
-class CFuncTankLaser: public CFuncTank
+class CFuncTankLaser : public CFuncTank
 {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);
@@ -198,7 +198,7 @@ private:
 	float m_laserTime;
 };
 
-class CFuncTankRocket: public CFuncTank
+class CFuncTankRocket : public CFuncTank
 {
 public:
 	virtual void Precache();
@@ -213,7 +213,7 @@ public:
 
 };
 
-class CFuncTankMortar: public CFuncTank
+class CFuncTankMortar : public CFuncTank
 {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);
@@ -228,7 +228,7 @@ public:
 
 };
 
-class CFuncTankControls: public CBaseEntity
+class CFuncTankControls : public CBaseEntity
 {
 public:
 	virtual void Spawn();

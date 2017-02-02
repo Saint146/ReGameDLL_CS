@@ -42,7 +42,7 @@ BOOL CHealthKit::__MAKE_VHOOK(MyTouch)(CBasePlayer *pPlayer)
 	if (pPlayer->TakeHealth(gSkillData.healthkitCapacity, DMG_GENERIC))
 	{
 		MESSAGE_BEGIN(MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev);
-			WRITE_STRING(STRING(pev->classname));
+		WRITE_STRING(STRING(pev->classname));
 		MESSAGE_END();
 
 		EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/smallmedkit1.wav", VOL_NORM, ATTN_NORM);
@@ -173,7 +173,7 @@ void CWallHealth::Off()
 
 	m_iOn = 0;
 
-	if (!m_iJuice &&  ((m_iReactivate = g_pGameRules->FlHealthChargerRechargeTime()) > 0))
+	if (!m_iJuice && ((m_iReactivate = g_pGameRules->FlHealthChargerRechargeTime()) > 0))
 	{
 		pev->nextthink = pev->ltime + m_iReactivate;
 		SetThink(&CWallHealth::Recharge);

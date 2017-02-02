@@ -94,7 +94,7 @@ public:
 	CHostage *GetNearestVisibleFreeHostage() const;
 
 	// hostage rescue scenario
-	enum ValidateStatusType:uint8
+	enum ValidateStatusType :uint8
 	{
 		NO_CHANGE = 0x00,
 		HOSTAGE_DIED = 0x01,

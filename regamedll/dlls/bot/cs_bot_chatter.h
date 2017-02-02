@@ -50,11 +50,11 @@ class BotMeme
 public:
 	void Transmit(CCSBot *sender) const;						// transmit meme to other bots
 
-	virtual ~BotMeme(){}
+	virtual ~BotMeme() {}
 	virtual void Interpret(CCSBot *sender, CCSBot *receiver) const = 0;		// cause the given bot to act on this meme
 };
 
-class BotAllHostagesGoneMeme: public BotMeme
+class BotAllHostagesGoneMeme : public BotMeme
 {
 public:
 	virtual void Interpret(CCSBot *sender, CCSBot *receiver) const;			// cause the given bot to act on this meme
@@ -67,7 +67,7 @@ public:
 
 };
 
-class BotHostageBeingTakenMeme: public BotMeme
+class BotHostageBeingTakenMeme : public BotMeme
 {
 public:
 	virtual void Interpret(CCSBot *sender, CCSBot *receiver) const;			// cause the given bot to act on this meme
@@ -80,7 +80,7 @@ public:
 
 };
 
-class BotHelpMeme: public BotMeme
+class BotHelpMeme : public BotMeme
 {
 public:
 	BotHelpMeme(Place place = UNDEFINED_PLACE)
@@ -99,7 +99,7 @@ private:
 	Place m_place;
 };
 
-class BotBombsiteStatusMeme: public BotMeme
+class BotBombsiteStatusMeme : public BotMeme
 {
 public:
 	enum StatusType { CLEAR, PLANTED };
@@ -122,7 +122,7 @@ private:
 	StatusType m_status;	// whether it is cleared or the bomb is there (planted)
 };
 
-class BotBombStatusMeme: public BotMeme
+class BotBombStatusMeme : public BotMeme
 {
 public:
 	BotBombStatusMeme(CSGameState::BombState state, const Vector &pos)
@@ -145,7 +145,7 @@ private:
 	Vector m_pos;
 };
 
-class BotFollowMeme: public BotMeme
+class BotFollowMeme : public BotMeme
 {
 public:
 	virtual void Interpret(CCSBot *sender, CCSBot *receiver) const;			// cause the given bot to act on this meme
@@ -157,7 +157,7 @@ public:
 #endif
 };
 
-class BotDefendHereMeme: public BotMeme
+class BotDefendHereMeme : public BotMeme
 {
 public:
 	BotDefendHereMeme(const Vector &pos)
@@ -176,7 +176,7 @@ private:
 	Vector m_pos;
 };
 
-class BotWhereBombMeme: public BotMeme
+class BotWhereBombMeme : public BotMeme
 {
 public:
 	virtual void Interpret(CCSBot *sender, CCSBot *receiver) const;			// cause the given bot to act on this meme
@@ -188,7 +188,7 @@ public:
 #endif
 };
 
-class BotRequestReportMeme: public BotMeme
+class BotRequestReportMeme : public BotMeme
 {
 public:
 	virtual void Interpret(CCSBot *sender, CCSBot *receiver) const;			// cause the given bot to act on this meme
@@ -572,7 +572,7 @@ public:
 	void GuardingLooseBomb(CBaseEntity *bomb);
 	void RequestBombLocation();
 
-	#define IS_PLAN true
+#define IS_PLAN true
 	void GuardingHostages(Place place, bool isPlan = false);
 	void GuardingHostageEscapeZone(bool isPlan = false);
 	void HostagesBeingTaken();

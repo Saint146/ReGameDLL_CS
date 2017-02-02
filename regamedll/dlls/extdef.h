@@ -29,26 +29,26 @@
 
 #undef DLLEXPORT
 #ifdef _WIN32
-	// Attributes to specify an "exported" function, visible from outside the
-	// DLL.
-	#define DLLEXPORT	__declspec(dllexport)
-	// WINAPI should be provided in the windows compiler headers.
-	// It's usually defined to something like "__stdcall".
+// Attributes to specify an "exported" function, visible from outside the
+// DLL.
+#define DLLEXPORT	__declspec(dllexport)
+// WINAPI should be provided in the windows compiler headers.
+// It's usually defined to something like "__stdcall".
 
-	#define NOINLINE __declspec(noinline)
+#define NOINLINE __declspec(noinline)
 #else
-	#define DLLEXPORT	__attribute__((visibility("default")))
-	#define WINAPI		/* */
-	#define NOINLINE	__attribute__((noinline))
+#define DLLEXPORT	__attribute__((visibility("default")))
+#define WINAPI		/* */
+#define NOINLINE	__attribute__((noinline))
 #endif // _WIN32
 
 // Manual branch optimization for GCC 3.0.0 and newer
 #if !defined(__GNUC__) || __GNUC__ < 3
-	#define likely(x) (x)
-	#define unlikely(x) (x)
+#define likely(x) (x)
+#define unlikely(x) (x)
 #else
-	#define likely(x) __builtin_expect(!!(x), 1)
-	#define unlikely(x) __builtin_expect(!!(x), 0)
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
 #endif
 
 // Simplified macro for declaring/defining exported DLL functions.  They
@@ -94,8 +94,8 @@ typedef struct hudtextparms_s
 	float x;
 	float y;
 	int effect;
-	byte r1,g1,b1,a1;
-	byte r2,g2,b2,a2;
+	byte r1, g1, b1, a1;
+	byte r2, g2, b2, a2;
 	float fadeinTime;
 	float fadeoutTime;
 	float holdTime;

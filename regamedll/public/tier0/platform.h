@@ -266,7 +266,7 @@ inline T WordSwapAsm(T w)
 	__asm
 	{
 		mov ax, w
-			xchg al, ah
+		xchg al, ah
 	}
 }
 
@@ -276,7 +276,7 @@ inline T DWordSwapAsm(T dw)
 	__asm
 	{
 		mov eax, dw
-			bswap eax
+		bswap eax
 	}
 }
 
@@ -339,16 +339,16 @@ inline float DWordSwapAsm<float>(float f)
 // @Note (toml 05-02-02): this technique expects the compiler to 
 // optimize the expression and eliminate the other path. On any new 
 // platform/compiler this should be tested.
-inline short BigShort(short val)		{ int test = 1; return (*(char *)&test == 1) ? WordSwap(val) : val; }
-inline uint16 BigWord(uint16 val)		{ int test = 1; return (*(char *)&test == 1) ? WordSwap(val) : val; }
-inline long BigLong(long val)			{ int test = 1; return (*(char *)&test == 1) ? DWordSwap(val) : val; }
-inline uint32 BigDWord(uint32 val)	{ int test = 1; return (*(char *)&test == 1) ? DWordSwap(val) : val; }
-inline float BigFloat(float val)		{ int test = 1; return (*(char *)&test == 1) ? DWordSwap(val) : val; }
-inline short LittleShort(short val)	{ int test = 1; return (*(char *)&test == 1) ? val : WordSwap(val); }
-inline uint16 LittleWord(uint16 val)	{ int test = 1; return (*(char *)&test == 1) ? val : WordSwap(val); }
-inline long LittleLong(long val)		{ int test = 1; return (*(char *)&test == 1) ? val : DWordSwap(val); }
-inline uint32 LittleDWord(uint32 val)	{ int test = 1; return (*(char *)&test == 1) ? val : DWordSwap(val); }
-inline float LittleFloat(float val)	{ int test = 1; return (*(char *)&test == 1) ? val : DWordSwap(val); }
+inline short BigShort(short val) { int test = 1; return (*(char *)&test == 1) ? WordSwap(val) : val; }
+inline uint16 BigWord(uint16 val) { int test = 1; return (*(char *)&test == 1) ? WordSwap(val) : val; }
+inline long BigLong(long val) { int test = 1; return (*(char *)&test == 1) ? DWordSwap(val) : val; }
+inline uint32 BigDWord(uint32 val) { int test = 1; return (*(char *)&test == 1) ? DWordSwap(val) : val; }
+inline float BigFloat(float val) { int test = 1; return (*(char *)&test == 1) ? DWordSwap(val) : val; }
+inline short LittleShort(short val) { int test = 1; return (*(char *)&test == 1) ? val : WordSwap(val); }
+inline uint16 LittleWord(uint16 val) { int test = 1; return (*(char *)&test == 1) ? val : WordSwap(val); }
+inline long LittleLong(long val) { int test = 1; return (*(char *)&test == 1) ? val : DWordSwap(val); }
+inline uint32 LittleDWord(uint32 val) { int test = 1; return (*(char *)&test == 1) ? val : DWordSwap(val); }
+inline float LittleFloat(float val) { int test = 1; return (*(char *)&test == 1) ? val : DWordSwap(val); }
 
 #endif
 
@@ -376,13 +376,13 @@ struct CPUInformation
 	int	 m_Size;		// Size of this structure, for forward compatability.
 
 	bool m_bRDTSC : 1,	// Is RDTSC supported?
-	m_bCMOV : 1,  // Is CMOV supported?
-		  m_bFCMOV : 1,  // Is FCMOV supported?
-				 m_bSSE : 1,	// Is SSE supported?
-					  m_bSSE2 : 1,	// Is SSE2 Supported?
-							m_b3DNow : 1,	// Is 3DNow! Supported?
-								   m_bMMX : 1,	// Is MMX supported?
-										m_bHT : 1;	// Is HyperThreading supported?
+		m_bCMOV : 1,  // Is CMOV supported?
+		m_bFCMOV : 1,  // Is FCMOV supported?
+		m_bSSE : 1,	// Is SSE supported?
+		m_bSSE2 : 1,	// Is SSE2 Supported?
+		m_b3DNow : 1,	// Is 3DNow! Supported?
+		m_bMMX : 1,	// Is MMX supported?
+		m_bHT : 1;	// Is HyperThreading supported?
 
 	unsigned char m_nLogicalProcessors,		// Number op logical processors.
 		m_nPhysicalProcessors;	// Number of physical processors

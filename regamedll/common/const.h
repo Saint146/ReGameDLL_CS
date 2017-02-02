@@ -371,7 +371,7 @@ typedef struct
 
 typedef struct
 {
-	unsigned short r,g,b,a;
+	unsigned short r, g, b, a;
 } PackedColorVec;
 
 #ifdef _WIN32

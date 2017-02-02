@@ -95,7 +95,7 @@ extern enginefuncs_t g_engfuncs;
 
 inline void MESSAGE_BEGIN(int msg_dest, int msg_type, const float *pOrigin = NULL, edict_t *ed = NULL)
 {
-	(*g_engfuncs.pfnMessageBegin)(msg_dest,msg_type,pOrigin,ed);
+	(*g_engfuncs.pfnMessageBegin)(msg_dest, msg_type, pOrigin, ed);
 }
 
 inline void *GET_PRIVATE(edict_t *pent)

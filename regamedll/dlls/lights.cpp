@@ -148,10 +148,10 @@ void CEnvLight::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 void CEnvLight::__MAKE_VHOOK(Spawn)()
 {
 #ifdef HOOK_GAMEDLL
-// NOTE: fix negative the values for function sprintf from STD C++:
-// expected - sv_skyvec_y "0.000000"
-// with using sprintf from STD C++, got - sv_skyvec_y "-0.000000"
-// If we not doing it then the test will be failed!
+	// NOTE: fix negative the values for function sprintf from STD C++:
+	// expected - sv_skyvec_y "0.000000"
+	// with using sprintf from STD C++, got - sv_skyvec_y "-0.000000"
+	// If we not doing it then the test will be failed!
 #define SPRINTF_OLD_STD_FIX + 0
 #else
 #define SPRINTF_OLD_STD_FIX

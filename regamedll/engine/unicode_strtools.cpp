@@ -334,7 +334,7 @@ int Q_UTF8ToUChar32(const char *pUTF8_, uchar32 &uValueOut, bool &bErrorOut)
 decodeFinished:
 	if (uValue >= uMinValue && Q_IsValidUChar32(uValue))
 	{
-decodeFinishedNoCheck:
+	decodeFinishedNoCheck:
 		uValueOut = uValue;
 		bErrorOut = false;
 		return nBytes;

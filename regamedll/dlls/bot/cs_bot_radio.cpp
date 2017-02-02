@@ -80,99 +80,99 @@ void CCSBot::RespondToRadioCommands()
 	const float inhibitAutoFollowDuration = 60.0f;
 	switch (m_lastRadioCommand)
 	{
-		case EVENT_RADIO_REPORT_IN_TEAM:
+	case EVENT_RADIO_REPORT_IN_TEAM:
+	{
+		GetChatter()->ReportingIn();
+		break;
+	}
+	case EVENT_RADIO_FOLLOW_ME:
+	case EVENT_RADIO_COVER_ME:
+	case EVENT_RADIO_STICK_TOGETHER_TEAM:
+	case EVENT_RADIO_REGROUP_TEAM:
+	{
+		if (!IsFollowing())
 		{
-			GetChatter()->ReportingIn();
-			break;
-		}
-		case EVENT_RADIO_FOLLOW_ME:
-		case EVENT_RADIO_COVER_ME:
-		case EVENT_RADIO_STICK_TOGETHER_TEAM:
-		case EVENT_RADIO_REGROUP_TEAM:
-		{
-			if (!IsFollowing())
-			{
-				Follow(player);
-				player->AllowAutoFollow();
-				canDo = true;
-			}
-			break;
-		}
-		case EVENT_RADIO_ENEMY_SPOTTED:
-		case EVENT_RADIO_NEED_BACKUP:
-		case EVENT_RADIO_TAKING_FIRE:
-		{
-			if (!IsFollowing())
-			{
-				Follow(player);
-				GetChatter()->Say("OnMyWay");
-				player->AllowAutoFollow();
-				canDo = false;
-			}
-			break;
-		}
-		case EVENT_RADIO_TEAM_FALL_BACK:
-		{
-			if (TryToRetreat())
-				canDo = true;
-			break;
-		}
-		case EVENT_RADIO_HOLD_THIS_POSITION:
-		{
-			// find the leader's area
-			SetTask(HOLD_POSITION);
-			StopFollowing();
-			player->InhibitAutoFollow(inhibitAutoFollowDuration);
-			Hide(TheNavAreaGrid.GetNearestNavArea(&m_radioPosition));
+			Follow(player);
+			player->AllowAutoFollow();
 			canDo = true;
-			break;
 		}
-		case EVENT_RADIO_GO_GO_GO:
-		case EVENT_RADIO_STORM_THE_FRONT:
+		break;
+	}
+	case EVENT_RADIO_ENEMY_SPOTTED:
+	case EVENT_RADIO_NEED_BACKUP:
+	case EVENT_RADIO_TAKING_FIRE:
+	{
+		if (!IsFollowing())
 		{
-			StopFollowing();
-			Hunt();
+			Follow(player);
+			GetChatter()->Say("OnMyWay");
+			player->AllowAutoFollow();
+			canDo = false;
+		}
+		break;
+	}
+	case EVENT_RADIO_TEAM_FALL_BACK:
+	{
+		if (TryToRetreat())
 			canDo = true;
+		break;
+	}
+	case EVENT_RADIO_HOLD_THIS_POSITION:
+	{
+		// find the leader's area
+		SetTask(HOLD_POSITION);
+		StopFollowing();
+		player->InhibitAutoFollow(inhibitAutoFollowDuration);
+		Hide(TheNavAreaGrid.GetNearestNavArea(&m_radioPosition));
+		canDo = true;
+		break;
+	}
+	case EVENT_RADIO_GO_GO_GO:
+	case EVENT_RADIO_STORM_THE_FRONT:
+	{
+		StopFollowing();
+		Hunt();
+		canDo = true;
+		player->InhibitAutoFollow(inhibitAutoFollowDuration);
+		break;
+	}
+	case EVENT_RADIO_GET_OUT_OF_THERE:
+	{
+		if (TheCSBots()->IsBombPlanted())
+		{
+			EscapeFromBomb();
 			player->InhibitAutoFollow(inhibitAutoFollowDuration);
-			break;
+			canDo = true;
 		}
-		case EVENT_RADIO_GET_OUT_OF_THERE:
+		break;
+	}
+	case EVENT_RADIO_SECTOR_CLEAR:
+	{
+		// if this is a defusal scenario, and the bomb is planted,
+		// and a human player cleared a bombsite, check it off our list too
+		if (TheCSBots()->GetScenario() == CCSBotManager::SCENARIO_DEFUSE_BOMB)
 		{
-			if (TheCSBots()->IsBombPlanted())
+			if (m_iTeam == CT && TheCSBots()->IsBombPlanted())
 			{
-				EscapeFromBomb();
-				player->InhibitAutoFollow(inhibitAutoFollowDuration);
-				canDo = true;
-			}
-			break;
-		}
-		case EVENT_RADIO_SECTOR_CLEAR:
-		{
-			// if this is a defusal scenario, and the bomb is planted,
-			// and a human player cleared a bombsite, check it off our list too
-			if (TheCSBots()->GetScenario() == CCSBotManager::SCENARIO_DEFUSE_BOMB)
-			{
-				if (m_iTeam == CT && TheCSBots()->IsBombPlanted())
+				const CCSBotManager::Zone *zone = TheCSBots()->GetClosestZone(player);
+
+				if (zone != NULL)
 				{
-					const CCSBotManager::Zone *zone = TheCSBots()->GetClosestZone(player);
+					GetGameState()->ClearBombsite(zone->m_index);
 
-					if (zone != NULL)
-					{
-						GetGameState()->ClearBombsite(zone->m_index);
+					// if we are huting for the planted bomb, re-select bombsite
+					if (GetTask() == FIND_TICKING_BOMB)
+						Idle();
 
-						// if we are huting for the planted bomb, re-select bombsite
-						if (GetTask() == FIND_TICKING_BOMB)
-							Idle();
-
-						canDo = true;
-					}
+					canDo = true;
 				}
 			}
-			break;
 		}
-		default:
-			// ignore all other radio commands for now
-			return;
+		break;
+	}
+	default:
+		// ignore all other radio commands for now
+		return;
 	}
 
 	if (canDo)
@@ -201,8 +201,8 @@ void CCSBot::StartVoiceFeedback(float duration)
 	while ((pPlayer = GetNextRadioRecipient(pPlayer)) != NULL)
 	{
 		MESSAGE_BEGIN(MSG_ONE, gmsgBotVoice, NULL, pPlayer->pev);
-			WRITE_BYTE(1);		// active is talking
-			WRITE_BYTE(entindex());		// client index speaking
+		WRITE_BYTE(1);		// active is talking
+		WRITE_BYTE(entindex());		// client index speaking
 		MESSAGE_END();
 	}
 }
@@ -215,8 +215,8 @@ void CCSBot::EndVoiceFeedback(bool force)
 	m_voiceFeedbackEndTimestamp = 0;
 
 	MESSAGE_BEGIN(MSG_ALL, gmsgBotVoice);
-		WRITE_BYTE(0);
-		WRITE_BYTE(ENTINDEX(edict()));
+	WRITE_BYTE(0);
+	WRITE_BYTE(ENTINDEX(edict()));
 	MESSAGE_END();
 }
 
@@ -289,7 +289,7 @@ void CCSBot::SendRadioMessage(GameEventType event)
 		return;
 	}
 
-	PrintIfWatched("%3.1f: SendRadioMessage( %s )\n", gpGlobals->time, GameEventName[ event ]);
+	PrintIfWatched("%3.1f: SendRadioMessage( %s )\n", gpGlobals->time, GameEventName[event]);
 
 	// note the time the message was sent
 	TheCSBots()->SetRadioMessageTimestamp(event, m_iTeam);

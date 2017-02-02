@@ -74,7 +74,7 @@ Place PlaceDirectory::EntryToPlace(EntryType entry) const
 		return UNDEFINED_PLACE;
 	}
 
-	return m_directory[ i ];
+	return m_directory[i];
 }
 
 void PlaceDirectory::Save(int fd)
@@ -131,8 +131,8 @@ void CNavArea::Save(FILE *fp) const
 
 	static int base = 1;
 	Q_fprintf(fp, "\n\ng %04dArea%s%s%s%s\n", m_id,
-			(GetAttributes() & NAV_CROUCH) ? "CROUCH" : "", (GetAttributes() & NAV_JUMP) ? "JUMP" : "",
-			(GetAttributes() & NAV_PRECISE) ? "PRECISE" : "", (GetAttributes() & NAV_NO_JUMP) ? "NO_JUMP" : "");
+		(GetAttributes() & NAV_CROUCH) ? "CROUCH" : "", (GetAttributes() & NAV_JUMP) ? "JUMP" : "",
+		(GetAttributes() & NAV_PRECISE) ? "PRECISE" : "", (GetAttributes() & NAV_NO_JUMP) ? "NO_JUMP" : "");
 
 	Q_fprintf(fp, "f %d %d %d %d\n\n", base, base + 1, base + 2, base + 3);
 	base += 4;
@@ -372,7 +372,7 @@ void CNavArea::Load(SteamFile *file, unsigned int version)
 		file->Read(&m_approach[a].here.id, sizeof(unsigned int));
 
 		file->Read(&m_approach[a].prev.id, sizeof(unsigned int));
-		file->Read(&type, sizeof(unsigned char) );
+		file->Read(&type, sizeof(unsigned char));
 		m_approach[a].prevToHereHow = (NavTraverseType)type;
 
 		file->Read(&m_approach[a].next.id, sizeof(unsigned int));
@@ -639,18 +639,18 @@ bool SaveNavigationMap(const char *filename)
 
 	Q_close(fd);
 
-/*#if defined(_WIN32) && !defined(REGAMEDLL_FIXES)
-	// output a simple Wavefront file to visualize the generated areas in 3DSMax
-	FILE *fp = Q_fopen("c:\\tmp\\nav.obj", "w");
-	if (fp)
-	{
-		for (auto area : TheNavAreaList) {
-			area->Save(fd);
-		}
+	/*#if defined(_WIN32) && !defined(REGAMEDLL_FIXES)
+		// output a simple Wavefront file to visualize the generated areas in 3DSMax
+		FILE *fp = Q_fopen("c:\\tmp\\nav.obj", "w");
+		if (fp)
+		{
+			for (auto area : TheNavAreaList) {
+				area->Save(fd);
+			}
 
-		Q_fclose(fp);
-	}
-#endif // _WIN32 && !REGAMEDLL_FIXES*/
+			Q_fclose(fp);
+		}
+	#endif // _WIN32 && !REGAMEDLL_FIXES*/
 
 	return true;
 }

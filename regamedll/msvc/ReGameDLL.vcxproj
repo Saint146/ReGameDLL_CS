@@ -870,6 +870,7 @@
     <ClCompile Include="..\regamedll\regamedll_debug.cpp" />
     <ClCompile Include="..\regamedll\regamedll_interfaces_impl.cpp" />
     <ClCompile Include="..\regamedll\sse_mathfun.cpp" />
+    <ClCompile Include="..\stats_st\stats.cpp" />
     <ClCompile Include="..\unittests\animation_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug MP|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release MP|Win32'">true</ExcludedFromBuild>
@@ -1041,7 +1042,6 @@
     <ClInclude Include="..\engine\shake.h" />
     <ClInclude Include="..\engine\studio.h" />
     <ClInclude Include="..\engine\unicode_strtools.h" />
-    <ClInclude Include="..\extra\IDA structures\goldsource.h" />
     <ClInclude Include="..\game_shared\bitvec.h" />
     <ClInclude Include="..\game_shared\bot\bot.h" />
     <ClInclude Include="..\game_shared\bot\bot_constants.h" />
@@ -1074,7 +1074,6 @@
     <ClInclude Include="..\pm_shared\pm_math.h" />
     <ClInclude Include="..\pm_shared\pm_movevars.h" />
     <ClInclude Include="..\pm_shared\pm_shared.h" />
-    <ClInclude Include="..\public\archtypes.h" />
     <ClInclude Include="..\public\asmlib.h" />
     <ClInclude Include="..\public\basetypes.h" />
     <ClInclude Include="..\public\commonmacros.h" />
@@ -1085,32 +1084,9 @@
     <ClInclude Include="..\public\regamedll\hookchains.h" />
     <ClInclude Include="..\public\regamedll\regamedll_api.h" />
     <ClInclude Include="..\public\regamedll\regamedll_interfaces.h" />
-    <ClInclude Include="..\public\steam\isteamapps.h" />
-    <ClInclude Include="..\public\steam\isteambilling.h" />
-    <ClInclude Include="..\public\steam\isteamclient.h" />
-    <ClInclude Include="..\public\steam\isteamcontroller.h" />
-    <ClInclude Include="..\public\steam\isteamfriends.h" />
-    <ClInclude Include="..\public\steam\isteamgameserver.h" />
-    <ClInclude Include="..\public\steam\isteamgameserverstats.h" />
-    <ClInclude Include="..\public\steam\isteamhttp.h" />
-    <ClInclude Include="..\public\steam\isteammatchmaking.h" />
-    <ClInclude Include="..\public\steam\isteamnetworking.h" />
-    <ClInclude Include="..\public\steam\isteamremotestorage.h" />
-    <ClInclude Include="..\public\steam\isteamscreenshots.h" />
-    <ClInclude Include="..\public\steam\isteamunifiedmessages.h" />
-    <ClInclude Include="..\public\steam\isteamuser.h" />
-    <ClInclude Include="..\public\steam\isteamuserstats.h" />
-    <ClInclude Include="..\public\steam\isteamutils.h" />
-    <ClInclude Include="..\public\steam\matchmakingtypes.h" />
-    <ClInclude Include="..\public\steam\steamclientpublic.h" />
-    <ClInclude Include="..\public\steam\steamhttpenums.h" />
-    <ClInclude Include="..\public\steam\steamtypes.h" />
-    <ClInclude Include="..\public\steam\steam_api.h" />
-    <ClInclude Include="..\public\steam\steam_gameserver.h" />
     <ClInclude Include="..\public\tier0\dbg.h" />
     <ClInclude Include="..\public\tier0\platform.h" />
     <ClInclude Include="..\public\utlmemory.h" />
-    <ClInclude Include="..\public\utlrbtree.h" />
     <ClInclude Include="..\public\utlsymbol.h" />
     <ClInclude Include="..\public\utlvector.h" />
     <ClInclude Include="..\regamedll\dlls.h" />
@@ -1123,7 +1099,7 @@
     <ClInclude Include="..\regamedll\regamedll_debug.h" />
     <ClInclude Include="..\regamedll\regamedll_interfaces_impl.h" />
     <ClInclude Include="..\regamedll\sse_mathfun.h" />
-    <ClInclude Include="..\version\version.h" />
+    <ClInclude Include="..\stats_st\stats.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\hookers\stl\iosfwd" />
@@ -1135,24 +1111,6 @@
     <None Include="..\hookers\stl\xmemory" />
     <None Include="..\hookers\stl\xstddef" />
     <None Include="..\hookers\stl\xutility" />
-    <None Include="..\linux\appversion.sh">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Play|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug MP|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release MP|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release MP Play|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug MP Play|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\linux\Makefile">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Play|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug MP|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release MP|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release MP Play|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug MP Play|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'">true</ExcludedFromBuild>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\dep\cppunitlite\msvc\cppunitlite.vcxproj">

@@ -53,8 +53,8 @@ public:
 
 	// Adds multiple elements, uses default constructor
 	int AddMultipleToHead(int num);
-	int AddMultipleToTail(int num, const T *pToCopy=NULL);
-	int InsertMultipleBefore(int elem, int num, const T *pToCopy=NULL);	// If pToCopy is set, then it's an array of length 'num' and
+	int AddMultipleToTail(int num, const T *pToCopy = NULL);
+	int InsertMultipleBefore(int elem, int num, const T *pToCopy = NULL);	// If pToCopy is set, then it's an array of length 'num' and
 	int InsertMultipleAfter(int elem, int num);
 
 	// Calls RemoveAll() then AddMultipleToTail.
@@ -131,14 +131,14 @@ inline void CUtlVector<T>::ResetDbgInfo()
 //-----------------------------------------------------------------------------
 
 template< class T >
-inline CUtlVector<T>::CUtlVector(int growSize, int initSize)	:
+inline CUtlVector<T>::CUtlVector(int growSize, int initSize) :
 	m_Memory(growSize, initSize), m_Size(0)
 {
 	ResetDbgInfo();
 }
 
 template< class T >
-inline CUtlVector<T>::CUtlVector(T* pMemory, int numElements)	:
+inline CUtlVector<T>::CUtlVector(T* pMemory, int numElements) :
 	m_Memory(pMemory, numElements), m_Size(0)
 {
 	ResetDbgInfo();
@@ -284,7 +284,7 @@ void CUtlVector<T>::ShiftElementsRight(int elem, int num)
 	assert(IsValidIndex(elem) || (m_Size == 0) || (num == 0));
 	int numToMove = m_Size - elem - num;
 	if ((numToMove > 0) && (num > 0))
-		memmove(&Element(elem+num), &Element(elem), numToMove * sizeof(T));
+		memmove(&Element(elem + num), &Element(elem), numToMove * sizeof(T));
 }
 
 template< class T >
@@ -294,10 +294,10 @@ void CUtlVector<T>::ShiftElementsLeft(int elem, int num)
 	int numToMove = m_Size - elem - num;
 	if ((numToMove > 0) && (num > 0))
 	{
-		memmove(&Element(elem), &Element(elem+num), numToMove * sizeof(T));
+		memmove(&Element(elem), &Element(elem + num), numToMove * sizeof(T));
 
 #ifdef _DEBUG
-		memset(&Element(m_Size-num), 0xDD, num * sizeof(T));
+		memset(&Element(m_Size - num), 0xDD, num * sizeof(T));
 #endif
 	}
 }
@@ -411,7 +411,7 @@ template< class T >
 void CUtlVector<T>::CopyArray(T const *pArray, int size)
 {
 	SetSize(size);
-	for(int i=0; i < size; i++)
+	for (int i = 0; i < size; i++)
 		(*this)[i] = pArray[i];
 }
 
@@ -424,7 +424,7 @@ int CUtlVector<T>::AddVectorToTail(CUtlVector const &src)
 	AddMultipleToTail(src.Count());
 
 	// Copy the elements.
-	for (int i=0; i < src.Count(); i++)
+	for (int i = 0; i < src.Count(); i++)
 		(*this)[base + i] = src[i];
 
 	return base;
@@ -433,7 +433,7 @@ int CUtlVector<T>::AddVectorToTail(CUtlVector const &src)
 template< class T >
 inline int CUtlVector<T>::InsertMultipleBefore(int elem, int num, const T *pToInsert)
 {
-	if(num == 0)
+	if (num == 0)
 		return elem;
 
 	// Can insert at the end
@@ -444,14 +444,14 @@ inline int CUtlVector<T>::InsertMultipleBefore(int elem, int num, const T *pToIn
 
 	// Invoke default constructors
 	for (int i = 0; i < num; ++i)
-		Construct(&Element(elem+i));
+		Construct(&Element(elem + i));
 
 	// Copy stuff in?
 	if (pToInsert)
 	{
-		for (int i=0; i < num; i++)
+		for (int i = 0; i < num; i++)
 		{
-			Element(elem+i) = pToInsert[i];
+			Element(elem + i) = pToInsert[i];
 		}
 	}
 
@@ -490,7 +490,7 @@ void CUtlVector<T>::FastRemove(int elem)
 	Destruct(&Element(elem));
 	if (m_Size > 0)
 	{
-		Q_memcpy(&Element(elem), &Element(m_Size-1), sizeof(T));
+		Q_memcpy(&Element(elem), &Element(m_Size - 1), sizeof(T));
 		--m_Size;
 	}
 }

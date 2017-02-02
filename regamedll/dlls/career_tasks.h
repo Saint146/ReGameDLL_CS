@@ -88,7 +88,7 @@ typedef CareerTaskList::iterator CareerTaskListIt;
 
 typedef CCareerTask *(*TaskFactoryFunction)(const char *taskName, GameEventType event, const char *weaponName, int eventCount, bool mustLive, bool crossRounds, int nextId, bool isComplete);
 
-class CPreventDefuseTask: public CCareerTask
+class CPreventDefuseTask : public CCareerTask
 {
 public:
 	CPreventDefuseTask(const char *taskName, GameEventType event, const char *weaponName, int n, bool mustLive, bool crossRounds, int id, bool isComplete);

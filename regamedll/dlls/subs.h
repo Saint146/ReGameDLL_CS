@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CNullEntity: public CBaseEntity
+class CNullEntity : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -45,7 +45,7 @@ public:
 
 };
 
-class CBaseDMStart: public CPointEntity
+class CBaseDMStart : public CPointEntity
 {
 public:
 	virtual void KeyValue(KeyValueData *pkvd);

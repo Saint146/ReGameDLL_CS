@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CCycler: public CBaseMonster
+class CCycler : public CBaseMonster
 {
 public:
 	virtual void Spawn();
@@ -67,7 +67,7 @@ public:
 };
 
 // we should get rid of all the other cyclers and replace them with this.
-class CGenericCycler: public CCycler
+class CGenericCycler : public CCycler
 {
 public:
 	virtual void Spawn();
@@ -81,7 +81,7 @@ public:
 };
 
 // Probe droid imported for tech demo compatibility
-class CCyclerProbe: public CCycler
+class CCyclerProbe : public CCycler
 {
 public:
 	virtual void Spawn();
@@ -94,7 +94,7 @@ public:
 
 };
 
-class CCyclerSprite: public CBaseEntity
+class CCyclerSprite : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -134,7 +134,7 @@ public:
 	vec3_t m_rendercolor;
 };
 
-class CWeaponCycler: public CBasePlayerWeapon
+class CWeaponCycler : public CBasePlayerWeapon
 {
 public:
 	virtual void Spawn();
@@ -161,7 +161,7 @@ public:
 };
 
 // Flaming Wreakage
-class CWreckage: public CBaseMonster
+class CWreckage : public CBaseMonster
 {
 public:
 	virtual void Spawn();

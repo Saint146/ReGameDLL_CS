@@ -281,7 +281,7 @@ enum MusicState { SILENT, CALM, INTENSE };
 
 class CCSPlayer;
 
-class CStripWeapons: public CPointEntity {
+class CStripWeapons : public CPointEntity {
 public:
 	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
 
@@ -294,7 +294,7 @@ public:
 };
 
 // Multiplayer intermission spots.
-class CInfoIntermission: public CPointEntity {
+class CInfoIntermission : public CPointEntity {
 public:
 	virtual void Spawn();
 	virtual void Think();
@@ -309,7 +309,7 @@ public:
 };
 
 // Dead HEV suit prop
-class CDeadHEV: public CBaseMonster {
+class CDeadHEV : public CBaseMonster {
 public:
 	virtual void Spawn();
 	virtual void KeyValue(KeyValueData *pkvd);
@@ -328,7 +328,7 @@ public:
 	static char *m_szPoses[4];
 };
 
-class CSprayCan: public CBaseEntity {
+class CSprayCan : public CBaseEntity {
 public:
 	virtual void Think();
 	virtual int ObjectCaps() { return FCAP_DONT_SAVE; }
@@ -343,13 +343,13 @@ public:
 	void Spawn(entvars_t *pevOwner);
 };
 
-class CBloodSplat: public CBaseEntity {
+class CBloodSplat : public CBaseEntity {
 public:
 	void Spawn(entvars_t *pevOwner);
 	void Spray();
 };
 
-class CBasePlayer: public CBaseMonster {
+class CBasePlayer : public CBaseMonster {
 public:
 	virtual void Spawn();
 	virtual void Precache();
@@ -410,7 +410,7 @@ public:
 	void Killed_(entvars_t *pevAttacker, int iGib);
 	void AddPoints_(int score, BOOL bAllowNegativeScore);
 	void AddPointsToTeam_(int score, BOOL bAllowNegativeScore);
-	BOOL AddPlayerItem_(CBasePlayerItem *pItem);	
+	BOOL AddPlayerItem_(CBasePlayerItem *pItem);
 	BOOL RemovePlayerItem_(CBasePlayerItem *pItem);
 	int GiveAmmo_(int iAmount, char *szName, int iMax);
 	void ResetMaxSpeed_();
@@ -641,7 +641,7 @@ public:
 	template<typename Functor>
 	CBasePlayerItem *ForEachItem(int slot, const Functor &func)
 	{
-		auto item = m_rgpPlayerItems[ slot ];
+		auto item = m_rgpPlayerItems[slot];
 		while (item)
 		{
 			if (func(item))
@@ -822,7 +822,7 @@ public:
 
 	static TYPEDESCRIPTION IMPL(m_playerSaveData)[40];
 
-/*protected:*/
+	/*protected:*/
 	int m_modelIndexPlayer;
 	char m_szAnimExtention[32];
 	int m_iGaitsequence;
@@ -864,7 +864,7 @@ public:
 	float m_flLastCommandTime[COMMANDS_TO_TRACK];
 };
 
-class CWShield: public CBaseEntity
+class CWShield : public CBaseEntity
 {
 public:
 	virtual void Spawn();

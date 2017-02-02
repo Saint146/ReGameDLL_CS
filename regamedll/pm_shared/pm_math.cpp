@@ -90,7 +90,7 @@ void AngleVectorsTranspose(const vec_t *angles, vec_t *forward, vec_t *right, ve
 	}
 }
 
-void AngleMatrix(const vec_t *angles, float (*matrix)[4])
+void AngleMatrix(const vec_t *angles, float(*matrix)[4])
 {
 	float_precision angle;
 	float_precision  sr, sp, sy, cr, cp, cy;
@@ -124,7 +124,7 @@ void AngleMatrix(const vec_t *angles, float (*matrix)[4])
 	matrix[2][3] = 0.0f;
 }
 
-void AngleIMatrix(const vec_t *angles, float (*matrix)[4])
+void AngleIMatrix(const vec_t *angles, float(*matrix)[4])
 {
 	float angle;
 	float sr, sp, sy, cr, cp, cy;
@@ -219,7 +219,7 @@ float AngleBetweenVectors(const vec_t *v1, const vec_t *v2)
 	return angle;
 }
 
-void VectorTransform(const vec_t *in1, float (*in2)[4], vec_t *out)
+void VectorTransform(const vec_t *in1, float(*in2)[4], vec_t *out)
 {
 	out[0] = DotProduct(in1, in2[0]) + in2[0][3];
 	out[1] = DotProduct(in1, in2[1]) + in2[1][3];

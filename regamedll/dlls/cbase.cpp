@@ -539,7 +539,7 @@ void EXT_FUNC DispatchSave(edict_t *pent, SAVERESTOREDATA *pSaveData)
 
 	if (pEntity && pSaveData)
 	{
-		ENTITYTABLE *pTable = &pSaveData->pTable[ pSaveData->currentIndex ];
+		ENTITYTABLE *pTable = &pSaveData->pTable[pSaveData->currentIndex];
 
 		if (pTable->pent != pent)
 		{
@@ -961,7 +961,7 @@ int CBaseEntity::Intersects(CBaseEntity *pOther)
 		|| pOther->pev->absmax.x < pev->absmin.x
 		|| pOther->pev->absmax.y < pev->absmin.y
 		|| pOther->pev->absmax.z < pev->absmin.z)
-		 return 0;
+		return 0;
 	return 1;
 }
 

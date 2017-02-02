@@ -34,7 +34,7 @@
 
 #define SF_LIGHT_START_OFF		1
 
-class CLight: public CPointEntity
+class CLight : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -63,7 +63,7 @@ private:
 	BOOL m_iStartedOff;
 };
 
-class CEnvLight: public CLight
+class CEnvLight : public CLight
 {
 public:
 	virtual void Spawn();

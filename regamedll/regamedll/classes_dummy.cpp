@@ -1,6 +1,6 @@
 #include "precompiled.h"
 
-class CDummyWeaponClass:
+class CDummyWeaponClass :
 	public CAK47, public CAUG, public CAWP, public CC4,
 	public CDEAGLE, public CELITE, public CFamas, public CFiveSeven,
 	public CFlashbang, public CG3SG1, public CGalil, public CGLOCK18,
@@ -41,7 +41,7 @@ public:
 	virtual BOOL UseDecrement() { return FALSE; }
 };
 
-class CDummyWeaponClassExtra:
+class CDummyWeaponClassExtra :
 	public CDummyWeaponClass
 {
 public:

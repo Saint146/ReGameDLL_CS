@@ -50,7 +50,7 @@
 #define SF_CORNER_TELEPORT		0x002
 #define SF_CORNER_FIREONCE		0x004
 
-class CPathTrack: public CPointEntity
+class CPathTrack : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -96,7 +96,7 @@ public:
 	CPathTrack *m_paltpath;
 };
 
-class CFuncTrackTrain: public CBaseEntity
+class CFuncTrackTrain : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -162,7 +162,7 @@ private:
 	unsigned short m_usAdjustPitch;
 };
 
-class CFuncVehicle: public CBaseEntity
+class CFuncVehicle : public CBaseEntity
 {
 public:
 	virtual void Spawn();

@@ -18,8 +18,8 @@ sv_blending_interface_t svBlending =
 server_studio_api_t IEngineStudio;
 studiohdr_t *g_pstudiohdr;
 
-float (*g_pRotationMatrix)[3][4];
-float (*g_pBoneTransform)[128][3][4];
+float(*g_pRotationMatrix)[3][4];
+float(*g_pBoneTransform)[128][3][4];
 
 int ExtractBbox(void *pmodel, int sequence, float *mins, float *maxs)
 {
@@ -361,7 +361,7 @@ float SetController(void *pmodel, entvars_t *pev, int iController, float flValue
 	int setting = int64(255.0f * (flValue - pbonecontroller->start) / (pbonecontroller->end - pbonecontroller->start));
 	setting = Q_clamp(setting, 0, 255);
 
-	pev->controller[ iController ] = setting;
+	pev->controller[iController] = setting;
 
 	return setting * (1.0f / 255.0f) * (pbonecontroller->end - pbonecontroller->start) + pbonecontroller->start;
 }
@@ -528,8 +528,8 @@ C_DLLEXPORT int Server_GetBlendingInterface(int version, struct sv_blending_inte
 	IEngineStudio.LoadCacheFile = pstudio->LoadCacheFile;
 	IEngineStudio.Mod_Extradata = ((struct server_studio_api_s *)pstudio)->Mod_Extradata;
 
-	g_pRotationMatrix = (float (*)[3][4])rotationmatrix;
-	g_pBoneTransform = (float (*)[128][3][4])bonetransform;
+	g_pRotationMatrix = (float(*)[3][4])rotationmatrix;
+	g_pBoneTransform = (float(*)[128][3][4])bonetransform;
 
 	return 1;
 }
@@ -550,13 +550,13 @@ void AngleQuaternion(vec_t *angles, vec_t *quaternion)
 	__m128 part1 = _mm_mul_ps(
 		_mm_shuffle_ps(im1, im1, _MM_SHUFFLE(1, 2, 2, 0)),
 		_mm_shuffle_ps(im1, im1, _MM_SHUFFLE(0, 3, 1, 3))
-		);
+	);
 	part1 = _mm_mul_ps(part1, im2);
 
 	__m128 part2 = _mm_mul_ps(
 		_mm_shuffle_ps(im1, im1, _MM_SHUFFLE(2, 1, 0, 2)),
 		_mm_shuffle_ps(im1, im1, _MM_SHUFFLE(3, 0, 3, 1))
-		);
+	);
 
 	part2 = _mm_mul_ps(part2, _mm_shuffle_ps(im2, im2, _MM_SHUFFLE(0, 0, 2, 2)));
 
@@ -658,7 +658,7 @@ void QuaternionSlerp(vec_t *p, vec_t *q, float t, vec_t *qt)
 	}
 }
 
-void QuaternionMatrix(vec_t *quaternion, float (*matrix)[4])
+void QuaternionMatrix(vec_t *quaternion, float(*matrix)[4])
 {
 	matrix[0][0] = 1.0 - 2.0 * quaternion[1] * quaternion[1] - 2.0 * quaternion[2] * quaternion[2];
 	matrix[1][0] = 2.0 * quaternion[0] * quaternion[1] + 2.0 * quaternion[3] * quaternion[2];
@@ -693,12 +693,12 @@ mstudioanim_t *StudioGetAnim(model_t *m_pSubModel, mstudioseqdesc_t *pseqdesc)
 		m_pSubModel->submodels = (dmodel_t *)paSequences;
 	}
 
-	if (!IEngineStudio.Cache_Check((struct cache_user_s *)&(paSequences[ pseqdesc->seqgroup ])))
+	if (!IEngineStudio.Cache_Check((struct cache_user_s *)&(paSequences[pseqdesc->seqgroup])))
 	{
-		IEngineStudio.LoadCacheFile(pseqgroup->name, (struct cache_user_s *)&paSequences[ pseqdesc->seqgroup ]);
+		IEngineStudio.LoadCacheFile(pseqgroup->name, (struct cache_user_s *)&paSequences[pseqdesc->seqgroup]);
 	}
 
-	return (mstudioanim_t *)((byte *)paSequences[ pseqdesc->seqgroup ].data + pseqdesc->animindex);
+	return (mstudioanim_t *)((byte *)paSequences[pseqdesc->seqgroup].data + pseqdesc->animindex);
 }
 
 mstudioanim_t *LookupAnimation(model_t *model, mstudioseqdesc_t *pseqdesc, int index)

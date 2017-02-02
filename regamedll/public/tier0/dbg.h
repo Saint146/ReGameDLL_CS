@@ -372,10 +372,10 @@ void _AssertValidReadPtr(void* ptr, int count = 1);
 void _AssertValidWritePtr(void* ptr, int count = 1);
 void _AssertValidReadWritePtr(void* ptr, int count = 1);
 
- void AssertValidStringPtr(const char* ptr, int maxchar = 0xFFFFFF);
-template<class T> inline void AssertValidReadPtr(T* ptr, int count = 1)		     { _AssertValidReadPtr((void*)ptr, count); }
-template<class T> inline void AssertValidWritePtr(T* ptr, int count = 1)		     { _AssertValidWritePtr((void*)ptr, count); }
-template<class T> inline void AssertValidReadWritePtr(T* ptr, int count = 1)	     { _AssertValidReadWritePtr((void*)ptr, count); }
+void AssertValidStringPtr(const char* ptr, int maxchar = 0xFFFFFF);
+template<class T> inline void AssertValidReadPtr(T* ptr, int count = 1) { _AssertValidReadPtr((void*)ptr, count); }
+template<class T> inline void AssertValidWritePtr(T* ptr, int count = 1) { _AssertValidWritePtr((void*)ptr, count); }
+template<class T> inline void AssertValidReadWritePtr(T* ptr, int count = 1) { _AssertValidReadWritePtr((void*)ptr, count); }
 
 #define AssertValidThis() AssertValidReadWritePtr(this,sizeof(*this))
 

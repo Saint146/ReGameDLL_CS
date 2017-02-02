@@ -99,16 +99,16 @@ public:
 
 
 #ifdef _WIN32
-	#define EXPORT_FUNCTION __declspec(dllexport)
+#define EXPORT_FUNCTION __declspec(dllexport)
 #else
-	#define EXPORT_FUNCTION __attribute__ ((visibility("default")))
+#define EXPORT_FUNCTION __attribute__ ((visibility("default")))
 #endif
 
 
 // This function is automatically exported and allows you to access any interfaces exposed with the above macros.
 // if pReturnCode is set, it will return one of the following values
 // extend this for other error conditions/code
-enum 
+enum
 {
 	IFACE_OK = 0,
 	IFACE_FAILED
@@ -121,13 +121,13 @@ extern "C"
 };
 
 
-extern CreateInterfaceFn	Sys_GetFactoryThis( void );
+extern CreateInterfaceFn	Sys_GetFactoryThis(void);
 
 
 //-----------------------------------------------------------------------------
 // UNDONE: This is obsolete, use the module load/unload/get instead!!!
 //-----------------------------------------------------------------------------
-extern CreateInterfaceFn	Sys_GetFactory( const char *pModuleName );
+extern CreateInterfaceFn	Sys_GetFactory(const char *pModuleName);
 
 
 // load/unload components
@@ -138,10 +138,10 @@ class CSysModule;
 // The factory for that module should be passed on to dependent components for
 // proper versioning.
 //-----------------------------------------------------------------------------
-extern CSysModule			*Sys_LoadModule( const char *pModuleName );
-extern void					Sys_UnloadModule( CSysModule *pModule );
+extern CSysModule			*Sys_LoadModule(const char *pModuleName);
+extern void					Sys_UnloadModule(CSysModule *pModule);
 
-extern CreateInterfaceFn	Sys_GetFactory( CSysModule *pModule );
+extern CreateInterfaceFn	Sys_GetFactory(CSysModule *pModule);
 
 
 #endif

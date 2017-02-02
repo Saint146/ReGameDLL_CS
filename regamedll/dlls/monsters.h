@@ -109,7 +109,7 @@ enum HitBoxGroup
 	NUM_HITGROUPS,
 };
 
-class CGib: public CBaseEntity
+class CGib : public CBaseEntity
 {
 public:
 	virtual int ObjectCaps() { return (CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DONT_SAVE; }

@@ -216,7 +216,7 @@ void FollowState::__MAKE_VHOOK(OnUpdate)(CCSBot *me)
 			// if we are idle, pick a random area
 			if (m_idleTimer.IsElapsed())
 			{
-				target = collector.m_targetArea[ RANDOM_LONG(0, collector.m_targetAreaCount - 1) ];
+				target = collector.m_targetArea[RANDOM_LONG(0, collector.m_targetAreaCount - 1)];
 				targetPos = *target->GetCenter();
 				me->PrintIfWatched("%4.1f: Bored. Repathing to a new nearby area\n", gpGlobals->time);
 			}

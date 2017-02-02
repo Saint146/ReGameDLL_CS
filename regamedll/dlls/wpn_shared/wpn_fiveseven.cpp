@@ -161,7 +161,7 @@ void CFiveSeven::FiveSevenFire(float flSpread, float flCycleTime, BOOL fUseSemi)
 	{
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, FALSE);
 	}
-	
+
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 2.0f;
 	m_pPlayer->pev->punchangle.x -= 2.0f;
 	ResetPlayerShieldAnim();

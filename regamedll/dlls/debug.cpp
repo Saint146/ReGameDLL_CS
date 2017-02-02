@@ -5,7 +5,7 @@
 */
 #ifndef HOOK_GAMEDLL
 
-DebugOutputLevel outputLevel[ NUM_LEVELS ] =
+DebugOutputLevel outputLevel[NUM_LEVELS] =
 {
 	{ "bot",     DEBUG_BOT },
 	{ "career",  DEBUG_CAREER },
@@ -16,7 +16,7 @@ DebugOutputLevel outputLevel[ NUM_LEVELS ] =
 };
 
 unsigned int theDebugOutputTypes;
-static char theDebugBuffer[ DebugBufferSize ];
+static char theDebugBuffer[DebugBufferSize];
 
 #endif
 

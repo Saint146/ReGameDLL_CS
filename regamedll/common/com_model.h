@@ -111,7 +111,7 @@ typedef struct texture_s
 	int anim_min, anim_max;			// time for this frame min <=time< max
 	struct texture_s *anim_next;		// in the animation sequence
 	struct texture_s *alternate_anims;	// bmodels in frame 1 use these
-	unsigned offsets[ MIPLEVELS ];		// four mip maps stored
+	unsigned offsets[MIPLEVELS];		// four mip maps stored
 	unsigned paloffset;
 } texture_t;
 
@@ -130,7 +130,7 @@ typedef struct mnode_s
 {
 	int contents;			// 0, to differentiate from leafs
 	int visframe;			// node needs to be traversed if current
-	
+
 	short minmaxs[6];		// for bounding box culling
 	struct mnode_s *parent;
 
@@ -174,7 +174,7 @@ typedef struct mleaf_s
 	msurface_t **firstmarksurface;
 	int nummarksurfaces;
 	int key;			// BSP sequence number for leaf's contents
-	byte ambient_sound_level[ NUM_AMBIENTS ];
+	byte ambient_sound_level[NUM_AMBIENTS];
 } mleaf_t;
 
 struct msurface_s
@@ -189,13 +189,13 @@ struct msurface_s
 	int firstedge;			// look up in model->surfedges[], negative numbers
 	int numedges;			// are backwards edges
 
-	struct surfcache_s *cachespots[ MIPLEVELS ];
+	struct surfcache_s *cachespots[MIPLEVELS];
 
 	short texturemins[2]; 		// smallest s/t position on the surface.
 	short extents[2];		// ?? s/t texture size, 1..256 for all non-sky surfaces
 
 	mtexinfo_t *texinfo;
-	byte styles[ MAXLIGHTMAPS ];	// index into d_lightstylevalue[] for animated lights 
+	byte styles[MAXLIGHTMAPS];	// index into d_lightstylevalue[] for animated lights 
 					// no one surface can be effected by more than 4 
 					// animated lights.
 
@@ -223,13 +223,13 @@ typedef struct cache_user_s
 
 typedef struct model_s
 {
-	char name[ MAX_MODEL_NAME ];
+	char name[MAX_MODEL_NAME];
 	qboolean needload;			// bmodels and sprites don't cache normally
 
 	modtype_t type;
 	int numframes;
 	synctype_t synctype;
-	
+
 	int flags;
 
 	// volume occupied by the model		
@@ -272,7 +272,7 @@ typedef struct model_s
 	int nummarksurfaces;
 	msurface_t **marksurfaces;
 
-	hull_t hulls[ MAX_MAP_HULLS ];
+	hull_t hulls[MAX_MAP_HULLS];
 
 	int numtextures;
 	texture_t **textures;
@@ -310,10 +310,10 @@ typedef struct player_info_s
 	int userid;
 
 	// User info string
-	char userinfo[ MAX_INFO_STRING ];
+	char userinfo[MAX_INFO_STRING];
 
 	// Name
-	char name[ MAX_SCOREBOARDNAME ];
+	char name[MAX_SCOREBOARDNAME];
 
 	// Spectator or not, unused
 	int spectator;
@@ -326,7 +326,7 @@ typedef struct player_info_s
 	int bottomcolor;
 
 	// last frame rendered
-	int renderframe;	
+	int renderframe;
 
 	// Gait frame estimation
 	int gaitsequence;

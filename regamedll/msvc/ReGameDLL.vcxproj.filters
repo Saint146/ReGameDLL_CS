@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -20,10 +16,6 @@
     </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{fe7a8e81-b7d4-4540-ab5b-457ed93672ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="linux">
-      <UniqueIdentifier>{9de0de20-070f-4fae-a9df-3dca942e65a7}</UniqueIdentifier>
-      <ParseFiles>false</ParseFiles>
     </Filter>
     <Filter Include="public">
       <UniqueIdentifier>{d74cb79e-afd5-4215-af0e-029e38925be0}</UniqueIdentifier>
@@ -52,9 +44,6 @@
     <Filter Include="pm_shared">
       <UniqueIdentifier>{b9e4d175-16d0-4f51-8520-896826a345dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="public\steam">
-      <UniqueIdentifier>{d07d80e2-b454-42b8-ba76-160e7b054875}</UniqueIdentifier>
-    </Filter>
     <Filter Include="engine\client">
       <UniqueIdentifier>{58f96e92-9d4b-4a0d-91e4-10f9cdc18ce1}</UniqueIdentifier>
     </Filter>
@@ -81,6 +70,9 @@
     </Filter>
     <Filter Include="public\tier0">
       <UniqueIdentifier>{00d15c50-66d7-4210-9239-e8cd8fb9f052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dlls\stats_st">
+      <UniqueIdentifier>{84b82d91-b106-4ed6-8151-932624c54e50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -564,6 +556,9 @@
     <ClCompile Include="..\dlls\mapinfo.cpp">
       <Filter>dlls</Filter>
     </ClCompile>
+    <ClCompile Include="..\stats_st\stats.cpp">
+      <Filter>dlls\stats_st</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\hookers\memory.h">
@@ -571,12 +566,6 @@
     </ClInclude>
     <ClInclude Include="..\hookers\osconfig.h">
       <Filter>hookers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\version\version.h">
-      <Filter>version</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\archtypes.h">
-      <Filter>public</Filter>
     </ClInclude>
     <ClInclude Include="..\public\FileSystem.h">
       <Filter>public</Filter>
@@ -591,9 +580,6 @@
       <Filter>public</Filter>
     </ClInclude>
     <ClInclude Include="..\public\commonmacros.h">
-      <Filter>public</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\utlrbtree.h">
       <Filter>public</Filter>
     </ClInclude>
     <ClInclude Include="..\regamedll\precompiled.h">
@@ -674,9 +660,6 @@
     <ClInclude Include="..\game_shared\bot\bot_util.h">
       <Filter>game_shared\bot</Filter>
     </ClInclude>
-    <ClInclude Include="..\extra\IDA structures\goldsource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\regamedll\dlls.h">
       <Filter>regamedll</Filter>
     </ClInclude>
@@ -742,72 +725,6 @@
     </ClInclude>
     <ClInclude Include="..\pm_shared\pm_shared.h">
       <Filter>pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamapps.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteambilling.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamclient.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamcontroller.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamfriends.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamgameserver.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamgameserverstats.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamhttp.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteammatchmaking.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamnetworking.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamremotestorage.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamscreenshots.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamunifiedmessages.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamuser.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamuserstats.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\isteamutils.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\matchmakingtypes.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\steam_api.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\steam_gameserver.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\steamclientpublic.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\steamhttpenums.h">
-      <Filter>public\steam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\steam\steamtypes.h">
-      <Filter>public\steam</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\cdll_int.h">
       <Filter>engine\client</Filter>
@@ -1130,14 +1047,11 @@
     <ClInclude Include="..\public\asmlib.h">
       <Filter>public</Filter>
     </ClInclude>
+    <ClInclude Include="..\stats_st\stats.h">
+      <Filter>dlls\stats_st</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\linux\appversion.sh">
-      <Filter>linux</Filter>
-    </None>
-    <None Include="..\linux\Makefile">
-      <Filter>linux</Filter>
-    </None>
     <None Include="..\hookers\stl\iosfwd">
       <Filter>hookers\stl</Filter>
     </None>

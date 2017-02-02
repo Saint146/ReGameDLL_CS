@@ -192,7 +192,7 @@ void EXT_FUNC GameDLLInit()
 	CVAR_REGISTER(&timeleft);
 	CVAR_REGISTER(&humans_join_team);
 
-// Remove unused cvars
+	// Remove unused cvars
 #ifndef REGAMEDLL_FIXES
 
 	CVAR_REGISTER(&sk_plr_9mm_bullet1);

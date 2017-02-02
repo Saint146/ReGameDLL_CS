@@ -24,50 +24,50 @@ void CBaseSpectator::SpectatorImpulseCommand()
 
 	switch (pev->impulse)
 	{
-		case 1:
+	case 1:
+	{
+		// teleport the spectator to the next spawn point
+		// note that if the spectator is tracking, this doesn't do
+		// much
+		pPreviousGoal = pGoal;
+		pCurrentGoal = pGoal;
+		// Start at the current goal, skip the world, and stop if we looped
+		// back around
+
+		bFound = FALSE;
+		while (true)
 		{
-			// teleport the spectator to the next spawn point
-			// note that if the spectator is tracking, this doesn't do
-			// much
-			pPreviousGoal = pGoal;
-			pCurrentGoal  = pGoal;
-			// Start at the current goal, skip the world, and stop if we looped
-			// back around
+			pCurrentGoal = FIND_ENTITY_BY_CLASSNAME(pCurrentGoal, "info_player_deathmatch");
 
-			bFound = FALSE;
-			while (true)
+			// Looped around, failure
+			if (pCurrentGoal == pPreviousGoal)
 			{
-				pCurrentGoal = FIND_ENTITY_BY_CLASSNAME(pCurrentGoal, "info_player_deathmatch");
-
-				// Looped around, failure
-				if (pCurrentGoal == pPreviousGoal)
-				{
-					ALERT(at_console, "Could not find a spawn spot.\n");
-					break;
-				}
-
-				// Found a non-world entity, set success, otherwise, look for the next one.
-				if (!FNullEnt(pCurrentGoal))
-				{
-					bFound = TRUE;
-					break;
-				}
+				ALERT(at_console, "Could not find a spawn spot.\n");
+				break;
 			}
 
-			// Didn't find a good spot.
-			if (!bFound)
+			// Found a non-world entity, set success, otherwise, look for the next one.
+			if (!FNullEnt(pCurrentGoal))
+			{
+				bFound = TRUE;
 				break;
-
-			pGoal = pCurrentGoal;
-			UTIL_SetOrigin(pev, pGoal->v.origin);
-
-			pev->angles = pGoal->v.angles;
-			pev->fixangle = 0;
-			break;
+			}
 		}
-		default:
-			ALERT(at_console, "Unknown spectator impulse\n");
+
+		// Didn't find a good spot.
+		if (!bFound)
 			break;
+
+		pGoal = pCurrentGoal;
+		UTIL_SetOrigin(pev, pGoal->v.origin);
+
+		pev->angles = pGoal->v.angles;
+		pev->fixangle = 0;
+		break;
+	}
+	default:
+		ALERT(at_console, "Unknown spectator impulse\n");
+		break;
 	}
 
 	pev->impulse = 0;

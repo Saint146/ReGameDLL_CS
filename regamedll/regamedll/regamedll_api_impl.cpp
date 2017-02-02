@@ -176,15 +176,15 @@ playermove_t* EXT_FUNC CReGameApi::GetPlayerMove() {
 WeaponSlotInfo* EXT_FUNC CReGameApi::GetWeaponSlot(WeaponIdType weaponID) { return ::GetWeaponSlot(weaponID); }
 WeaponSlotInfo* EXT_FUNC CReGameApi::GetWeaponSlot(const char* weaponName) { return ::GetWeaponSlot(weaponName); }
 
-ItemInfo* EXT_FUNC CReGameApi::GetItemInfo(WeaponIdType weaponID) { return &IMPL_CLASS(CBasePlayerItem, ItemInfoArray)[ weaponID ]; }
-AmmoInfo* EXT_FUNC CReGameApi::GetAmmoInfo(AmmoType ammoID) { return &IMPL_CLASS(CBasePlayerItem, AmmoInfoArray)[ ammoID ]; }
+ItemInfo* EXT_FUNC CReGameApi::GetItemInfo(WeaponIdType weaponID) { return &IMPL_CLASS(CBasePlayerItem, ItemInfoArray)[weaponID]; }
+AmmoInfo* EXT_FUNC CReGameApi::GetAmmoInfo(AmmoType ammoID) { return &IMPL_CLASS(CBasePlayerItem, AmmoInfoArray)[ammoID]; }
 
 void EXT_FUNC Regamedll_ChangeString_api(char *&dest, const char *source)
 {
 	size_t len = Q_strlen(source);
 	if (dest == nullptr || Q_strlen(dest) != len) {
-		delete [] dest;
-		dest = new char [len + 1];
+		delete[] dest;
+		dest = new char[len + 1];
 	}
 
 	Q_strcpy(dest, source);

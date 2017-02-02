@@ -92,7 +92,7 @@ struct PLAYERPVSSTATUS
 	ENTITYPVSSTATUS m_Status[1380];
 	int headnode;
 	int num_leafs;
-	short int leafnums[ MAX_ENT_LEAFS ];
+	short int leafnums[MAX_ENT_LEAFS];
 };
 
 struct entity_field_alias_t

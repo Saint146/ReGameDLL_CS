@@ -520,7 +520,7 @@ void CFuncPlatRot::SetupRotation()
 	if (m_vecFinalAngle.x != 0)
 	{
 		CBaseToggle::AxisDir(pev);
-		m_start	= pev->angles;
+		m_start = pev->angles;
 		m_end = pev->angles + pev->movedir * m_vecFinalAngle.x;
 	}
 	else
@@ -1114,8 +1114,8 @@ void CFuncTrackTrain::UpdateSound()
 		// 15 bits total
 
 		unsigned short us_encode;
-		unsigned short us_sound  = ((unsigned short)(m_sounds) & 0x0007) << 12;
-		unsigned short us_pitch  = ((unsigned short)(flpitch / 10.0) & 0x003f) << 6;
+		unsigned short us_sound = ((unsigned short)(m_sounds) & 0x0007) << 12;
+		unsigned short us_pitch = ((unsigned short)(flpitch / 10.0) & 0x003f) << 6;
 		unsigned short us_volume = ((unsigned short)(m_flVolume * 40.0) & 0x003f);
 
 		us_encode = us_sound | us_pitch | us_volume;
@@ -1314,8 +1314,7 @@ void CFuncTrackTrain::DeadEnd()
 				{
 					pTrack = pNext;
 				}
-			}
-			while (pNext != NULL);
+			} while (pNext != NULL);
 		}
 		else
 		{
@@ -1327,8 +1326,7 @@ void CFuncTrackTrain::DeadEnd()
 				{
 					pTrack = pNext;
 				}
-			}
-			while (pNext != NULL);
+			} while (pNext != NULL);
 		}
 	}
 
@@ -1372,7 +1370,7 @@ BOOL CFuncTrackTrain::__MAKE_VHOOK(OnControls)(entvars_t *pevTest)
 	local.z = DotProduct(offset, gpGlobals->v_up);
 
 	if (local.x >= m_controlMins.x && local.y >= m_controlMins.y && local.z >= m_controlMins.z &&
-		 local.x <= m_controlMaxs.x && local.y <= m_controlMaxs.y && local.z <= m_controlMaxs.z)
+		local.x <= m_controlMaxs.x && local.y <= m_controlMaxs.y && local.z <= m_controlMaxs.z)
 		return TRUE;
 
 	return FALSE;
@@ -1589,8 +1587,7 @@ void CFuncTrainControls::Find()
 	do
 	{
 		pTarget = FIND_ENTITY_BY_TARGETNAME(pTarget, STRING(pev->target));
-	}
-	while (!FNullEnt(pTarget) && !FClassnameIs(pTarget, "func_tracktrain"));
+	} while (!FNullEnt(pTarget) && !FClassnameIs(pTarget, "func_tracktrain"));
 
 	if (FNullEnt(pTarget))
 	{
@@ -1755,7 +1752,7 @@ TRAIN_CODE CFuncTrackChange::EvaluateTrain(CPathTrack *pcurrent)
 		return TRAIN_SAFE;
 
 	if (m_train->m_ppath == pcurrent || (pcurrent->m_pprevious && m_train->m_ppath == pcurrent->m_pprevious) ||
-		 (pcurrent->m_pnext && m_train->m_ppath == pcurrent->m_pnext))
+		(pcurrent->m_pnext && m_train->m_ppath == pcurrent->m_pnext))
 	{
 		if (m_train->pev->speed != 0)
 			return TRAIN_BLOCKING;

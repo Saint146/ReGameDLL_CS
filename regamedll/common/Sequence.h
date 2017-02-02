@@ -38,19 +38,19 @@ typedef struct client_textmessage_s
 //---------------------------------------------------------------------------
 enum sequenceModifierBits
 {
-	SEQUENCE_MODIFIER_EFFECT_BIT		= (1 << 1),
-	SEQUENCE_MODIFIER_POSITION_BIT		= (1 << 2),
-	SEQUENCE_MODIFIER_COLOR_BIT			= (1 << 3),
-	SEQUENCE_MODIFIER_COLOR2_BIT		= (1 << 4),
-	SEQUENCE_MODIFIER_FADEIN_BIT		= (1 << 5),
-	SEQUENCE_MODIFIER_FADEOUT_BIT		= (1 << 6),
-	SEQUENCE_MODIFIER_HOLDTIME_BIT		= (1 << 7),
-	SEQUENCE_MODIFIER_FXTIME_BIT		= (1 << 8),
-	SEQUENCE_MODIFIER_SPEAKER_BIT		= (1 << 9),
-	SEQUENCE_MODIFIER_LISTENER_BIT		= (1 << 10),
-	SEQUENCE_MODIFIER_TEXTCHANNEL_BIT	= (1 << 11),
+	SEQUENCE_MODIFIER_EFFECT_BIT = (1 << 1),
+	SEQUENCE_MODIFIER_POSITION_BIT = (1 << 2),
+	SEQUENCE_MODIFIER_COLOR_BIT = (1 << 3),
+	SEQUENCE_MODIFIER_COLOR2_BIT = (1 << 4),
+	SEQUENCE_MODIFIER_FADEIN_BIT = (1 << 5),
+	SEQUENCE_MODIFIER_FADEOUT_BIT = (1 << 6),
+	SEQUENCE_MODIFIER_HOLDTIME_BIT = (1 << 7),
+	SEQUENCE_MODIFIER_FXTIME_BIT = (1 << 8),
+	SEQUENCE_MODIFIER_SPEAKER_BIT = (1 << 9),
+	SEQUENCE_MODIFIER_LISTENER_BIT = (1 << 10),
+	SEQUENCE_MODIFIER_TEXTCHANNEL_BIT = (1 << 11),
 };
-typedef enum sequenceModifierBits sequenceModifierBits_e ;
+typedef enum sequenceModifierBits sequenceModifierBits_e;
 
 
 //---------------------------------------------------------------------------
@@ -193,9 +193,9 @@ struct sentenceGroupEntry_
 //---------------------------------------------------------------------------
 // Function declarations
 //---------------------------------------------------------------------------
-sequenceEntry_s* SequenceGet( const char* fileName, const char* entryName );
-void Sequence_ParseFile( const char* fileName, qboolean isGlobal );
-void Sequence_OnLevelLoad( const char* mapName );
-sentenceEntry_s* SequencePickSentence( const char *groupName, int pickMethod, int *picked );
+sequenceEntry_s* SequenceGet(const char* fileName, const char* entryName);
+void Sequence_ParseFile(const char* fileName, qboolean isGlobal);
+void Sequence_OnLevelLoad(const char* mapName);
+sentenceEntry_s* SequencePickSentence(const char *groupName, int pickMethod, int *picked);
 
 #endif // _INCLUDE_SEQUENCE_H_

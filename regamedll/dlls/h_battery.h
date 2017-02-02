@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CRecharge: public CBaseToggle
+class CRecharge : public CBaseToggle
 {
 public:
 	virtual void Spawn();

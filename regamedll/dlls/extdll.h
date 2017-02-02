@@ -39,19 +39,19 @@
 #include "regamedll_common.h"
 
 #ifdef _WIN32
-	#define WIN32_LEAN_AND_MEAN
-	#define NOWINRES
-	#define NOSERVICE
-	#define NOMCX
-	#define NOIME
-	#include "winsani_in.h"
-	#include "windows.h"
-	#include "winsani_out.h"
-	#undef PlaySound
+#define WIN32_LEAN_AND_MEAN
+#define NOWINRES
+#define NOSERVICE
+#define NOMCX
+#define NOIME
+#include "winsani_in.h"
+#include "windows.h"
+#include "winsani_out.h"
+#undef PlaySound
 #else
-	#include <limits.h>
-	#include <stdarg.h>
-	#include <string.h>
+#include <limits.h>
+#include <stdarg.h>
+#include <string.h>
 #endif // _WIN32
 
 // Misc C-runtime library headers

@@ -104,7 +104,7 @@ CUtlSymbol CUtlSymbolTable::AddString(const char *pString)
 
 const char *CUtlSymbolTable::String(CUtlSymbol id) const
 {
-	if (!id.IsValid()) 
+	if (!id.IsValid())
 		return "";
 
 	assert(m_Lookup.IsValidIndex((UtlSymId_t)id));

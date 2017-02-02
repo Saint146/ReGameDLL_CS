@@ -150,18 +150,18 @@ void CC4::__MAKE_VHOOK(PrimaryAttack)()
 					CGrenade *pBomb = CGrenade::ShootSatchelCharge(m_pPlayer->pev, m_pPlayer->pev->origin, Vector(0, 0, 0));
 
 					MESSAGE_BEGIN(MSG_SPEC, SVC_DIRECTOR);
-						WRITE_BYTE(9);
-						WRITE_BYTE(DRC_CMD_EVENT);
-						WRITE_SHORT(m_pPlayer->entindex());
-						WRITE_SHORT(0);
-						WRITE_LONG(DRC_FLAG_FACEPLAYER | 11);
+					WRITE_BYTE(9);
+					WRITE_BYTE(DRC_CMD_EVENT);
+					WRITE_SHORT(m_pPlayer->entindex());
+					WRITE_SHORT(0);
+					WRITE_LONG(DRC_FLAG_FACEPLAYER | 11);
 					MESSAGE_END();
 
 					MESSAGE_BEGIN(MSG_ALL, gmsgBombDrop);
-						WRITE_COORD(pBomb->pev->origin.x);
-						WRITE_COORD(pBomb->pev->origin.y);
-						WRITE_COORD(pBomb->pev->origin.z);
-						WRITE_BYTE(BOMB_FLAG_PLANTED);
+					WRITE_COORD(pBomb->pev->origin.x);
+					WRITE_COORD(pBomb->pev->origin.y);
+					WRITE_COORD(pBomb->pev->origin.z);
+					WRITE_BYTE(BOMB_FLAG_PLANTED);
 					MESSAGE_END();
 
 					UTIL_ClientPrintAll(HUD_PRINTCENTER, "#Bomb_Planted");

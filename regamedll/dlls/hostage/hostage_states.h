@@ -34,14 +34,14 @@
 
 class CHostageImprov;
 
-class HostageState: public SimpleState<CHostageImprov *>, public IImprovEvent
+class HostageState : public SimpleState<CHostageImprov *>, public IImprovEvent
 {
 public:
 	virtual ~HostageState() {};
 	virtual void UpdateStationaryAnimation(CHostageImprov *improv) {};
 };
 
-class HostageStateMachine: public SimpleStateMachine<CHostageImprov *, HostageState>, public IImprovEvent
+class HostageStateMachine : public SimpleStateMachine<CHostageImprov *, HostageState>, public IImprovEvent
 {
 public:
 	virtual void OnMoveToSuccess(const Vector &goal)
@@ -66,7 +66,7 @@ public:
 	}
 };
 
-class HostageIdleState: public HostageState
+class HostageIdleState : public HostageState
 {
 public:
 	virtual ~HostageIdleState() {};
@@ -109,7 +109,7 @@ private:
 	bool m_mustFlee;
 };
 
-class HostageEscapeToCoverState: public HostageState
+class HostageEscapeToCoverState : public HostageState
 {
 public:
 	virtual ~HostageEscapeToCoverState() {};
@@ -138,7 +138,7 @@ private:
 	bool m_canEscape;
 };
 
-class HostageEscapeLookAroundState: public HostageState
+class HostageEscapeLookAroundState : public HostageState
 {
 public:
 	virtual ~HostageEscapeLookAroundState() {};
@@ -160,7 +160,7 @@ private:
 	CountdownTimer m_timer;
 };
 
-class HostageEscapeState: public HostageState
+class HostageEscapeState : public HostageState
 {
 public:
 	HostageEscapeState()
@@ -196,7 +196,7 @@ private:
 	CountdownTimer m_runTimer;
 };
 
-class HostageRetreatState: public HostageState
+class HostageRetreatState : public HostageState
 {
 public:
 	virtual ~HostageRetreatState() {};
@@ -216,7 +216,7 @@ public:
 
 };
 
-class HostageFollowState: public HostageState
+class HostageFollowState : public HostageState
 {
 public:
 	virtual ~HostageFollowState() {};
@@ -252,7 +252,7 @@ private:
 	CountdownTimer m_waitForFriendTimer;
 };
 
-class HostageAnimateState: public HostageState
+class HostageAnimateState : public HostageState
 {
 public:
 	virtual ~HostageAnimateState() {}

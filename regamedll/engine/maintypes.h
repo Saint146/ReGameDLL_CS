@@ -53,9 +53,9 @@ typedef int EOFFSET;
 typedef int BOOL;
 
 #ifndef __cplusplus
-	typedef enum { false, true }	qboolean;
+typedef enum { false, true }	qboolean;
 #else
-	typedef int qboolean;
+typedef int qboolean;
 #endif
 
 #endif // MAINTYPES_H

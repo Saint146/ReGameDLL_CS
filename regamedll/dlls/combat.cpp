@@ -65,7 +65,7 @@ NOXREF void CGib::SpawnStickyGibs(entvars_t *pevVictim, Vector vecOrigin, int cG
 
 			pGib->pev->movetype = MOVETYPE_TOSS;
 			pGib->pev->solid = SOLID_BBOX;
-			UTIL_SetSize(pGib->pev, Vector(0, 0,0), Vector(0, 0, 0));
+			UTIL_SetSize(pGib->pev, Vector(0, 0, 0), Vector(0, 0, 0));
 			pGib->SetTouch(&CGib::StickyGibTouch);
 			pGib->SetThink(NULL);
 		}
@@ -210,7 +210,7 @@ BOOL CBaseMonster::__MAKE_VHOOK(HasHumanGibs)()
 		|| myClass == CLASS_PLAYER_ALLY
 		|| myClass == CLASS_HUMAN_PASSIVE
 		|| myClass == CLASS_PLAYER)
-		 return TRUE;
+		return TRUE;
 
 	return FALSE;
 }
@@ -224,7 +224,7 @@ BOOL CBaseMonster::__MAKE_VHOOK(HasAlienGibs)()
 		|| myClass == CLASS_INSECT
 		|| myClass == CLASS_ALIEN_PREDATOR
 		|| myClass == CLASS_ALIEN_PREY)
-		 return TRUE;
+		return TRUE;
 
 	return FALSE;
 }
@@ -767,7 +767,7 @@ BOOL CBaseMonster::__MAKE_VHOOK(TakeDamage)(entvars_t *pevInflictor, entvars_t *
 			// TODO: fix test demo
 			vecDir = NormalizeSubtract<
 				float_precision, float, float_precision, float_precision
-				>(Center(), pInflictor->Center() - Vector(0, 0, 10));
+			>(Center(), pInflictor->Center() - Vector(0, 0, 10));
 #endif
 			vecDir = g_vecAttackDir = vecDir.Normalize();
 		}
@@ -856,7 +856,7 @@ BOOL CBaseMonster::DeadTakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacke
 		}
 	}
 
-// turn this back on when the bounding box issues are resolved.
+	// turn this back on when the bounding box issues are resolved.
 #if 0
 
 	pev->flags &= ~FL_ONGROUND;
@@ -922,11 +922,6 @@ void EXT_FUNC PlayerBlind(CBasePlayer *pPlayer, entvars_t *pevInflictor, entvars
 	}
 }
 
-void EXT_FUNC RadiusFlash_TraceLine_hook(CBasePlayer *pPlayer, entvars_t *pevInflictor, entvars_t *pevAttacker, Vector &vecSrc, Vector &vecSpot, TraceResult *tr)
-{
-	UTIL_TraceLine(vecSrc, vecSpot, dont_ignore_monsters, ENT(pevInflictor), tr);
-}
-
 void RadiusFlash(Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int iClassIgnore, int bitsDamageType)
 {
 	CBaseEntity *pEntity = NULL;
@@ -970,12 +965,14 @@ void RadiusFlash(Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacker,
 			continue;
 
 		vecSpot = pPlayer->BodyTarget(vecSrc);
-		g_ReGameHookchains.m_RadiusFlash_TraceLine.callChain(RadiusFlash_TraceLine_hook, pPlayer, pevInflictor, pevAttacker, vecSrc, vecSpot, &tr);
+		UTIL_TraceLine(vecSrc, vecSpot, dont_ignore_monsters, ENT(pevInflictor), &tr);
+		g_ReGameHookchains.m_RadiusFlash_TraceLine.callChain(NULL, pPlayer, pevInflictor, pevAttacker, vecSrc, vecSpot, &tr);
 
 		if (tr.flFraction != 1.0f && tr.pHit != pPlayer->pev->pContainingEntity)
 			continue;
 
-		g_ReGameHookchains.m_RadiusFlash_TraceLine.callChain(RadiusFlash_TraceLine_hook, pPlayer, VARS(tr.pHit), pevAttacker, vecSpot, vecSrc, &tr2);
+		UTIL_TraceLine(vecSpot, vecSrc, dont_ignore_monsters, tr.pHit, &tr2);
+		g_ReGameHookchains.m_RadiusFlash_TraceLine.callChain(NULL, pPlayer, VARS(tr.pHit), pevAttacker, vecSpot, vecSrc, &tr2);
 
 		if (tr2.flFraction >= 1.0)
 		{
@@ -1191,7 +1188,7 @@ void RadiusDamage(Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacker
 			if (flAdjustedDamage < 0)
 				flAdjustedDamage = 0;
 #endif
-				pEntity->TakeDamage(pevInflictor, pevAttacker, flAdjustedDamage, bitsDamageType);
+			pEntity->TakeDamage(pevInflictor, pevAttacker, flAdjustedDamage, bitsDamageType);
 		}
 	}
 }
@@ -1520,8 +1517,7 @@ void CBaseEntity::FireBullets(ULONG cShots, Vector vecSrc, Vector vecDirShooting
 			x = RANDOM_FLOAT(-0.5, 0.5) + RANDOM_FLOAT(-0.5, 0.5);
 			y = RANDOM_FLOAT(-0.5, 0.5) + RANDOM_FLOAT(-0.5, 0.5);
 			z = x * x + y * y;
-		}
-		while (z > 1);
+		} while (z > 1);
 
 		Vector vecDir, vecEnd;
 
@@ -1550,13 +1546,13 @@ void CBaseEntity::FireBullets(ULONG cShots, Vector vecSrc, Vector vecDirShooting
 				tracer = 1;
 
 			MESSAGE_BEGIN(MSG_PAS, SVC_TEMPENTITY, vecTracerSrc);
-				WRITE_BYTE(TE_TRACER);
-				WRITE_COORD(vecTracerSrc.x);
-				WRITE_COORD(vecTracerSrc.y);
-				WRITE_COORD(vecTracerSrc.z);
-				WRITE_COORD(tr.vecEndPos.x);
-				WRITE_COORD(tr.vecEndPos.y);
-				WRITE_COORD(tr.vecEndPos.z);
+			WRITE_BYTE(TE_TRACER);
+			WRITE_COORD(vecTracerSrc.x);
+			WRITE_COORD(vecTracerSrc.y);
+			WRITE_COORD(vecTracerSrc.z);
+			WRITE_COORD(tr.vecEndPos.x);
+			WRITE_COORD(tr.vecEndPos.y);
+			WRITE_COORD(tr.vecEndPos.z);
 			MESSAGE_END();
 		}
 
@@ -1634,12 +1630,12 @@ void CBaseEntity::FireBullets(ULONG cShots, Vector vecSrc, Vector vecDirShooting
 NOXREF char *vstr(float *v)
 {
 	static int idx = 0;
-	static char string[ 16 ][ 1024 ];
+	static char string[16][1024];
 
 	idx = (idx + 1) % 0xF;
-	Q_sprintf(string[ idx ], "%.4f %.4f %.4f", v[0], v[1], v[2]);
+	Q_sprintf(string[idx], "%.4f %.4f %.4f", v[0], v[1], v[2]);
 
-	return string[ idx ];
+	return string[idx];
 }
 
 // Go to the trouble of combining multiple pellets into a single damage call.
@@ -1725,8 +1721,7 @@ Vector CBaseEntity::FireBullets3(Vector vecSrc, Vector vecDirShooting, float vec
 			x = RANDOM_FLOAT(-0.5, 0.5) + RANDOM_FLOAT(-0.5, 0.5);
 			y = RANDOM_FLOAT(-0.5, 0.5) + RANDOM_FLOAT(-0.5, 0.5);
 			z = x * x + y * y;
-		}
-		while (z > 1);
+		} while (z > 1);
 	}
 
 	Vector vecDir, vecEnd;
@@ -1955,14 +1950,14 @@ void CBaseMonster::BloodSplat(const Vector &vecSrc, const Vector &vecDir, int Hi
 		return;
 
 	MESSAGE_BEGIN(MSG_PVS, SVC_TEMPENTITY, vecSrc);
-		WRITE_BYTE(TE_BLOODSTREAM);
-		WRITE_COORD(vecSrc.x);
-		WRITE_COORD(vecSrc.y);
-		WRITE_COORD(vecSrc.z);
-		WRITE_COORD(vecDir.x);
-		WRITE_COORD(vecDir.y);
-		WRITE_COORD(vecDir.z);
-		WRITE_BYTE(223);
-		WRITE_BYTE(iVelocity + RANDOM_LONG(0, 100));
+	WRITE_BYTE(TE_BLOODSTREAM);
+	WRITE_COORD(vecSrc.x);
+	WRITE_COORD(vecSrc.y);
+	WRITE_COORD(vecSrc.z);
+	WRITE_COORD(vecDir.x);
+	WRITE_COORD(vecDir.y);
+	WRITE_COORD(vecDir.z);
+	WRITE_BYTE(223);
+	WRITE_BYTE(iVelocity + RANDOM_LONG(0, 100));
 	MESSAGE_END();
 }

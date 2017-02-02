@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CPathCorner: public CPointEntity
+class CPathCorner : public CPointEntity
 {
 public:
 	virtual void Spawn();

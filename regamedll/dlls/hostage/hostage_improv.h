@@ -39,7 +39,7 @@ class CHostage;
 enum HostageChatterType;
 
 // A Counter-Strike Hostage improved
-class CHostageImprov: public CImprov
+class CHostageImprov : public CImprov
 {
 public:
 	CHostageImprov(CBaseEntity *entity);
@@ -73,7 +73,7 @@ public:
 	virtual void StrafeLeft() { m_moveFlags |= IN_MOVELEFT; }
 	virtual void StrafeRight() { m_moveFlags |= IN_MOVERIGHT; }
 
-	#define HOSTAGE_MUST_JUMP true
+#define HOSTAGE_MUST_JUMP true
 	virtual bool Jump();
 
 	virtual void Crouch();
@@ -226,7 +226,7 @@ public:
 	void Wiggle();						// attempt to wiggle-out of begin stuck
 	void ClearPath();
 
-	#define HOSTAGE_ONLY_JUMP_DOWN true
+#define HOSTAGE_ONLY_JUMP_DOWN true
 	bool DiscontinuityJump(float ground, bool onlyJumpDown = false, bool mustJump = false);
 	void UpdateVision();
 

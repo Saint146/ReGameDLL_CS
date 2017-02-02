@@ -2,7 +2,7 @@
 
 bool HasDefaultPistol(CCSBot *me)
 {
-	CBasePlayerWeapon *pistol = static_cast<CBasePlayerWeapon *>(me->m_rgpPlayerItems[ PISTOL_SLOT ]);
+	CBasePlayerWeapon *pistol = static_cast<CBasePlayerWeapon *>(me->m_rgpPlayerItems[PISTOL_SLOT]);
 
 	if (pistol == NULL)
 		return false;
@@ -73,7 +73,7 @@ void BuyState::__MAKE_VHOOK(OnEnter)(CCSBot *me)
 
 	if (TheCSBots()->AllowPistols())
 	{
-		CBasePlayerWeapon *pistol = static_cast<CBasePlayerWeapon *>(me->m_rgpPlayerItems[ PISTOL_SLOT ]);
+		CBasePlayerWeapon *pistol = static_cast<CBasePlayerWeapon *>(me->m_rgpPlayerItems[PISTOL_SLOT]);
 
 		// check if we have a pistol
 		if (pistol != NULL)
@@ -133,7 +133,7 @@ struct BuyInfo
 
 #ifndef HOOK_GAMEDLL
 
-static BuyInfo primaryWeaponBuyInfoCT[ PRIMARY_WEAPON_BUY_COUNT ] =
+static BuyInfo primaryWeaponBuyInfoCT[PRIMARY_WEAPON_BUY_COUNT] =
 {
 	{ SHOTGUN,		false, "m3" },			// WEAPON_M3
 	{ SHOTGUN,		false, "xm1014" },		// WEAPON_XM1014
@@ -150,16 +150,16 @@ static BuyInfo primaryWeaponBuyInfoCT[ PRIMARY_WEAPON_BUY_COUNT ] =
 	{ MACHINE_GUN,		false, "m249" }			// WEAPON_M249
 };
 
-static BuyInfo secondaryWeaponBuyInfoCT[ SECONDARY_WEAPON_BUY_COUNT ] =
+static BuyInfo secondaryWeaponBuyInfoCT[SECONDARY_WEAPON_BUY_COUNT] =
 {
-//	{ PISTOL, false,	"glock" },
-//	{ PISTOL, false,	"usp" },
-	{ PISTOL, true,		"p228" },
-	{ PISTOL, true,		"deagle" },
-	{ PISTOL, true,		"fn57" }
+	//	{ PISTOL, false,	"glock" },
+	//	{ PISTOL, false,	"usp" },
+		{ PISTOL, true,		"p228" },
+		{ PISTOL, true,		"deagle" },
+		{ PISTOL, true,		"fn57" }
 };
 
-static BuyInfo primaryWeaponBuyInfoT[ PRIMARY_WEAPON_BUY_COUNT ] =
+static BuyInfo primaryWeaponBuyInfoT[PRIMARY_WEAPON_BUY_COUNT] =
 {
 	{ SHOTGUN,		false, "m3" },			// WEAPON_M3
 	{ SHOTGUN,		false, "xm1014" },		// WEAPON_XM1014
@@ -176,22 +176,22 @@ static BuyInfo primaryWeaponBuyInfoT[ PRIMARY_WEAPON_BUY_COUNT ] =
 	{ MACHINE_GUN,		false, "m249" }			// WEAPON_M249
 };
 
-static BuyInfo secondaryWeaponBuyInfoT[ SECONDARY_WEAPON_BUY_COUNT ] =
+static BuyInfo secondaryWeaponBuyInfoT[SECONDARY_WEAPON_BUY_COUNT] =
 {
-//	{ PISTOL, false,	"glock" },
-//	{ PISTOL, false,	"usp" },
-	{ PISTOL, true,		"p228" },
-	{ PISTOL, true,		"deagle" },
-	{ PISTOL, true,		"elites" }
+	//	{ PISTOL, false,	"glock" },
+	//	{ PISTOL, false,	"usp" },
+		{ PISTOL, true,		"p228" },
+		{ PISTOL, true,		"deagle" },
+		{ PISTOL, true,		"elites" }
 };
 
 #else // HOOK_GAMEDLL
 
-BuyInfo primaryWeaponBuyInfoCT[ PRIMARY_WEAPON_BUY_COUNT ];
-BuyInfo secondaryWeaponBuyInfoCT[ SECONDARY_WEAPON_BUY_COUNT];
+BuyInfo primaryWeaponBuyInfoCT[PRIMARY_WEAPON_BUY_COUNT];
+BuyInfo secondaryWeaponBuyInfoCT[SECONDARY_WEAPON_BUY_COUNT];
 
-BuyInfo primaryWeaponBuyInfoT[ PRIMARY_WEAPON_BUY_COUNT ];
-BuyInfo secondaryWeaponBuyInfoT[ SECONDARY_WEAPON_BUY_COUNT ];
+BuyInfo primaryWeaponBuyInfoT[PRIMARY_WEAPON_BUY_COUNT];
+BuyInfo secondaryWeaponBuyInfoT[SECONDARY_WEAPON_BUY_COUNT];
 
 #endif // HOOK_GAMEDLL
 
@@ -374,7 +374,7 @@ void BuyState::__MAKE_VHOOK(OnUpdate)(CCSBot *me)
 			{
 				// build list of allowable weapons to buy
 				BuyInfo *masterPrimary = (me->m_iTeam == TERRORIST) ? primaryWeaponBuyInfoT : primaryWeaponBuyInfoCT;
-				BuyInfo *stockPrimary[ PRIMARY_WEAPON_BUY_COUNT ];
+				BuyInfo *stockPrimary[PRIMARY_WEAPON_BUY_COUNT];
 				int stockPrimaryCount = 0;
 
 				// dont choose sniper rifles as often
@@ -389,7 +389,7 @@ void BuyState::__MAKE_VHOOK(OnUpdate)(CCSBot *me)
 						(masterPrimary[i].type == SNIPER_RIFLE && TheCSBots()->AllowSnipers() && wantSniper) ||
 						(masterPrimary[i].type == MACHINE_GUN && TheCSBots()->AllowMachineGuns()))
 					{
-						stockPrimary[ stockPrimaryCount++ ] = &masterPrimary[i];
+						stockPrimary[stockPrimaryCount++] = &masterPrimary[i];
 					}
 				}
 
@@ -429,8 +429,8 @@ void BuyState::__MAKE_VHOOK(OnUpdate)(CCSBot *me)
 						which = RANDOM_LONG(0, stockPrimaryCount - 1);
 					}
 
-					me->ClientCommand(stockPrimary[ which ]->buyAlias);
-					me->PrintIfWatched("Tried to buy %s.\n", stockPrimary[ which ]->buyAlias);
+					me->ClientCommand(stockPrimary[which]->buyAlias);
+					me->PrintIfWatched("Tried to buy %s.\n", stockPrimary[which]->buyAlias);
 				}
 			}
 		}
@@ -456,9 +456,9 @@ void BuyState::__MAKE_VHOOK(OnUpdate)(CCSBot *me)
 					int which = RANDOM_LONG(0, SECONDARY_WEAPON_BUY_COUNT - 1);
 
 					if (me->m_iTeam == TERRORIST)
-						me->ClientCommand(secondaryWeaponBuyInfoT[ which ].buyAlias);
+						me->ClientCommand(secondaryWeaponBuyInfoT[which].buyAlias);
 					else
-						me->ClientCommand(secondaryWeaponBuyInfoCT[ which ].buyAlias);
+						me->ClientCommand(secondaryWeaponBuyInfoCT[which].buyAlias);
 
 					// only buy one pistol
 					m_buyPistol = false;

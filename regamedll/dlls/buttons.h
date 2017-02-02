@@ -54,7 +54,7 @@
 #define SF_BTARGET_USE			0x0001
 #define SF_BTARGET_ON			0x0002
 
-class CEnvGlobal: public CPointEntity
+class CEnvGlobal : public CPointEntity
 {
 public:
 	virtual void Spawn();
@@ -81,7 +81,7 @@ public:
 	int m_initialstate;
 };
 
-class CRotButton: public CBaseButton
+class CRotButton : public CBaseButton
 {
 public:
 	virtual void Spawn();
@@ -93,7 +93,7 @@ public:
 #endif
 };
 
-class CMomentaryRotButton: public CBaseToggle
+class CMomentaryRotButton : public CBaseToggle
 {
 public:
 	virtual void Spawn();
@@ -144,7 +144,7 @@ public:
 	int m_sounds;
 };
 
-class CEnvSpark: public CBaseEntity
+class CEnvSpark : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -173,7 +173,7 @@ public:
 	float m_flDelay;
 };
 
-class CButtonTarget: public CBaseEntity
+class CButtonTarget : public CBaseEntity
 {
 public:
 	virtual void Spawn();

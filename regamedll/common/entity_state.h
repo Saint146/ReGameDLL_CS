@@ -138,7 +138,7 @@ typedef struct clientdata_s
 	int tfstate;
 	int pushmsec;
 	int deadflag;
-	char physinfo[ MAX_PHYSINFO_STRING ];
+	char physinfo[MAX_PHYSINFO_STRING];
 	int iuser1;
 	int iuser2;
 	int iuser3;

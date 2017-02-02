@@ -124,7 +124,7 @@ int CBaseMonster::__MAKE_VHOOK(IRelationship)(CBaseEntity *pTarget)
 		{ R_NO,		R_NO,	R_DL,	R_DL,	R_DL,	R_AL,	R_NO,	R_DL,	R_DL,	R_NO,	R_NO,	R_DL,	R_DL,	R_NO	}	// ABIOWEAPON
 	};
 
-	return iEnemy[ Classify() ][ pTarget->Classify() ];
+	return iEnemy[Classify()][pTarget->Classify()];
 }
 
 // Look - Base class monster function to find enemies or
@@ -179,7 +179,7 @@ void CBaseMonster::__MAKE_VHOOK(Look)(int iDistance)
 
 				// don't add the Enemy's relationship to the conditions. We only want to worry about conditions when
 				// we see monsters other than the Enemy.
-				switch (IRelationship (pSightEnt))
+				switch (IRelationship(pSightEnt))
 				{
 				case R_NM:
 					iSighted |= bits_COND_SEE_NEMESIS;

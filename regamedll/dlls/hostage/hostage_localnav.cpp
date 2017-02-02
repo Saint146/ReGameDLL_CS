@@ -58,7 +58,7 @@ node_index_t CLocalNav::AddNode(node_index_t nindexParent, Vector &vecLoc, int o
 
 localnode_t *CLocalNav::GetNode(node_index_t nindex)
 {
-	return &m_nodeArr[ nindex ];
+	return &m_nodeArr[nindex];
 }
 
 node_index_t CLocalNav::NodeExists(int offsetX, int offsetY)
@@ -175,8 +175,7 @@ void CLocalNav::AddPathNode(node_index_t nindexSource, int offsetX, int offsetY,
 					nodeCurrent = nodeSource;
 					nindexSource = nindexCurrent;
 				}
-			}
-			while (nindexCurrent);
+			} while (nindexCurrent);
 		}
 
 		vecSource = nodeCurrent->vecLoc;
@@ -250,7 +249,7 @@ int CLocalNav::SetupPathNodes(node_index_t nindex, Vector *vecNodes, int fNoMons
 	{
 		localnode_t *nodeCurrent = GetNode(nCurrentIndex);
 		Vector vecCurrentLoc = nodeCurrent->vecLoc;
-		vecNodes[ nNodeCount++ ] = vecCurrentLoc;
+		vecNodes[nNodeCount++] = vecCurrentLoc;
 
 		nCurrentIndex = nodeCurrent->nindexParent;
 	}
@@ -857,9 +856,9 @@ void CLocalNav::HostagePrethink()
 {
 	for (int iCount = 0; iCount < tot_hostages; ++iCount)
 	{
-		if (hostages[ iCount ] != NULL)
+		if (hostages[iCount] != NULL)
 		{
-			GetClassPtr<CCSHostage>((CHostage *)hostages[ iCount ]->pev)->PreThink();
+			GetClassPtr<CCSHostage>((CHostage *)hostages[iCount]->pev)->PreThink();
 		}
 	}
 }

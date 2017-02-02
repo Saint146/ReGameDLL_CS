@@ -14,7 +14,7 @@ bool CNavPath::ComputePathPositions()
 	for (int i = 1; i < m_segmentCount; ++i)
 	{
 		const PathSegment *from = &m_path[i - 1];
-		PathSegment *to = &m_path[ i ];
+		PathSegment *to = &m_path[i];
 
 		// walk along the floor to the next area
 		if (to->how <= GO_WEST)
@@ -178,7 +178,7 @@ NOXREF bool CNavPath::GetPointAlongPath(float distAlong, Vector *pointOnPath) co
 		lengthSoFar += segmentLength;
 	}
 
-	*pointOnPath = m_path[ GetSegmentCount() - 1 ].pos;
+	*pointOnPath = m_path[GetSegmentCount() - 1].pos;
 	return true;
 }
 
@@ -316,22 +316,22 @@ int CNavPath::FindNextOccludedNode(int anchor_)
 		if (m_path[i].ladder)
 			return i;
 
-		if (!IsWalkableTraceLineClear(m_path[ anchor_ ].pos, m_path[ i ].pos))
+		if (!IsWalkableTraceLineClear(m_path[anchor_].pos, m_path[i].pos))
 		{
 			// cant see this node from anchor node
 			return i;
 		}
 
-		Vector anchorPlusHalf =  m_path[ anchor_ ].pos + Vector(0, 0, HalfHumanHeight);
-		Vector iPlusHalf =  m_path[ i ].pos + Vector(0, 0, HalfHumanHeight);
+		Vector anchorPlusHalf = m_path[anchor_].pos + Vector(0, 0, HalfHumanHeight);
+		Vector iPlusHalf = m_path[i].pos + Vector(0, 0, HalfHumanHeight);
 		if (!IsWalkableTraceLineClear(anchorPlusHalf, iPlusHalf))
 		{
 			// cant see this node from anchor node
 			return i;
 		}
 
-		Vector anchorPlusFull =  m_path[ anchor_ ].pos + Vector(0, 0, HumanHeight);
-		Vector iPlusFull = m_path[ i ].pos + Vector(0, 0, HumanHeight);
+		Vector anchorPlusFull = m_path[anchor_].pos + Vector(0, 0, HumanHeight);
+		Vector iPlusFull = m_path[i].pos + Vector(0, 0, HumanHeight);
 		if (!IsWalkableTraceLineClear(anchorPlusFull, iPlusFull))
 		{
 			// cant see this node from anchor node
@@ -855,7 +855,7 @@ int CNavPathFollower::FindPathPoint(float aheadRange, Vector *point, int *prevIn
 			float dt = sightStepSize / length;
 
 			Vector probe = *point + Vector(0, 0, HalfHumanHeight);
-			while (t > 0.0f && !IsWalkableTraceLineClear(eyes,  probe, WALK_THRU_BREAKABLES))
+			while (t > 0.0f && !IsWalkableTraceLineClear(eyes, probe, WALK_THRU_BREAKABLES))
 			{
 				t -= dt;
 				*point = *beforePoint + t * to;

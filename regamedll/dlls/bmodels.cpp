@@ -657,7 +657,7 @@ void CPendulum::__MAKE_VHOOK(Spawn)()
 
 	if (pev->spawnflags & SF_PENDULUM_SWING)
 	{
-		SetTouch (&CPendulum::RopeTouch);
+		SetTouch(&CPendulum::RopeTouch);
 	}
 }
 

@@ -417,10 +417,10 @@ private:
 	unsigned int m_openMarker;				// if this equals the current marker value, we are on the open list
 
 	// connections to adjacent areas
-	NavConnectList m_connect[ NUM_DIRECTIONS ];		// a list of adjacent areas for each direction
-	NavLadderList m_ladder[ NUM_LADDER_DIRECTIONS ];	// list of ladders leading up and down from this area
+	NavConnectList m_connect[NUM_DIRECTIONS];		// a list of adjacent areas for each direction
+	NavLadderList m_ladder[NUM_LADDER_DIRECTIONS];	// list of ladders leading up and down from this area
 
-	CNavNode *m_node[ NUM_CORNERS ];			// nav nodes at each corner of the area
+	CNavNode *m_node[NUM_CORNERS];			// nav nodes at each corner of the area
 
 	void FinishMerge(CNavArea *adjArea);					// recompute internal data once nodes have been adjusted during merge
 	void MergeAdjacentConnections(CNavArea *adjArea);			// for merging with "adjArea" - pick up all of "adjArea"s connections

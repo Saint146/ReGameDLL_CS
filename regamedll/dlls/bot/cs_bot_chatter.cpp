@@ -9,7 +9,7 @@
 BotPhraseManager *TheBotPhrases = NULL;
 CBaseEntity *g_pSelectedZombieSpawn = NULL;
 CountdownTimer BotChatterInterface::m_encourageTimer;
-IntervalTimer BotChatterInterface::m_radioSilenceInterval[ 2 ];
+IntervalTimer BotChatterInterface::m_radioSilenceInterval[2];
 
 #endif
 
@@ -113,27 +113,27 @@ void BotBombStatusMeme::__MAKE_VHOOK(Interpret)(CCSBot *sender, CCSBot *receiver
 	// update our gamestate based on teammate's report
 	switch (m_state)
 	{
-		case CSGameState::MOVING:
+	case CSGameState::MOVING:
+	{
+		receiver->GetGameState()->UpdateBomber(&m_pos);
+
+		// if we are hunting and see no enemies, respond
+		if (!receiver->IsRogue() && receiver->IsHunting() && receiver->GetNearbyEnemyCount() == 0)
+			receiver->RespondToHelpRequest(sender, TheNavAreaGrid.GetPlace(&m_pos));
+
+		break;
+	}
+	case CSGameState::LOOSE:
+	{
+		receiver->GetGameState()->UpdateLooseBomb(&m_pos);
+
+		if (receiver->GetTask() == CCSBot::GUARD_BOMB_ZONE)
 		{
-			receiver->GetGameState()->UpdateBomber(&m_pos);
-
-			// if we are hunting and see no enemies, respond
-			if (!receiver->IsRogue() && receiver->IsHunting() && receiver->GetNearbyEnemyCount() == 0)
-				receiver->RespondToHelpRequest(sender, TheNavAreaGrid.GetPlace(&m_pos));
-
-			break;
+			receiver->Idle();
+			receiver->GetChatter()->Affirmative();
 		}
-		case CSGameState::LOOSE:
-		{
-			receiver->GetGameState()->UpdateLooseBomb(&m_pos);
-
-			if (receiver->GetTask() == CCSBot::GUARD_BOMB_ZONE)
-			{
-				receiver->Idle();
-				receiver->GetChatter()->Affirmative();
-			}
-			break;
-		}
+		break;
+	}
 	}
 }
 
@@ -302,16 +302,16 @@ char *BotPhrase::GetSpeakable(int bankIndex, float *duration) const
 	}
 
 	// find phrase that meets the current criteria
-	int start = m_index[ bankIndex ];
+	int start = m_index[bankIndex];
 	while (true)
 	{
-		BotSpeakableVector *speakables = m_voiceBank[ bankIndex ];
-		int &index = m_index[ bankIndex ];
+		BotSpeakableVector *speakables = m_voiceBank[bankIndex];
+		int &index = m_index[bankIndex];
 
 		const BotSpeakable *speak = (*speakables)[index++];
 
-		if (m_index[ bankIndex ] >= m_count[ bankIndex ])
-			m_index[ bankIndex ] = 0;
+		if (m_index[bankIndex] >= m_count[bankIndex])
+			m_index[bankIndex] = 0;
 
 		// check place criteria
 		// if this speakable has a place criteria, it must match to be used
@@ -626,10 +626,10 @@ bool BotPhraseManager::Initialize(const char *filename, int bankIndex)
 					speak->m_duration = 1.0f;
 				}
 
-				BotSpeakableVector *speakables = phrase->m_voiceBank[ bankIndex ];
+				BotSpeakableVector *speakables = phrase->m_voiceBank[bankIndex];
 				speakables->push_back(speak);
 
-				++phrase->m_count[ bankIndex ];
+				++phrase->m_count[bankIndex];
 			}
 
 			if (isDefault)
@@ -820,7 +820,7 @@ void BotStatement::AttachMeme(BotMeme *meme)
 void BotStatement::AddCondition(ConditionType condition)
 {
 	if (m_conditionCount < MAX_BOT_CONDITIONS)
-		m_condition[ m_conditionCount++ ] = condition;
+		m_condition[m_conditionCount++] = condition;
 }
 
 // Return true if this statement is "important" and not personality chatter
@@ -847,24 +847,24 @@ bool BotStatement::IsValid() const
 	{
 		switch (m_condition[i])
 		{
-			case IS_IN_COMBAT:
-			{
-				if (!GetOwner()->IsAttacking())
-					return false;
-				break;
-			}
-			/*case RADIO_SILENCE:
-			{
-				if (GetOwner()->GetChatter()->GetRadioSilenceDuration() < 10.0f)
-					return false;
-				break;
-			}*/
-			case ENEMIES_REMAINING:
-			{
-				if (GetOwner()->GetEnemiesRemaining() == 0)
-					return false;
-				break;
-			}
+		case IS_IN_COMBAT:
+		{
+			if (!GetOwner()->IsAttacking())
+				return false;
+			break;
+		}
+		/*case RADIO_SILENCE:
+		{
+			if (GetOwner()->GetChatter()->GetRadioSilenceDuration() < 10.0f)
+				return false;
+			break;
+		}*/
+		case ENEMIES_REMAINING:
+		{
+			if (GetOwner()->GetEnemiesRemaining() == 0)
+				return false;
+			break;
+		}
 		}
 	}
 
@@ -876,9 +876,9 @@ bool BotStatement::IsRedundant(const BotStatement *say) const
 {
 	// special cases
 	if (GetType() == REPORT_MY_PLAN ||
-			GetType() == REPORT_REQUEST_HELP ||
-			GetType() == REPORT_CRITICAL_EVENT ||
-			GetType() == REPORT_ACKNOWLEDGE)
+		GetType() == REPORT_REQUEST_HELP ||
+		GetType() == REPORT_CRITICAL_EVENT ||
+		GetType() == REPORT_ACKNOWLEDGE)
 		return false;
 
 	// check if topics are different
@@ -966,8 +966,8 @@ void BotStatement::AppendPhrase(const BotPhrase *phrase)
 
 	if (m_count < MAX_BOT_PHRASES)
 	{
-		m_statement[ m_count ].isPhrase = true;
-		m_statement[ m_count++ ].phrase = phrase;
+		m_statement[m_count].isPhrase = true;
+		m_statement[m_count++].phrase = phrase;
 	}
 }
 
@@ -976,8 +976,8 @@ void BotStatement::AppendPhrase(ContextType contextPhrase)
 {
 	if (m_count < MAX_BOT_PHRASES)
 	{
-		m_statement[ m_count ].isPhrase = false;
-		m_statement[ m_count++ ].context = contextPhrase;
+		m_statement[m_count].isPhrase = false;
+		m_statement[m_count++].context = contextPhrase;
 	}
 }
 
@@ -998,7 +998,7 @@ bool BotStatement::Update()
 	}
 
 	// special case - context dependent delay
-	if (m_index >= 0 && m_statement[ m_index ].context == ACCUMULATE_ENEMIES_DELAY)
+	if (m_index >= 0 && m_statement[m_index].context == ACCUMULATE_ENEMIES_DELAY)
 	{
 		// report if we see a lot of enemies, or if enough time has passed
 		const float reportTime = 2.0f;
@@ -1027,69 +1027,69 @@ bool BotStatement::Update()
 		float duration = 0.0f;
 		const BotPhrase *phrase = NULL;
 
-		if (m_statement[ m_index ].isPhrase)
+		if (m_statement[m_index].isPhrase)
 		{
 			// normal phrase
-			phrase = m_statement[ m_index ].phrase;
+			phrase = m_statement[m_index].phrase;
 		}
 		else
 		{
 			// context-dependant phrase
-			switch (m_statement[ m_index ].context)
+			switch (m_statement[m_index].context)
 			{
-				case CURRENT_ENEMY_COUNT:
-				{
-					int enemyCount = me->GetNearbyEnemyCount();
+			case CURRENT_ENEMY_COUNT:
+			{
+				int enemyCount = me->GetNearbyEnemyCount();
 
-					// if we are outnumbered, ask for help
-					if (enemyCount - 1 > me->GetNearbyFriendCount())
-					{
-						phrase = TheBotPhrases->GetPhrase("Help");
-						AttachMeme(new BotHelpMeme());
-					}
-					else if (enemyCount > 1)
-					{
-						phrase = TheBotPhrases->GetPhrase("EnemySpotted");
-						phrase->SetCountCriteria(enemyCount);
-					}
-					break;
-				}
-				case REMAINING_ENEMY_COUNT:
+				// if we are outnumbered, ask for help
+				if (enemyCount - 1 > me->GetNearbyFriendCount())
 				{
-					static const char *speak[] =
-					{
-						"NoEnemiesLeft", "OneEnemyLeft", "TwoEnemiesLeft", "ThreeEnemiesLeft"
-					};
+					phrase = TheBotPhrases->GetPhrase("Help");
+					AttachMeme(new BotHelpMeme());
+				}
+				else if (enemyCount > 1)
+				{
+					phrase = TheBotPhrases->GetPhrase("EnemySpotted");
+					phrase->SetCountCriteria(enemyCount);
+				}
+				break;
+			}
+			case REMAINING_ENEMY_COUNT:
+			{
+				static const char *speak[] =
+				{
+					"NoEnemiesLeft", "OneEnemyLeft", "TwoEnemiesLeft", "ThreeEnemiesLeft"
+				};
 
-					int enemyCount = me->GetEnemiesRemaining();
+				int enemyCount = me->GetEnemiesRemaining();
 
-					// dont report if there are lots of enemies left
-					if (enemyCount < 0 || enemyCount > 3)
-					{
-						phrase = NULL;
-					}
-					else
-					{
-						phrase = TheBotPhrases->GetPhrase(speak[ enemyCount ]);
-					}
-					break;
-				}
-				case SHORT_DELAY:
+				// dont report if there are lots of enemies left
+				if (enemyCount < 0 || enemyCount > 3)
 				{
-					m_nextTime = gpGlobals->time + RANDOM_FLOAT(0.1f, 0.5f);
-					return true;
+					phrase = NULL;
 				}
-				case LONG_DELAY:
+				else
 				{
-					m_nextTime = gpGlobals->time + RANDOM_FLOAT(1.0f, 2.0f);
-					return true;
+					phrase = TheBotPhrases->GetPhrase(speak[enemyCount]);
 				}
-				case ACCUMULATE_ENEMIES_DELAY:
-				{
-					// wait until test becomes true
-					m_nextTime = 99999999.9f;
-					return true;
-				}
+				break;
+			}
+			case SHORT_DELAY:
+			{
+				m_nextTime = gpGlobals->time + RANDOM_FLOAT(0.1f, 0.5f);
+				return true;
+			}
+			case LONG_DELAY:
+			{
+				m_nextTime = gpGlobals->time + RANDOM_FLOAT(1.0f, 2.0f);
+				return true;
+			}
+			case ACCUMULATE_ENEMIES_DELAY:
+			{
+				// wait until test becomes true
+				m_nextTime = 99999999.9f;
+				return true;
+			}
 			}
 		}
 
@@ -1478,16 +1478,16 @@ void BotChatterInterface::Update()
 	{
 		nextSay = say->m_next;
 
+		// don't interrupt ourselves. SAINT: moved it upper to prevent from removing invalid sentences that already have being spoken
+		if (say->IsSpeaking())
+			continue;
+
 		// check statement conditions
 		if (!say->IsValid())
 		{
 			RemoveStatement(say);
 			continue;
 		}
-
-		// don't interrupt ourselves
-		if (say->IsSpeaking())
-			continue;
 
 		// check for obsolete statements
 		if (say->IsObsolete())
@@ -1589,7 +1589,7 @@ bool BotChatterInterface::ShouldSpeak() const
 
 float BotChatterInterface::GetRadioSilenceDuration()
 {
-	return IMPL(m_radioSilenceInterval)[ m_me->m_iTeam - 1 ].GetElapsedTime();
+	return IMPL(m_radioSilenceInterval)[m_me->m_iTeam - 1].GetElapsedTime();
 }
 
 void BotChatterInterface::ResetRadioSilenceDuration()
@@ -1653,48 +1653,48 @@ void BotChatterInterface::ReportingIn()
 	// what are we doing
 	switch (m_me->GetTask())
 	{
-		case CCSBot::PLANT_BOMB:
+	case CCSBot::PLANT_BOMB:
+	{
+		m_me->GetChatter()->GoingToPlantTheBomb(UNDEFINED_PLACE);
+		break;
+	}
+	case CCSBot::DEFUSE_BOMB:
+	{
+		m_me->GetChatter()->Say("DefusingBomb");
+		break;
+	}
+	case CCSBot::GUARD_LOOSE_BOMB:
+	{
+		if (TheCSBots()->GetLooseBomb())
 		{
-			m_me->GetChatter()->GoingToPlantTheBomb(UNDEFINED_PLACE);
-			break;
+			say->AppendPhrase(TheBotPhrases->GetPhrase("GuardingLooseBomb"));
+			say->AttachMeme(new BotBombStatusMeme(CSGameState::LOOSE, TheCSBots()->GetLooseBomb()->pev->origin));
 		}
-		case CCSBot::DEFUSE_BOMB:
-		{
-			m_me->GetChatter()->Say("DefusingBomb");
-			break;
-		}
-		case CCSBot::GUARD_LOOSE_BOMB:
-		{
-			if (TheCSBots()->GetLooseBomb())
-			{
-				say->AppendPhrase(TheBotPhrases->GetPhrase("GuardingLooseBomb"));
-				say->AttachMeme(new BotBombStatusMeme(CSGameState::LOOSE, TheCSBots()->GetLooseBomb()->pev->origin));
-			}
-			break;
-		}
-		case CCSBot::GUARD_HOSTAGES:
-		{
-			m_me->GetChatter()->GuardingHostages(UNDEFINED_PLACE, !m_me->IsAtHidingSpot());
-			break;
-		}
-		case CCSBot::GUARD_HOSTAGE_RESCUE_ZONE:
-		{
-			m_me->GetChatter()->GuardingHostageEscapeZone(!m_me->IsAtHidingSpot());
-			break;
-		}
-		case CCSBot::COLLECT_HOSTAGES:
-		{
-			break;
-		}
-		case CCSBot::RESCUE_HOSTAGES:
-		{
-			m_me->GetChatter()->EscortingHostages();
-			break;
-		}
-		case CCSBot::GUARD_VIP_ESCAPE_ZONE:
-		{
-			break;
-		}
+		break;
+	}
+	case CCSBot::GUARD_HOSTAGES:
+	{
+		m_me->GetChatter()->GuardingHostages(UNDEFINED_PLACE, !m_me->IsAtHidingSpot());
+		break;
+	}
+	case CCSBot::GUARD_HOSTAGE_RESCUE_ZONE:
+	{
+		m_me->GetChatter()->GuardingHostageEscapeZone(!m_me->IsAtHidingSpot());
+		break;
+	}
+	case CCSBot::COLLECT_HOSTAGES:
+	{
+		break;
+	}
+	case CCSBot::RESCUE_HOSTAGES:
+	{
+		m_me->GetChatter()->EscortingHostages();
+		break;
+	}
+	case CCSBot::GUARD_VIP_ESCAPE_ZONE:
+	{
+		break;
+	}
 	}
 
 	// what do we see

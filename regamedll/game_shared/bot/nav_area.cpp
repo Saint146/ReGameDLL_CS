@@ -59,7 +59,7 @@ bool isPlacePainting = false;
 
 float editTimestamp = 0.0f;
 
-unsigned int BlockedID[ MAX_BLOCKED_AREAS ];
+unsigned int BlockedID[MAX_BLOCKED_AREAS];
 int BlockedIDCount = 0;
 
 #endif // HOOK_GAMEDLL
@@ -251,10 +251,10 @@ CNavArea::CNavArea(CNavNode *nwNode, class CNavNode *neNode, class CNavNode *seN
 	m_neZ = neNode->GetPosition()->z;
 	m_swZ = swNode->GetPosition()->z;
 
-	m_node[ NORTH_WEST ] = nwNode;
-	m_node[ NORTH_EAST ] = neNode;
-	m_node[ SOUTH_EAST ] = seNode;
-	m_node[ SOUTH_WEST ] = swNode;
+	m_node[NORTH_WEST] = nwNode;
+	m_node[NORTH_EAST] = neNode;
+	m_node[SOUTH_EAST] = seNode;
+	m_node[SOUTH_WEST] = swNode;
 
 	// mark internal nodes as part of this area
 	AssignNodes(this);
@@ -329,7 +329,7 @@ void CNavArea::Disconnect(CNavArea *area)
 	NavConnect connect;
 	connect.area = area;
 
-	for (int dir = 0; dir<NUM_DIRECTIONS; dir++)
+	for (int dir = 0; dir < NUM_DIRECTIONS; dir++)
 		m_connect[dir].remove(connect);
 }
 
@@ -338,15 +338,15 @@ void CNavArea::Disconnect(CNavArea *area)
 void CNavArea::FinishMerge(CNavArea *adjArea)
 {
 	// update extent
-	m_extent.lo = *m_node[ NORTH_WEST ]->GetPosition();
-	m_extent.hi = *m_node[ SOUTH_EAST ]->GetPosition();
+	m_extent.lo = *m_node[NORTH_WEST]->GetPosition();
+	m_extent.hi = *m_node[SOUTH_EAST]->GetPosition();
 
 	m_center.x = (m_extent.lo.x + m_extent.hi.x) / 2.0f;
 	m_center.y = (m_extent.lo.y + m_extent.hi.y) / 2.0f;
 	m_center.z = (m_extent.lo.z + m_extent.hi.z) / 2.0f;
 
-	m_neZ = m_node[ NORTH_EAST ]->GetPosition()->z;
-	m_swZ = m_node[ SOUTH_WEST ]->GetPosition()->z;
+	m_neZ = m_node[NORTH_EAST]->GetPosition()->z;
+	m_swZ = m_node[SOUTH_WEST]->GetPosition()->z;
 
 	// reassign the adjacent area's internal nodes to the final area
 	adjArea->AssignNodes(this);
@@ -365,9 +365,9 @@ void CNavArea::MergeAdjacentConnections(CNavArea *adjArea)
 	// merge adjacency links - we gain all the connections that adjArea had
 	NavConnectList::iterator iter;
 	int dir;
-	for (dir = 0; dir<NUM_DIRECTIONS; ++dir)
+	for (dir = 0; dir < NUM_DIRECTIONS; ++dir)
 	{
-		for (iter = adjArea->m_connect[ dir ].begin(); iter != adjArea->m_connect[ dir ].end(); ++iter)
+		for (iter = adjArea->m_connect[dir].begin(); iter != adjArea->m_connect[dir].end(); ++iter)
 		{
 			NavConnect connect = (*iter);
 
@@ -402,7 +402,7 @@ void CNavArea::MergeAdjacentConnections(CNavArea *adjArea)
 		{
 			// check if there are any references to adjArea in this direction
 			bool connected = false;
-			for (iter = area->m_connect[ dir ].begin(); iter != area->m_connect[ dir ].end(); ++iter)
+			for (iter = area->m_connect[dir].begin(); iter != area->m_connect[dir].end(); ++iter)
 			{
 				NavConnect connect = (*iter);
 
@@ -436,9 +436,9 @@ void CNavArea::MergeAdjacentConnections(CNavArea *adjArea)
 // NOTE: "internal" nodes do not include the east or south border nodes
 void CNavArea::AssignNodes(CNavArea *area)
 {
-	CNavNode *horizLast = m_node[ NORTH_EAST ];
+	CNavNode *horizLast = m_node[NORTH_EAST];
 
-	for (CNavNode *vertNode = m_node[ NORTH_WEST ]; vertNode != m_node[ SOUTH_WEST ]; vertNode = vertNode->GetConnectedNode(SOUTH))
+	for (CNavNode *vertNode = m_node[NORTH_WEST]; vertNode != m_node[SOUTH_WEST]; vertNode = vertNode->GetConnectedNode(SOUTH))
 	{
 		for (CNavNode *horizNode = vertNode; horizNode != horizLast; horizNode = horizNode->GetConnectedNode(EAST))
 		{
@@ -570,7 +570,7 @@ bool CNavArea::IsConnected(const CNavArea *area, NavDirType dir) const
 		// search all directions
 		for (int d = 0; d < NUM_DIRECTIONS; ++d)
 		{
-			for (iter = m_connect[ d ].begin(); iter != m_connect[ d ].end(); ++iter)
+			for (iter = m_connect[d].begin(); iter != m_connect[d].end(); ++iter)
 			{
 				if (area == (*iter).area)
 					return true;
@@ -579,7 +579,7 @@ bool CNavArea::IsConnected(const CNavArea *area, NavDirType dir) const
 
 		// check ladder connections
 		NavLadderList::const_iterator liter;
-		for (liter = m_ladder[ LADDER_UP ].begin(); liter != m_ladder[ LADDER_UP ].end(); ++liter)
+		for (liter = m_ladder[LADDER_UP].begin(); liter != m_ladder[LADDER_UP].end(); ++liter)
 		{
 			CNavLadder *ladder = *liter;
 
@@ -587,7 +587,7 @@ bool CNavArea::IsConnected(const CNavArea *area, NavDirType dir) const
 				return true;
 		}
 
-		for (liter = m_ladder[ LADDER_DOWN ].begin(); liter != m_ladder[ LADDER_DOWN ].end(); ++liter)
+		for (liter = m_ladder[LADDER_DOWN].begin(); liter != m_ladder[LADDER_DOWN].end(); ++liter)
 		{
 			CNavLadder *ladder = *liter;
 
@@ -598,7 +598,7 @@ bool CNavArea::IsConnected(const CNavArea *area, NavDirType dir) const
 	else
 	{
 		// check specific direction
-		for (iter = m_connect[ dir ].begin(); iter != m_connect[ dir ].end(); ++iter)
+		for (iter = m_connect[dir].begin(); iter != m_connect[dir].end(); ++iter)
 		{
 			if (area == (*iter).area)
 				return true;
@@ -848,7 +848,7 @@ bool CNavArea::MergeEdit(CNavArea *adj)
 		merge = true;
 
 	if (ABS(m_extent.lo.y - adj->m_extent.lo.y) < tolerance &&
-			ABS(m_extent.hi.y - adj->m_extent.hi.y) < tolerance)
+		ABS(m_extent.hi.y - adj->m_extent.hi.y) < tolerance)
 		merge = true;
 
 	if (merge == false)
@@ -863,9 +863,9 @@ bool CNavArea::MergeEdit(CNavArea *adj)
 	if (m_extent.hi.x < adj->m_extent.hi.x || m_extent.hi.y < adj->m_extent.hi.y)
 		m_extent.hi = adj->m_extent.hi;
 
-	m_center.x = (m_extent.lo.x + m_extent.hi.x)/2.0f;
-	m_center.y = (m_extent.lo.y + m_extent.hi.y)/2.0f;
-	m_center.z = (m_extent.lo.z + m_extent.hi.z)/2.0f;
+	m_center.x = (m_extent.lo.x + m_extent.hi.x) / 2.0f;
+	m_center.y = (m_extent.lo.y + m_extent.hi.y) / 2.0f;
+	m_center.z = (m_extent.lo.z + m_extent.hi.z) / 2.0f;
 
 	if (m_extent.hi.x > origExtent.hi.x || m_extent.lo.y < origExtent.lo.y)
 		m_neZ = adj->GetZ(m_extent.hi.x, m_extent.lo.y);
@@ -1066,7 +1066,7 @@ void ConnectGeneratedAreas()
 
 		// north edge
 		CNavNode *node;
-		for (node = area->m_node[ NORTH_WEST ]; node != area->m_node[ NORTH_EAST ]; node = node->GetConnectedNode(EAST))
+		for (node = area->m_node[NORTH_WEST]; node != area->m_node[NORTH_EAST]; node = node->GetConnectedNode(EAST))
 		{
 			CNavNode *adj = node->GetConnectedNode(NORTH);
 
@@ -1083,7 +1083,7 @@ void ConnectGeneratedAreas()
 		}
 
 		// west edge
-		for (node = area->m_node[ NORTH_WEST ]; node != area->m_node[ SOUTH_WEST ]; node = node->GetConnectedNode(SOUTH))
+		for (node = area->m_node[NORTH_WEST]; node != area->m_node[SOUTH_WEST]; node = node->GetConnectedNode(SOUTH))
 		{
 			CNavNode *adj = node->GetConnectedNode(WEST);
 
@@ -1102,11 +1102,11 @@ void ConnectGeneratedAreas()
 		// south edge - this edge's nodes are actually part of adjacent areas
 		// move one node north, and scan west to east
 		// TODO: This allows one-node-wide areas - do we want this?
-		node = area->m_node[ SOUTH_WEST ];
+		node = area->m_node[SOUTH_WEST];
 		node = node->GetConnectedNode(NORTH);
 		if (node != NULL)
 		{
-			CNavNode *end = area->m_node[ SOUTH_EAST ]->GetConnectedNode(NORTH);
+			CNavNode *end = area->m_node[SOUTH_EAST]->GetConnectedNode(NORTH);
 			// TODO: Figure out why cs_backalley gets a NULL node in here...
 			for (; node != NULL && node != end; node = node->GetConnectedNode(EAST))
 			{
@@ -1126,11 +1126,11 @@ void ConnectGeneratedAreas()
 		}
 
 		// east edge - this edge's nodes are actually part of adjacent areas
-		node = area->m_node[ NORTH_EAST ];
+		node = area->m_node[NORTH_EAST];
 		node = node->GetConnectedNode(WEST);
 		if (node != NULL)
 		{
-			CNavNode *end = area->m_node[ SOUTH_EAST ]->GetConnectedNode(WEST);
+			CNavNode *end = area->m_node[SOUTH_EAST]->GetConnectedNode(WEST);
 			for (; node != NULL && node != end; node = node->GetConnectedNode(SOUTH))
 			{
 				CNavNode *adj = node->GetConnectedNode(EAST);
@@ -1168,18 +1168,18 @@ void MergeGeneratedAreas()
 
 			// north edge
 			NavConnectList::iterator citer;
-			for (citer = area->m_connect[ NORTH ].begin(); citer != area->m_connect[ NORTH ].end(); ++citer)
+			for (citer = area->m_connect[NORTH].begin(); citer != area->m_connect[NORTH].end(); ++citer)
 			{
 				CNavArea *adjArea = (*citer).area;
 
-				if (area->m_node[ NORTH_WEST ] == adjArea->m_node[ SOUTH_WEST ] &&
-						area->m_node[ NORTH_EAST ] == adjArea->m_node[ SOUTH_EAST ] &&
-						area->GetAttributes() == adjArea->GetAttributes() &&
-						area->IsCoplanar(adjArea))
+				if (area->m_node[NORTH_WEST] == adjArea->m_node[SOUTH_WEST] &&
+					area->m_node[NORTH_EAST] == adjArea->m_node[SOUTH_EAST] &&
+					area->GetAttributes() == adjArea->GetAttributes() &&
+					area->IsCoplanar(adjArea))
 				{
 					// merge vertical
-					area->m_node[ NORTH_WEST ] = adjArea->m_node[ NORTH_WEST ];
-					area->m_node[ NORTH_EAST ] = adjArea->m_node[ NORTH_EAST ];
+					area->m_node[NORTH_WEST] = adjArea->m_node[NORTH_WEST];
+					area->m_node[NORTH_EAST] = adjArea->m_node[NORTH_EAST];
 
 					merged = true;
 					//CONSOLE_ECHO("  Merged (north) areas #%d and #%d\n", area->m_id, adjArea->m_id);
@@ -1195,18 +1195,18 @@ void MergeGeneratedAreas()
 				break;
 
 			// south edge
-			for (citer = area->m_connect[ SOUTH ].begin(); citer != area->m_connect[ SOUTH ].end(); ++citer)
+			for (citer = area->m_connect[SOUTH].begin(); citer != area->m_connect[SOUTH].end(); ++citer)
 			{
 				CNavArea *adjArea = (*citer).area;
 
-				if (adjArea->m_node[ NORTH_WEST ] == area->m_node[ SOUTH_WEST ] &&
-						adjArea->m_node[ NORTH_EAST ] == area->m_node[ SOUTH_EAST ] &&
-						area->GetAttributes() == adjArea->GetAttributes() &&
-						area->IsCoplanar(adjArea))
+				if (adjArea->m_node[NORTH_WEST] == area->m_node[SOUTH_WEST] &&
+					adjArea->m_node[NORTH_EAST] == area->m_node[SOUTH_EAST] &&
+					area->GetAttributes() == adjArea->GetAttributes() &&
+					area->IsCoplanar(adjArea))
 				{
 					// merge vertical
-					area->m_node[ SOUTH_WEST ] = adjArea->m_node[ SOUTH_WEST ];
-					area->m_node[ SOUTH_EAST ] = adjArea->m_node[ SOUTH_EAST ];
+					area->m_node[SOUTH_WEST] = adjArea->m_node[SOUTH_WEST];
+					area->m_node[SOUTH_EAST] = adjArea->m_node[SOUTH_EAST];
 
 					merged = true;
 					//CONSOLE_ECHO("  Merged (south) areas #%d and #%d\n", area->m_id, adjArea->m_id);
@@ -1224,18 +1224,18 @@ void MergeGeneratedAreas()
 
 
 			// west edge
-			for (citer = area->m_connect[ WEST ].begin(); citer != area->m_connect[ WEST ].end(); ++citer)
+			for (citer = area->m_connect[WEST].begin(); citer != area->m_connect[WEST].end(); ++citer)
 			{
 				CNavArea *adjArea = (*citer).area;
 
-				if (area->m_node[ NORTH_WEST ] == adjArea->m_node[ NORTH_EAST ] &&
-						area->m_node[ SOUTH_WEST ] == adjArea->m_node[ SOUTH_EAST ] &&
-						area->GetAttributes() == adjArea->GetAttributes() &&
-						area->IsCoplanar(adjArea))
+				if (area->m_node[NORTH_WEST] == adjArea->m_node[NORTH_EAST] &&
+					area->m_node[SOUTH_WEST] == adjArea->m_node[SOUTH_EAST] &&
+					area->GetAttributes() == adjArea->GetAttributes() &&
+					area->IsCoplanar(adjArea))
 				{
 					// merge horizontal
-					area->m_node[ NORTH_WEST ] = adjArea->m_node[ NORTH_WEST ];
-					area->m_node[ SOUTH_WEST ] = adjArea->m_node[ SOUTH_WEST ];
+					area->m_node[NORTH_WEST] = adjArea->m_node[NORTH_WEST];
+					area->m_node[SOUTH_WEST] = adjArea->m_node[SOUTH_WEST];
 
 					merged = true;
 					//CONSOLE_ECHO("  Merged (west) areas #%d and #%d\n", area->m_id, adjArea->m_id);
@@ -1252,18 +1252,18 @@ void MergeGeneratedAreas()
 				break;
 
 			// east edge
-			for (citer = area->m_connect[ EAST ].begin(); citer != area->m_connect[ EAST ].end(); ++citer)
+			for (citer = area->m_connect[EAST].begin(); citer != area->m_connect[EAST].end(); ++citer)
 			{
 				CNavArea *adjArea = (*citer).area;
 
-				if (adjArea->m_node[ NORTH_WEST ] == area->m_node[ NORTH_EAST ] &&
-						adjArea->m_node[ SOUTH_WEST ] == area->m_node[ SOUTH_EAST ] &&
-						area->GetAttributes() == adjArea->GetAttributes() &&
-						area->IsCoplanar(adjArea))
+				if (adjArea->m_node[NORTH_WEST] == area->m_node[NORTH_EAST] &&
+					adjArea->m_node[SOUTH_WEST] == area->m_node[SOUTH_EAST] &&
+					area->GetAttributes() == adjArea->GetAttributes() &&
+					area->IsCoplanar(adjArea))
 				{
 					// merge horizontal
-					area->m_node[ NORTH_EAST ] = adjArea->m_node[ NORTH_EAST ];
-					area->m_node[ SOUTH_EAST ] = adjArea->m_node[ SOUTH_EAST ];
+					area->m_node[NORTH_EAST] = adjArea->m_node[NORTH_EAST];
+					area->m_node[SOUTH_EAST] = adjArea->m_node[SOUTH_EAST];
 
 					merged = true;
 					//CONSOLE_ECHO("  Merged (east) areas #%d and #%d\n", area->m_id, adjArea->m_id);
@@ -1278,8 +1278,7 @@ void MergeGeneratedAreas()
 			if (merged)
 				break;
 		}
-	}
-	while (merged);
+	} while (merged);
 }
 
 // Return true if area is more or less square.
@@ -2121,12 +2120,12 @@ float CNavArea::GetDistanceSquaredToPoint(const Vector *pos) const
 
 CNavArea *CNavArea::GetRandomAdjacentArea(NavDirType dir) const
 {
-	int count = m_connect[ dir ].size();
+	int count = m_connect[dir].size();
 	int which = RANDOM_LONG(0, count - 1);
 
 	int i = 0;
 	NavConnectList::const_iterator iter;
-	for (iter = m_connect[ dir ].begin(); iter != m_connect[ dir ].end(); ++iter)
+	for (iter = m_connect[dir].begin(); iter != m_connect[dir].end(); ++iter)
 	{
 		if (i == which)
 			return (*iter).area;
@@ -2269,7 +2268,7 @@ void CNavArea::ComputeClosestPointInPortal(const CNavArea *to, NavDirType dir, c
 // Return true if there are no bi-directional links on the given side
 bool CNavArea::IsEdge(NavDirType dir) const
 {
-	for (NavConnectList::const_iterator it = m_connect[ dir ].begin(); it != m_connect[ dir ].end(); ++it)
+	for (NavConnectList::const_iterator it = m_connect[dir].begin(); it != m_connect[dir].end(); ++it)
 	{
 		const NavConnect connect = (*it);
 
@@ -2487,7 +2486,7 @@ void CNavArea::UpdateOnOpenList()
 		// swap position with predecessor
 		CNavArea *other = m_prevOpen;
 		CNavArea *before = other->m_prevOpen;
-		CNavArea *after  = this->m_nextOpen;
+		CNavArea *after = this->m_nextOpen;
 
 		this->m_nextOpen = other;
 		this->m_prevOpen = before;
@@ -2671,34 +2670,34 @@ void CNavArea::ComputeHidingSpots()
 		{
 		case NORTH:
 			if (extent.lo - m_extent.lo.x >= cornerSize)
-				++cornerCount[ NORTH_WEST ];
+				++cornerCount[NORTH_WEST];
 
 			if (m_extent.hi.x - extent.hi >= cornerSize)
-				++cornerCount[ NORTH_EAST ];
+				++cornerCount[NORTH_EAST];
 			break;
 
 		case SOUTH:
 			if (extent.lo - m_extent.lo.x >= cornerSize)
-				++cornerCount[ SOUTH_WEST ];
+				++cornerCount[SOUTH_WEST];
 
 			if (m_extent.hi.x - extent.hi >= cornerSize)
-				++cornerCount[ SOUTH_EAST ];
+				++cornerCount[SOUTH_EAST];
 			break;
 
 		case EAST:
 			if (extent.lo - m_extent.lo.y >= cornerSize)
-				++cornerCount[ NORTH_EAST ];
+				++cornerCount[NORTH_EAST];
 
 			if (m_extent.hi.y - extent.hi >= cornerSize)
-				++cornerCount[ SOUTH_EAST ];
+				++cornerCount[SOUTH_EAST];
 			break;
 
 		case WEST:
 			if (extent.lo - m_extent.lo.y >= cornerSize)
-				++cornerCount[ NORTH_WEST ];
+				++cornerCount[NORTH_WEST];
 
 			if (m_extent.hi.y - extent.hi >= cornerSize)
-				++cornerCount[ SOUTH_WEST ];
+				++cornerCount[SOUTH_WEST];
 			break;
 		}
 	}
@@ -2706,25 +2705,25 @@ void CNavArea::ComputeHidingSpots()
 	// if a corner count is 2, then it really is a corner (walls on both sides)
 	float offset = 12.5f;
 
-	if (cornerCount[ NORTH_WEST ] == 2)
+	if (cornerCount[NORTH_WEST] == 2)
 	{
-		Vector pos = *GetCorner(NORTH_WEST) + Vector(offset,  offset, 0.0f);
+		Vector pos = *GetCorner(NORTH_WEST) + Vector(offset, offset, 0.0f);
 
 		m_hidingSpotList.push_back(new HidingSpot(&pos, (IsHidingSpotInCover(&pos)) ? HidingSpot::IN_COVER : 0));
 	}
-	if (cornerCount[ NORTH_EAST ] == 2)
+	if (cornerCount[NORTH_EAST] == 2)
 	{
-		Vector pos = *GetCorner(NORTH_EAST) + Vector(-offset,  offset, 0.0f);
+		Vector pos = *GetCorner(NORTH_EAST) + Vector(-offset, offset, 0.0f);
 		if (!IsHidingSpotCollision(&pos))
 			m_hidingSpotList.push_back(new HidingSpot(&pos, (IsHidingSpotInCover(&pos)) ? HidingSpot::IN_COVER : 0));
 	}
-	if (cornerCount[ SOUTH_WEST ] == 2)
+	if (cornerCount[SOUTH_WEST] == 2)
 	{
 		Vector pos = *GetCorner(SOUTH_WEST) + Vector(offset, -offset, 0.0f);
 		if (!IsHidingSpotCollision(&pos))
 			m_hidingSpotList.push_back(new HidingSpot(&pos, (IsHidingSpotInCover(&pos)) ? HidingSpot::IN_COVER : 0));
 	}
-	if (cornerCount[ SOUTH_EAST ] == 2)
+	if (cornerCount[SOUTH_EAST] == 2)
 	{
 		Vector pos = *GetCorner(SOUTH_EAST) + Vector(-offset, -offset, 0.0f);
 		if (!IsHidingSpotCollision(&pos))
@@ -2959,14 +2958,14 @@ void CNavArea::ComputeSpotEncounters()
 	// for each adjacent area
 	for (int fromDir = 0; fromDir < NUM_DIRECTIONS; ++fromDir)
 	{
-		for (NavConnectList::iterator fromIter = m_connect[ fromDir ].begin(); fromIter != m_connect[ fromDir ].end(); ++fromIter)
+		for (NavConnectList::iterator fromIter = m_connect[fromDir].begin(); fromIter != m_connect[fromDir].end(); ++fromIter)
 		{
 			NavConnect *fromCon = &(*fromIter);
 
 			// compute encounter data for path to each adjacent area
 			for (int toDir = 0; toDir < NUM_DIRECTIONS; ++toDir)
 			{
-				for (NavConnectList::iterator toIter = m_connect[ toDir ].begin(); toIter != m_connect[ toDir ].end(); ++toIter)
+				for (NavConnectList::iterator toIter = m_connect[toDir].begin(); toIter != m_connect[toDir].end(); ++toIter)
 				{
 					NavConnect *toCon = &(*toIter);
 
@@ -3007,15 +3006,15 @@ void CNavArea::IncreaseDanger(int teamID, float amount)
 	// before we add the new value, decay what's there
 	DecayDanger();
 
-	m_danger[ teamID ] += amount;
-	m_dangerTimestamp[ teamID ] = gpGlobals->time;
+	m_danger[teamID] += amount;
+	m_dangerTimestamp[teamID] = gpGlobals->time;
 }
 
 // Return the danger of this area (decays over time)
 float CNavArea::GetDanger(int teamID)
 {
 	DecayDanger();
-	return m_danger[ teamID ];
+	return m_danger[teamID];
 }
 
 // Increase the danger of nav areas containing and near the given position
@@ -3054,7 +3053,7 @@ void IncreaseDangerNearby(int teamID, float amount, class CNavArea *startArea, c
 						adjArea->AddToOpenList();
 						adjArea->SetTotalCost(cost);
 						adjArea->Mark();
-						adjArea->IncreaseDanger(teamID, amount * cost/maxRadius);
+						adjArea->IncreaseDanger(teamID, amount * cost / maxRadius);
 					}
 				}
 			}
@@ -3222,7 +3221,7 @@ const Vector *FindNearbyHidingSpot(CBaseEntity *me, const Vector *pos, CNavArea 
 		if (collector.m_count)
 		{
 			int which = RANDOM_LONG(0, collector.m_count - 1);
-			return collector.m_hidingSpot[ which ];
+			return collector.m_hidingSpot[which];
 		}
 		else
 		{
@@ -3233,7 +3232,7 @@ const Vector *FindNearbyHidingSpot(CBaseEntity *me, const Vector *pos, CNavArea 
 			if (collector.m_count)
 			{
 				int which = RANDOM_LONG(0, collector.m_count - 1);
-				return collector.m_hidingSpot[ which ];
+				return collector.m_hidingSpot[which];
 			}
 
 			// no sniping spots at all.. fall through and pick a normal hiding spot
@@ -3267,7 +3266,7 @@ const Vector *FindNearbyHidingSpot(CBaseEntity *me, const Vector *pos, CNavArea 
 
 	// select a hiding spot at random
 	int which = RANDOM_LONG(0, collector.m_count - 1);
-	return collector.m_hidingSpot[ which ];
+	return collector.m_hidingSpot[which];
 }
 
 // Return true if moving from "start" to "finish" will cross a player's line of fire
@@ -3331,7 +3330,7 @@ const Vector *FindRandomHidingSpot(CBaseEntity *me, Place place, bool isSniper)
 		if (collector.m_count)
 		{
 			int which = RANDOM_LONG(0, collector.m_count - 1);
-			return collector.m_hidingSpot[ which ];
+			return collector.m_hidingSpot[which];
 		}
 		else
 		{
@@ -3342,7 +3341,7 @@ const Vector *FindRandomHidingSpot(CBaseEntity *me, Place place, bool isSniper)
 			if (collector.m_count)
 			{
 				int which = RANDOM_LONG(0, collector.m_count - 1);
-				return collector.m_hidingSpot[ which ];
+				return collector.m_hidingSpot[which];
 			}
 
 			// no sniping spots at all.. fall through and pick a normal hiding spot
@@ -3358,7 +3357,7 @@ const Vector *FindRandomHidingSpot(CBaseEntity *me, Place place, bool isSniper)
 
 	// select a hiding spot at random
 	int which = RANDOM_LONG(0, collector.m_count - 1);
-	return collector.m_hidingSpot[ which ];
+	return collector.m_hidingSpot[which];
 }
 
 // Select a nearby retreat spot.
@@ -3518,7 +3517,7 @@ void CNavArea::DrawConnectedAreas()
 
 	// randomize order of directions to make sure all connected areas are
 	// drawn, since we may have too many to render all at once
-	int dirSet[ NUM_DIRECTIONS ];
+	int dirSet[NUM_DIRECTIONS];
 	int i;
 	for (i = 0; i < NUM_DIRECTIONS; ++i)
 		dirSet[i] = i;
@@ -3876,36 +3875,36 @@ void EditNavAreas(NavEditCmdType cmd)
 
 				switch (cmd)
 				{
-					case EDIT_TOGGLE_PLACE_MODE:
-						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-						isPlaceMode = false;
-						return;
+				case EDIT_TOGGLE_PLACE_MODE:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+					isPlaceMode = false;
+					return;
 
-					case EDIT_TOGGLE_PLACE_PAINTING:
+				case EDIT_TOGGLE_PLACE_PAINTING:
+				{
+					if (isPlacePainting)
 					{
-						if (isPlacePainting)
-						{
-							isPlacePainting = false;
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/latchunlocked2.wav", 1, ATTN_NORM, 0, 100);
-						}
-						else
-						{
-							isPlacePainting = true;
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/lightswitch2.wav", 1, ATTN_NORM, 0, 100);
-
-							// paint the initial area
-							area->SetPlace(TheCSBots()->GetNavPlace());
-						}
-						break;
+						isPlacePainting = false;
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/latchunlocked2.wav", 1, ATTN_NORM, 0, 100);
 					}
-					case EDIT_PLACE_PICK:
-						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-						TheCSBots()->SetNavPlace(area->GetPlace());
-						break;
-					case EDIT_PLACE_FLOODFILL:
-						PlaceFloodFillFunctor pff(area);
-						SearchSurroundingAreas(area, area->GetCenter(), pff);
-						break;
+					else
+					{
+						isPlacePainting = true;
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/lightswitch2.wav", 1, ATTN_NORM, 0, 100);
+
+						// paint the initial area
+						area->SetPlace(TheCSBots()->GetNavPlace());
+					}
+					break;
+				}
+				case EDIT_PLACE_PICK:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+					TheCSBots()->SetNavPlace(area->GetPlace());
+					break;
+				case EDIT_PLACE_FLOODFILL:
+					PlaceFloodFillFunctor pff(area);
+					SearchSurroundingAreas(area, area->GetCenter(), pff);
+					break;
 				}
 			}
 			else	// normal editing mode
@@ -3976,61 +3975,98 @@ void EditNavAreas(NavEditCmdType cmd)
 				// do area-dependant edit commands, if any
 				switch (cmd)
 				{
-					case EDIT_TOGGLE_PLACE_MODE:
-						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-						isPlaceMode = true;
-						return;
-					case EDIT_DELETE:
-						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-						TheNavAreaList.remove(area);
-						delete area;
-						return;
-					case EDIT_ATTRIB_CROUCH:
-						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
-						area->SetAttributes(area->GetAttributes() ^ NAV_CROUCH);
-						break;
-					case EDIT_ATTRIB_JUMP:
-						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
-						area->SetAttributes(area->GetAttributes() ^ NAV_JUMP);
-						break;
-					case EDIT_ATTRIB_PRECISE:
-						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
-						area->SetAttributes(area->GetAttributes() ^ NAV_PRECISE);
-						break;
-					case EDIT_ATTRIB_NO_JUMP:
-						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
-						area->SetAttributes(area->GetAttributes() ^ NAV_NO_JUMP);
-						break;
-					case EDIT_SPLIT:
-						if (area->SplitEdit(splitAlongX, splitEdge))
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "weapons/knife_hitwall1.wav", 1, ATTN_NORM, 0, 100);
+				case EDIT_TOGGLE_PLACE_MODE:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+					isPlaceMode = true;
+					return;
+				case EDIT_DELETE:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+					TheNavAreaList.remove(area);
+					delete area;
+					return;
+				case EDIT_ATTRIB_CROUCH:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
+					area->SetAttributes(area->GetAttributes() ^ NAV_CROUCH);
+					break;
+				case EDIT_ATTRIB_JUMP:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
+					area->SetAttributes(area->GetAttributes() ^ NAV_JUMP);
+					break;
+				case EDIT_ATTRIB_PRECISE:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
+					area->SetAttributes(area->GetAttributes() ^ NAV_PRECISE);
+					break;
+				case EDIT_ATTRIB_NO_JUMP:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
+					area->SetAttributes(area->GetAttributes() ^ NAV_NO_JUMP);
+					break;
+				case EDIT_SPLIT:
+					if (area->SplitEdit(splitAlongX, splitEdge))
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "weapons/knife_hitwall1.wav", 1, ATTN_NORM, 0, 100);
+					else
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					break;
+				case EDIT_MERGE:
+					if (markedArea)
+					{
+						if (area->MergeEdit(markedArea))
+							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
 						else
 							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						break;
-					case EDIT_MERGE:
-						if (markedArea)
+					}
+					else
+					{
+						HintMessageToAllPlayers("To merge, mark an area, highlight a second area, then invoke the merge command");
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					}
+					break;
+				case EDIT_MARK:
+					if (markedArea)
+					{
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+						markedArea = NULL;
+					}
+					else
+					{
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip2.wav", 1, ATTN_NORM, 0, 100);
+						markedArea = area;
+
+						int connected = 0;
+						connected += markedArea->GetAdjacentCount(NORTH);
+						connected += markedArea->GetAdjacentCount(SOUTH);
+						connected += markedArea->GetAdjacentCount(EAST);
+						connected += markedArea->GetAdjacentCount(WEST);
+
+						char buffer[80];
+						Q_sprintf(buffer, "Marked Area is connected to %d other Areas\n", connected);
+						UTIL_SayTextAll(buffer, player);
+					}
+					break;
+				case EDIT_MARK_UNNAMED:
+					if (markedArea)
+					{
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+						markedArea = NULL;
+					}
+					else
+					{
+						markedArea = NULL;
+						for (NavAreaList::iterator iter = TheNavAreaList.begin(); iter != TheNavAreaList.end(); ++iter)
 						{
-							if (area->MergeEdit(markedArea))
-								EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-							else
-								EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+							CNavArea *area = (*iter);
+							if (area->GetPlace() == 0)
+							{
+								markedArea = area;
+								break;
+							}
 						}
-						else
-						{
-							HintMessageToAllPlayers("To merge, mark an area, highlight a second area, then invoke the merge command");
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						}
-						break;
-					case EDIT_MARK:
-						if (markedArea)
+						if (!markedArea)
 						{
 							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-							markedArea = NULL;
 						}
 						else
 						{
 							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip2.wav", 1, ATTN_NORM, 0, 100);
-							markedArea = area;
 
 							int connected = 0;
 							connected += markedArea->GetAdjacentCount(NORTH);
@@ -4038,155 +4074,118 @@ void EditNavAreas(NavEditCmdType cmd)
 							connected += markedArea->GetAdjacentCount(EAST);
 							connected += markedArea->GetAdjacentCount(WEST);
 
-							char buffer[80];
-							Q_sprintf(buffer, "Marked Area is connected to %d other Areas\n", connected);
-							UTIL_SayTextAll(buffer, player);
-						}
-						break;
-					case EDIT_MARK_UNNAMED:
-						if (markedArea)
-						{
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-							markedArea = NULL;
-						}
-						else
-						{
-							markedArea = NULL;
+							int totalUnnamedAreas = 0;
 							for (NavAreaList::iterator iter = TheNavAreaList.begin(); iter != TheNavAreaList.end(); ++iter)
 							{
 								CNavArea *area = (*iter);
 								if (area->GetPlace() == 0)
 								{
-									markedArea = area;
-									break;
+									++totalUnnamedAreas;
 								}
 							}
-							if (!markedArea)
-							{
-								EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-							}
-							else
-							{
-								EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip2.wav", 1, ATTN_NORM, 0, 100);
 
-								int connected = 0;
-								connected += markedArea->GetAdjacentCount(NORTH);
-								connected += markedArea->GetAdjacentCount(SOUTH);
-								connected += markedArea->GetAdjacentCount(EAST);
-								connected += markedArea->GetAdjacentCount(WEST);
-
-								int totalUnnamedAreas = 0;
-								for (NavAreaList::iterator iter = TheNavAreaList.begin(); iter != TheNavAreaList.end(); ++iter)
-								{
-									CNavArea *area = (*iter);
-									if (area->GetPlace() == 0)
-									{
-										++totalUnnamedAreas;
-									}
-								}
-
-								char buffer[80];
-								Q_sprintf(buffer, "Marked Area is connected to %d other Areas - there are %d total unnamed areas\n", connected, totalUnnamedAreas);
-								UTIL_SayTextAll(buffer, player);
-							}
+							char buffer[80];
+							Q_sprintf(buffer, "Marked Area is connected to %d other Areas - there are %d total unnamed areas\n", connected, totalUnnamedAreas);
+							UTIL_SayTextAll(buffer, player);
 						}
-						break;
-					case EDIT_WARP_TO_MARK:
-						if (markedArea)
+					}
+					break;
+				case EDIT_WARP_TO_MARK:
+					if (markedArea)
+					{
+						CBasePlayer *pLocalPlayer = UTIL_GetLocalPlayer();
+						if (pLocalPlayer && pLocalPlayer->m_iTeam == SPECTATOR && pLocalPlayer->pev->iuser1 == OBS_ROAMING)
 						{
-							CBasePlayer *pLocalPlayer = UTIL_GetLocalPlayer();
-							if (pLocalPlayer && pLocalPlayer->m_iTeam == SPECTATOR && pLocalPlayer->pev->iuser1 == OBS_ROAMING)
-							{
-								Vector origin = *markedArea->GetCenter() + Vector(0, 0, 0.75f * HumanHeight);
-								UTIL_SetOrigin(pLocalPlayer->pev, origin);
-							}
+							Vector origin = *markedArea->GetCenter() + Vector(0, 0, 0.75f * HumanHeight);
+							UTIL_SetOrigin(pLocalPlayer->pev, origin);
 						}
-						else
+					}
+					else
+					{
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					}
+					break;
+				case EDIT_CONNECT:
+					if (markedArea)
+					{
+						NavDirType dir = markedArea->ComputeDirection(&cursor);
+						if (dir == NUM_DIRECTIONS)
 						{
 							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
 						}
-						break;
-					case EDIT_CONNECT:
-						if (markedArea)
-						{
-							NavDirType dir = markedArea->ComputeDirection(&cursor);
-							if (dir == NUM_DIRECTIONS)
-							{
-								EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-							}
-							else
-							{
-								markedArea->ConnectTo(area, dir);
-								EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-							}
-						}
 						else
 						{
-							HintMessageToAllPlayers("To connect areas, mark an area, highlight a second area, then invoke the connect command. Make sure the cursor is directly north, south, east, or west of the marked area.");
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						}
-						break;
-					case EDIT_DISCONNECT:
-						if (markedArea)
-						{
-							markedArea->Disconnect(area);
-							area->Disconnect(markedArea);
+							markedArea->ConnectTo(area, dir);
 							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
 						}
-						else
-						{
-							HintMessageToAllPlayers("To disconnect areas, mark an area, highlight a second area, then invoke the disconnect command. This will remove all connections between the two areas.");
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						}
-						break;
-					case EDIT_SPLICE:
-						if (markedArea)
-						{
-							if (area->SpliceEdit(markedArea))
-								EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-							else
-								EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						}
-						else
-						{
-							HintMessageToAllPlayers("To splice, mark an area, highlight a second area, then invoke the splice command to create an area between them");
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						}
-						break;
-					case EDIT_SELECT_CORNER:
-						if (markedArea)
-						{
-							int corner = (markedCorner + 1) % (NUM_CORNERS + 1);
-							markedCorner = (NavCornerType)corner;
+					}
+					else
+					{
+						HintMessageToAllPlayers("To connect areas, mark an area, highlight a second area, then invoke the connect command. Make sure the cursor is directly north, south, east, or west of the marked area.");
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					}
+					break;
+				case EDIT_DISCONNECT:
+					if (markedArea)
+					{
+						markedArea->Disconnect(area);
+						area->Disconnect(markedArea);
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+					}
+					else
+					{
+						HintMessageToAllPlayers("To disconnect areas, mark an area, highlight a second area, then invoke the disconnect command. This will remove all connections between the two areas.");
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					}
+					break;
+				case EDIT_SPLICE:
+					if (markedArea)
+					{
+						if (area->SpliceEdit(markedArea))
 							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-						}
 						else
-						{
 							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						}
-						break;
-					case EDIT_RAISE_CORNER:
-						if (markedArea)
-						{
-							markedArea->RaiseCorner(markedCorner, 1);
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-						}
-						else
-						{
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						}
-						break;
-					case EDIT_LOWER_CORNER:
-						if (markedArea)
-						{
-							markedArea->RaiseCorner(markedCorner, -1);
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
-						}
-						else
-						{
-							EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-						}
-						break;
+					}
+					else
+					{
+						HintMessageToAllPlayers("To splice, mark an area, highlight a second area, then invoke the splice command to create an area between them");
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					}
+					break;
+				case EDIT_SELECT_CORNER:
+					if (markedArea)
+					{
+						int corner = (markedCorner + 1) % (NUM_CORNERS + 1);
+						markedCorner = (NavCornerType)corner;
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+					}
+					else
+					{
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					}
+					break;
+				case EDIT_RAISE_CORNER:
+					if (markedArea)
+					{
+						markedArea->RaiseCorner(markedCorner, 1);
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+					}
+					else
+					{
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					}
+					break;
+				case EDIT_LOWER_CORNER:
+					if (markedArea)
+					{
+						markedArea->RaiseCorner(markedCorner, -1);
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+					}
+					else
+					{
+						EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					}
+					break;
 				}
 			}
 		}
@@ -4194,80 +4193,80 @@ void EditNavAreas(NavEditCmdType cmd)
 		// do area-independant edit commands, if any
 		switch (cmd)
 		{
-			case EDIT_BEGIN_AREA:
+		case EDIT_BEGIN_AREA:
+		{
+			if (isCreatingNavArea)
 			{
-				if (isCreatingNavArea)
-				{
-					isCreatingNavArea = false;
-					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
-				}
-				else
-				{
-					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip2.wav", 1, ATTN_NORM, 0, 100);
-					isCreatingNavArea = true;
-					isAnchored = false;
-				}
-				break;
+				isCreatingNavArea = false;
+				EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
 			}
-			case EDIT_END_AREA:
+			else
 			{
-				if (isCreatingNavArea)
-				{
-					// create the new nav area
-					CNavArea *newArea = new CNavArea(&anchor, &cursor);
+				EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip2.wav", 1, ATTN_NORM, 0, 100);
+				isCreatingNavArea = true;
+				isAnchored = false;
+			}
+			break;
+		}
+		case EDIT_END_AREA:
+		{
+			if (isCreatingNavArea)
+			{
+				// create the new nav area
+				CNavArea *newArea = new CNavArea(&anchor, &cursor);
 
 #ifdef REGAMEDLL_FIXES
-					if (TheNavAreaList.empty())
-					{
-						// first add the areas to the grid
-						TheNavAreaGrid.Initialize(8192.0f, -8192.0f, 8192.0f, -8192.0f);
-					}
+				if (TheNavAreaList.empty())
+				{
+					// first add the areas to the grid
+					TheNavAreaGrid.Initialize(8192.0f, -8192.0f, 8192.0f, -8192.0f);
+				}
 #endif
 
-					TheNavAreaList.push_back(newArea);
-					TheNavAreaGrid.AddNavArea(newArea);
+				TheNavAreaList.push_back(newArea);
+				TheNavAreaGrid.AddNavArea(newArea);
 
-					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
+				EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/blip1.wav", 1, ATTN_NORM, 0, 100);
 
-					// if we have a marked area, inter-connect the two
-					if (markedArea)
+				// if we have a marked area, inter-connect the two
+				if (markedArea)
+				{
+					const Extent *extent = markedArea->GetExtent();
+
+					if (anchor.x > extent->hi.x && cursor.x > extent->hi.x)
 					{
-						const Extent *extent = markedArea->GetExtent();
-
-						if (anchor.x > extent->hi.x && cursor.x > extent->hi.x)
-						{
-							markedArea->ConnectTo(newArea, EAST);
-							newArea->ConnectTo(markedArea, WEST);
-						}
-						else if (anchor.x < extent->lo.x && cursor.x < extent->lo.x)
-						{
-							markedArea->ConnectTo(newArea, WEST);
-							newArea->ConnectTo(markedArea, EAST);
-						}
-						else if (anchor.y > extent->hi.y && cursor.y > extent->hi.y)
-						{
-							markedArea->ConnectTo(newArea, SOUTH);
-							newArea->ConnectTo(markedArea, NORTH);
-						}
-						else if (anchor.y < extent->lo.y && cursor.y < extent->lo.y)
-						{
-							markedArea->ConnectTo(newArea, NORTH);
-							newArea->ConnectTo(markedArea, SOUTH);
-						}
-
-						// propogate marked area to new area
-						markedArea = newArea;
+						markedArea->ConnectTo(newArea, EAST);
+						newArea->ConnectTo(markedArea, WEST);
+					}
+					else if (anchor.x < extent->lo.x && cursor.x < extent->lo.x)
+					{
+						markedArea->ConnectTo(newArea, WEST);
+						newArea->ConnectTo(markedArea, EAST);
+					}
+					else if (anchor.y > extent->hi.y && cursor.y > extent->hi.y)
+					{
+						markedArea->ConnectTo(newArea, SOUTH);
+						newArea->ConnectTo(markedArea, NORTH);
+					}
+					else if (anchor.y < extent->lo.y && cursor.y < extent->lo.y)
+					{
+						markedArea->ConnectTo(newArea, NORTH);
+						newArea->ConnectTo(markedArea, SOUTH);
 					}
 
-					isCreatingNavArea = false;
-				}
-				else
-				{
-					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+					// propogate marked area to new area
+					markedArea = newArea;
 				}
 
-				break;
+				isCreatingNavArea = false;
 			}
+			else
+			{
+				EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/button11.wav", 1, ATTN_NORM, 0, 100);
+			}
+
+			break;
+		}
 		}
 	}
 
@@ -4467,7 +4466,7 @@ void CNavArea::ComputeApproachAreas()
 		eye.z += 0.9f * HumanHeight;
 
 	enum { MAX_PATH_LENGTH = 256 };
-	CNavArea *path[ MAX_PATH_LENGTH ];
+	CNavArea *path[MAX_PATH_LENGTH];
 
 	//
 	// In order to enumerate all of the approach areas, we need to
@@ -4509,7 +4508,7 @@ void CNavArea::ComputeApproachAreas()
 			// build path in correct order - from eye outwards
 			int i = count;
 			for (area = farArea; i && area; area = area->GetParent())
-				path[ --i ] = area;
+				path[--i] = area;
 
 			// traverse path to find first area we cannot see (skip the first area)
 			for (i = 1; i < count; ++i)
@@ -4530,7 +4529,7 @@ void CNavArea::ComputeApproachAreas()
 				// (blocking farArea will cause all subsequent pathfinds to fail)
 				int block = (path[i] == farArea) ? i - 1 : i;
 
-				BlockedID[ BlockedIDCount++ ] = path[ block ]->GetID();
+				BlockedID[BlockedIDCount++] = path[block]->GetID();
 
 				if (block == 0)
 					break;
@@ -4543,13 +4542,13 @@ void CNavArea::ComputeApproachAreas()
 
 				if (a == m_approachCount)
 				{
-					m_approach[ m_approachCount ].prev.area = (block >= 2) ? path[block-2] : NULL;
+					m_approach[m_approachCount].prev.area = (block >= 2) ? path[block - 2] : NULL;
 
-					m_approach[ m_approachCount ].here.area = path[block - 1];
-					m_approach[ m_approachCount ].prevToHereHow = path[block - 1]->GetParentHow();
+					m_approach[m_approachCount].here.area = path[block - 1];
+					m_approach[m_approachCount].prevToHereHow = path[block - 1]->GetParentHow();
 
-					m_approach[ m_approachCount ].next.area = path[block];
-					m_approach[ m_approachCount ].hereToNextHow = path[block]->GetParentHow();
+					m_approach[m_approachCount].next.area = path[block];
+					m_approach[m_approachCount].hereToNextHow = path[block]->GetParentHow();
 
 					++m_approachCount;
 				}
@@ -4615,7 +4614,7 @@ void CNavAreaGrid::Initialize(float minX, float maxX, float minY, float maxY)
 	m_gridSizeX = int((maxX - minX) / m_cellSize + 1);
 	m_gridSizeY = int((maxY - minY) / m_cellSize + 1);
 
-	m_grid = new NavAreaList[ m_gridSizeX * m_gridSizeY ];
+	m_grid = new NavAreaList[m_gridSizeX * m_gridSizeY];
 }
 
 // Add an area to the grid
@@ -4632,7 +4631,7 @@ void CNavAreaGrid::AddNavArea(CNavArea *area)
 	for (int y = loY; y <= hiY; ++y)
 	{
 		for (int x = loX; x <= hiX; ++x)
-			m_grid[ x + y * m_gridSizeX ].push_back(const_cast<CNavArea *>(area));
+			m_grid[x + y * m_gridSizeX].push_back(const_cast<CNavArea *>(area));
 	}
 
 	// add to hash table

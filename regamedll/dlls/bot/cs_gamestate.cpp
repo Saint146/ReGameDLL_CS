@@ -218,27 +218,27 @@ const Vector *CSGameState::GetBombPosition() const
 {
 	switch (m_bombState)
 	{
-		case MOVING:
-		{
-			if (!m_lastSawBomber.HasStarted())
-				return NULL;
-
-			return &m_bomberPos;
-		}
-		case LOOSE:
-		{
-			if (IsLooseBombLocationKnown())
-				return &m_looseBombPos;
-
+	case MOVING:
+	{
+		if (!m_lastSawBomber.HasStarted())
 			return NULL;
-		}
-		case PLANTED:
-		{
-			if (IsPlantedBombLocationKnown())
-				return &m_plantedBombPos;
 
-			return NULL;
-		}
+		return &m_bomberPos;
+	}
+	case LOOSE:
+	{
+		if (IsLooseBombLocationKnown())
+			return &m_looseBombPos;
+
+		return NULL;
+	}
+	case PLANTED:
+	{
+		if (IsPlantedBombLocationKnown())
+			return &m_plantedBombPos;
+
+		return NULL;
+	}
 	}
 
 	return NULL;
@@ -405,7 +405,7 @@ const Vector *CSGameState::GetRandomFreeHostagePosition()
 			if (info->hostage->IsFollowingSomeone())
 				continue;
 
-			freePos[ freeCount++ ] = &info->hostage->pev->origin;
+			freePos[freeCount++] = &info->hostage->pev->origin;
 		}
 		else
 		{
@@ -413,7 +413,7 @@ const Vector *CSGameState::GetRandomFreeHostagePosition()
 			if (info->isValid == false)
 				continue;
 
-			freePos[ freeCount++ ] = &info->knownPos;
+			freePos[freeCount++] = &info->knownPos;
 		}
 	}
 
@@ -451,7 +451,7 @@ CSGameState::ValidateStatusType CSGameState::ValidateHostagePositions()
 	{
 		HostageInfo *info = &m_hostage[i];
 
-		if  (!info->hostage)
+		if (!info->hostage)
 			continue;
 
 		// if we can see a hostage, update our knowledge of it

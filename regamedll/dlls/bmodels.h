@@ -56,7 +56,7 @@
 #define noiseRunning		noise3
 
 // This is just a solid wall if not inhibited
-class CFuncWall: public CBaseEntity
+class CFuncWall : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -74,7 +74,7 @@ public:
 
 };
 
-class CFuncWallToggle: public CFuncWall
+class CFuncWallToggle : public CFuncWall
 {
 public:
 	virtual void Spawn();
@@ -93,7 +93,7 @@ public:
 	BOOL IsOn();
 };
 
-class CFuncConveyor: public CFuncWall
+class CFuncConveyor : public CFuncWall
 {
 public:
 	virtual void Spawn();
@@ -111,7 +111,7 @@ public:
 };
 
 // A simple entity that looks solid but lets you walk through it.
-class CFuncIllusionary: public CBaseToggle
+class CFuncIllusionary : public CBaseToggle
 {
 public:
 	virtual void Spawn();
@@ -136,7 +136,7 @@ public:
 //
 // otherwise it will be invisible and not solid.  This can be used to keep
 // specific monsters out of certain areas
-class CFuncMonsterClip: public CFuncWall
+class CFuncMonsterClip : public CFuncWall
 {
 public:
 	virtual void Spawn();
@@ -153,7 +153,7 @@ public:
 
 };
 
-class CFuncRotating: public CBaseEntity
+class CFuncRotating : public CBaseEntity
 {
 public:
 	// basic functions
@@ -194,7 +194,7 @@ public:
 	int m_sounds;
 };
 
-class CPendulum: public CBaseEntity
+class CPendulum : public CBaseEntity
 {
 public:
 	virtual void Spawn();

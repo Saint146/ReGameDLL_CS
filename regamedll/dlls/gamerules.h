@@ -128,44 +128,44 @@ enum RewardRules
 // custom enum
 enum RewardAccount
 {
-	REWARD_TARGET_BOMB		= 3500,
-	REWARD_VIP_ESCAPED		= 3500,
-	REWARD_VIP_ASSASSINATED		= 3250,
-	REWARD_TERRORISTS_ESCAPED	= 3150,
-	REWARD_CTS_PREVENT_ESCAPE	= 3500,
-	REWARD_ESCAPING_TERRORISTS_NEUTRALIZED	= 3250,
-	REWARD_BOMB_DEFUSED		= 3250,
-	REWARD_BOMB_PLANTED		= 800,
-	REWARD_BOMB_EXPLODED		= 3250,
-	REWARD_CTS_WIN			= 3000,
-	REWARD_TERRORISTS_WIN		= 3000,
-	REWARD_ALL_HOSTAGES_RESCUED	= 2500,
+	REWARD_TARGET_BOMB = 3500,
+	REWARD_VIP_ESCAPED = 3500,
+	REWARD_VIP_ASSASSINATED = 3250,
+	REWARD_TERRORISTS_ESCAPED = 3150,
+	REWARD_CTS_PREVENT_ESCAPE = 3500,
+	REWARD_ESCAPING_TERRORISTS_NEUTRALIZED = 3250,
+	REWARD_BOMB_DEFUSED = 3250,
+	REWARD_BOMB_PLANTED = 800,
+	REWARD_BOMB_EXPLODED = 3250,
+	REWARD_CTS_WIN = 3000,
+	REWARD_TERRORISTS_WIN = 3000,
+	REWARD_ALL_HOSTAGES_RESCUED = 2500,
 
 	// the end round was by the expiration time
-	REWARD_TARGET_BOMB_SAVED	= 3250,
-	REWARD_HOSTAGE_NOT_RESCUED	= 3250,
-	REWARD_VIP_NOT_ESCAPED		= 3250,
+	REWARD_TARGET_BOMB_SAVED = 3250,
+	REWARD_HOSTAGE_NOT_RESCUED = 3250,
+	REWARD_VIP_NOT_ESCAPED = 3250,
 
 	// loser bonus
-	REWARD_LOSER_BONUS_DEFAULT	= 1400,
-	REWARD_LOSER_BONUS_MIN		= 1500,
-	REWARD_LOSER_BONUS_MAX		= 3000,
-	REWARD_LOSER_BONUS_ADD		= 500,
+	REWARD_LOSER_BONUS_DEFAULT = 1400,
+	REWARD_LOSER_BONUS_MIN = 1500,
+	REWARD_LOSER_BONUS_MAX = 3000,
+	REWARD_LOSER_BONUS_ADD = 500,
 
-	REWARD_RESCUED_HOSTAGE		= 750,
-	REWARD_KILLED_ENEMY		= 300,
-	REWARD_KILLED_VIP		= 2500,
-	REWARD_VIP_HAVE_SELF_RESCUED	= 2500,
+	REWARD_RESCUED_HOSTAGE = 750,
+	REWARD_KILLED_ENEMY = 300,
+	REWARD_KILLED_VIP = 2500,
+	REWARD_VIP_HAVE_SELF_RESCUED = 2500,
 
-	REWARD_TAKEN_HOSTAGE		= 1000,
-	REWARD_TOOK_HOSTAGE_ACC		= 100,
-	REWARD_TOOK_HOSTAGE		= 150,
+	REWARD_TAKEN_HOSTAGE = 1000,
+	REWARD_TOOK_HOSTAGE_ACC = 100,
+	REWARD_TOOK_HOSTAGE = 150,
 };
 
 // custom enum
 enum PaybackForBadThing
 {
-	PAYBACK_FOR_KILLED_TEAMMATES	= -3300,
+	PAYBACK_FOR_KILLED_TEAMMATES = -3300,
 };
 
 // custom enum
@@ -203,13 +203,13 @@ enum
 // custom enum
 enum
 {
-	SCENARIO_BLOCK_TIME_EXPRIRED		= (1 << 0),	// flag "a"
-	SCENARIO_BLOCK_NEED_PLAYERS		= (1 << 1),	// flag "b"
-	SCENARIO_BLOCK_VIP_ESCAPE		= (1 << 2),	// flag "c"
-	SCENARIO_BLOCK_PRISON_ESCAPE		= (1 << 3),	// flag "d"
-	SCENARIO_BLOCK_BOMB			= (1 << 4),	// flag "e"
-	SCENARIO_BLOCK_TEAM_EXTERMINATION	= (1 << 5),	// flag "f"
-	SCENARIO_BLOCK_HOSTAGE_RESCUE		= (1 << 6),	// flag "g"
+	SCENARIO_BLOCK_TIME_EXPRIRED = (1 << 0),	// flag "a"
+	SCENARIO_BLOCK_NEED_PLAYERS = (1 << 1),	// flag "b"
+	SCENARIO_BLOCK_VIP_ESCAPE = (1 << 2),	// flag "c"
+	SCENARIO_BLOCK_PRISON_ESCAPE = (1 << 3),	// flag "d"
+	SCENARIO_BLOCK_BOMB = (1 << 4),	// flag "e"
+	SCENARIO_BLOCK_TEAM_EXTERMINATION = (1 << 5),	// flag "f"
+	SCENARIO_BLOCK_HOSTAGE_RESCUE = (1 << 6),	// flag "g"
 };
 
 // Player relationship return codes
@@ -356,7 +356,7 @@ public:
 };
 
 // CHalfLifeRules - rules for the single player Half-Life game.
-class CHalfLifeRules: public CGameRules
+class CHalfLifeRules : public CGameRules
 {
 public:
 	CHalfLifeRules();
@@ -484,7 +484,7 @@ public:
 };
 
 // CHalfLifeMultiplay - rules for the basic half life multiplayer competition
-class CHalfLifeMultiplay: public CGameRules
+class CHalfLifeMultiplay : public CGameRules
 {
 public:
 	CHalfLifeMultiplay();
@@ -887,7 +887,7 @@ typedef struct mapcycle_s
 
 } mapcycle_t;
 
-class CCStrikeGameMgrHelper: public IVoiceGameMgrHelper
+class CCStrikeGameMgrHelper : public IVoiceGameMgrHelper
 {
 public:
 	virtual bool CanPlayerHearPlayer(CBasePlayer *pListener, CBasePlayer *pSender);

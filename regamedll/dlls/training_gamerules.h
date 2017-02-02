@@ -32,7 +32,7 @@
 #pragma once
 #endif
 
-class CHalfLifeTraining: public CHalfLifeMultiplay
+class CHalfLifeTraining : public CHalfLifeMultiplay
 {
 public:
 	CHalfLifeTraining();
@@ -75,7 +75,7 @@ public:
 	bool fVGUIMenus;
 };
 
-class CBaseGrenCatch: public CBaseEntity
+class CBaseGrenCatch : public CBaseEntity
 {
 public:
 	virtual void Spawn();
@@ -107,7 +107,7 @@ public:
 	bool m_fFlashTouched;
 };
 
-class CFuncWeaponCheck: public CBaseEntity
+class CFuncWeaponCheck : public CBaseEntity
 {
 public:
 	virtual void Spawn();

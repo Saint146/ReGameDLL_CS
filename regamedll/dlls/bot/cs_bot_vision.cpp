@@ -76,56 +76,56 @@ void CCSBot::UpdateLookAngles()
 		// adjust pitch to look up/down ladder as we ascend/descend
 		switch (m_pathLadderState)
 		{
-			case APPROACH_ASCENDING_LADDER:
-			{
-				Vector to = m_goalPosition - pev->origin;
-				useYaw = idealYaw;
+		case APPROACH_ASCENDING_LADDER:
+		{
+			Vector to = m_goalPosition - pev->origin;
+			useYaw = idealYaw;
 
-				if (to.IsLengthLessThan(lookAlongLadderRange))
-					usePitch = -ladderPitch;
-				break;
-			}
-			case APPROACH_DESCENDING_LADDER:
-			{
-				Vector to = m_goalPosition - pev->origin;
-				useYaw = idealYaw;
+			if (to.IsLengthLessThan(lookAlongLadderRange))
+				usePitch = -ladderPitch;
+			break;
+		}
+		case APPROACH_DESCENDING_LADDER:
+		{
+			Vector to = m_goalPosition - pev->origin;
+			useYaw = idealYaw;
 
-				if (to.IsLengthLessThan(lookAlongLadderRange))
-					usePitch = ladderPitch;
-				break;
-			}
-			case FACE_ASCENDING_LADDER:
-			{
-				useYaw = idealYaw;
-				usePitch = -ladderPitch;
-				break;
-			}
-			case FACE_DESCENDING_LADDER:
-			{
-				useYaw = idealYaw;
+			if (to.IsLengthLessThan(lookAlongLadderRange))
 				usePitch = ladderPitch;
-				break;
-			}
-			case MOUNT_ASCENDING_LADDER:
-			case ASCEND_LADDER:
-			{
-				useYaw = DirectionToAngle(faceDir) + StayOnLadderLine(this, m_pathLadder);
-				usePitch = -ladderPitch;
-				break;
-			}
-			case MOUNT_DESCENDING_LADDER:
-			case DESCEND_LADDER:
-			{
-				useYaw = DirectionToAngle(faceDir) + StayOnLadderLine(this, m_pathLadder);
-				usePitch = ladderPitch;
-				break;
-			}
-			case DISMOUNT_ASCENDING_LADDER:
-			case DISMOUNT_DESCENDING_LADDER:
-			{
-				useYaw = DirectionToAngle(faceDir);
-				break;
-			}
+			break;
+		}
+		case FACE_ASCENDING_LADDER:
+		{
+			useYaw = idealYaw;
+			usePitch = -ladderPitch;
+			break;
+		}
+		case FACE_DESCENDING_LADDER:
+		{
+			useYaw = idealYaw;
+			usePitch = ladderPitch;
+			break;
+		}
+		case MOUNT_ASCENDING_LADDER:
+		case ASCEND_LADDER:
+		{
+			useYaw = DirectionToAngle(faceDir) + StayOnLadderLine(this, m_pathLadder);
+			usePitch = -ladderPitch;
+			break;
+		}
+		case MOUNT_DESCENDING_LADDER:
+		case DESCEND_LADDER:
+		{
+			useYaw = DirectionToAngle(faceDir) + StayOnLadderLine(this, m_pathLadder);
+			usePitch = ladderPitch;
+			break;
+		}
+		case DISMOUNT_ASCENDING_LADDER:
+		case DISMOUNT_DESCENDING_LADDER:
+		{
+			useYaw = DirectionToAngle(faceDir);
+			break;
+		}
 		}
 	}
 
@@ -453,7 +453,7 @@ void CCSBot::UpdateLookAround(bool updateNow)
 		}
 
 		int which = RANDOM_LONG(0, m_approachPointCount - 1);
-		Vector spot = m_approachPoint[ which ];
+		Vector spot = m_approachPoint[which];
 
 		// don't look at the floor, look roughly at chest level
 		// TODO: If this approach point is very near, this will cause us to aim up in the air if were crouching
@@ -524,7 +524,7 @@ void CCSBot::UpdateLookAround(bool updateNow)
 				if (spotOrder->t > t)
 					break;
 
-				dangerSpot[ dangerIndex++ ] = spotOrder->spot;
+				dangerSpot[dangerIndex++] = spotOrder->spot;
 				if (dangerIndex >= MAX_DANGER_SPOTS)
 					dangerIndex = 0;
 				if (dangerSpotCount < MAX_DANGER_SPOTS)
@@ -536,7 +536,7 @@ void CCSBot::UpdateLookAround(bool updateNow)
 				// pick one of the spots at random
 				int which = RANDOM_LONG(0, dangerSpotCount - 1);
 
-				const Vector *checkSpot = dangerSpot[ which ]->GetPosition();
+				const Vector *checkSpot = dangerSpot[which]->GetPosition();
 
 				Vector pos = *checkSpot;
 				pos.z += HalfHumanHeight;
@@ -641,7 +641,7 @@ CBasePlayer *CCSBot::FindMostDangerousThreat()
 		CBasePlayer *enemy;
 		float range;
 	}
-	threat[ MAX_THREATS ];
+	threat[MAX_THREATS];
 	int threatCount = 0;
 
 	m_bomber = NULL;
@@ -799,7 +799,7 @@ CBasePlayer *CCSBot::FindMostDangerousThreat()
 			unsigned int place;
 			int count;
 		};
-		static PlaceRank placeRank[ MAX_PLACES_PER_MAP ];
+		static PlaceRank placeRank[MAX_PLACES_PER_MAP];
 		int locCount = 0;
 
 		PlaceRank common;
@@ -841,8 +841,8 @@ CBasePlayer *CCSBot::FindMostDangerousThreat()
 				// new place
 				if (locCount < MAX_PLACES_PER_MAP)
 				{
-					placeRank[ locCount ].place = threatLoc;
-					placeRank[ locCount ].count = 1;
+					placeRank[locCount].place = threatLoc;
+					placeRank[locCount].count = 1;
 
 					if (common.count == 0)
 						common = placeRank[locCount];
@@ -899,15 +899,15 @@ void CCSBot::UpdateReactionQueue()
 	// store a snapshot of its state at the end of the reaction time queue
 	if (threat != NULL)
 	{
-		m_enemyQueue[ now ].player = threat;
-		m_enemyQueue[ now ].isReloading = threat->IsReloading();
-		m_enemyQueue[ now ].isProtectedByShield = threat->IsProtectedByShield();
+		m_enemyQueue[now].player = threat;
+		m_enemyQueue[now].isReloading = threat->IsReloading();
+		m_enemyQueue[now].isProtectedByShield = threat->IsProtectedByShield();
 	}
 	else
 	{
-		m_enemyQueue[ now ].player = NULL;
-		m_enemyQueue[ now ].isReloading = false;
-		m_enemyQueue[ now ].isProtectedByShield = false;
+		m_enemyQueue[now].player = NULL;
+		m_enemyQueue[now].isReloading = false;
+		m_enemyQueue[now].isProtectedByShield = false;
 	}
 
 	// queue is round-robin
@@ -939,7 +939,7 @@ CBasePlayer *CCSBot::GetRecognizedEnemy()
 	if (m_enemyQueueAttendIndex >= m_enemyQueueCount)
 		return NULL;
 
-	return (CBasePlayer *)m_enemyQueue[ m_enemyQueueAttendIndex ].player;
+	return (CBasePlayer *)m_enemyQueue[m_enemyQueueAttendIndex].player;
 }
 
 // Return true if the enemy we are "conscious" of is reloading
@@ -948,7 +948,7 @@ bool CCSBot::IsRecognizedEnemyReloading()
 	if (m_enemyQueueAttendIndex >= m_enemyQueueCount)
 		return false;
 
-	return m_enemyQueue[ m_enemyQueueAttendIndex ].isReloading;
+	return m_enemyQueue[m_enemyQueueAttendIndex].isReloading;
 }
 
 // Return true if the enemy we are "conscious" of is hiding behind a shield
@@ -957,7 +957,7 @@ bool CCSBot::IsRecognizedEnemyProtectedByShield()
 	if (m_enemyQueueAttendIndex >= m_enemyQueueCount)
 		return false;
 
-	return m_enemyQueue[ m_enemyQueueAttendIndex ].isProtectedByShield;
+	return m_enemyQueue[m_enemyQueueAttendIndex].isProtectedByShield;
 }
 
 // Return distance to closest enemy we are "conscious" of

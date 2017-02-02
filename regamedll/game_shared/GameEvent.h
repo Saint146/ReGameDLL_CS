@@ -140,6 +140,6 @@ enum GameEventType
 	NUM_GAME_EVENTS,
 };
 
-extern const char *GameEventName[ NUM_GAME_EVENTS + 1 ];
+extern const char *GameEventName[NUM_GAME_EVENTS + 1];
 
 #endif // GAME_EVENT_H

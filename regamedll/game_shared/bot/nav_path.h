@@ -50,7 +50,7 @@ public:
 
 	const PathSegment *operator[](int i) { return (i >= 0 && i < m_segmentCount) ? &m_path[i] : NULL; }
 	int GetSegmentCount() const { return m_segmentCount; }
-	const Vector &GetEndpoint() const { return m_path[ m_segmentCount - 1 ].pos; }
+	const Vector &GetEndpoint() const { return m_path[m_segmentCount - 1].pos; }
 
 	bool IsAtEnd(const Vector &pos) const;						// return true if position is at the end of the path
 	float GetLength() const;							// return length of path from start to finish
@@ -129,8 +129,8 @@ public:
 		for (area = effectiveGoalArea; count && area; area = area->GetParent())
 		{
 			--count;
-			m_path[ count ].area = area;
-			m_path[ count ].how = area->GetParentHow();
+			m_path[count].area = area;
+			m_path[count].how = area->GetParentHow();
 		}
 
 		// compute path positions
@@ -141,10 +141,10 @@ public:
 		}
 
 		// append path end position
-		m_path[ m_segmentCount ].area = effectiveGoalArea;
-		m_path[ m_segmentCount ].pos = pathEndPosition;
-		m_path[ m_segmentCount ].ladder = NULL;
-		m_path[ m_segmentCount ].how = NUM_TRAVERSE_TYPES;
+		m_path[m_segmentCount].area = effectiveGoalArea;
+		m_path[m_segmentCount].pos = pathEndPosition;
+		m_path[m_segmentCount].ladder = NULL;
+		m_path[m_segmentCount].how = NUM_TRAVERSE_TYPES;
 		++m_segmentCount;
 
 		return true;
@@ -153,7 +153,7 @@ public:
 private:
 #endif
 	enum { MAX_PATH_SEGMENTS = 256 };
-	PathSegment m_path[ MAX_PATH_SEGMENTS ];
+	PathSegment m_path[MAX_PATH_SEGMENTS];
 	int m_segmentCount;
 
 	bool ComputePathPositions();					// determine actual path positions
@@ -180,7 +180,7 @@ private:
 
 	enum { MAX_VEL_SAMPLES = 5 };
 
-	float m_avgVel[ MAX_VEL_SAMPLES ];
+	float m_avgVel[MAX_VEL_SAMPLES];
 	int m_avgVelIndex;
 	int m_avgVelCount;
 	Vector m_lastCentroid;

@@ -81,10 +81,10 @@ void CFuncMortarField::FieldUse(CBaseEntity *pActivator, CBaseEntity *pCaller, U
 
 	switch (m_fControl)
 	{
-	// random
+		// random
 	case 0:
 		break;
-	// Trigger Activator
+		// Trigger Activator
 	case 1:
 	{
 		if (pActivator != NULL)
@@ -175,24 +175,24 @@ void CMortar::MortarExplode()
 {
 	// mortar beam
 	MESSAGE_BEGIN(MSG_BROADCAST, SVC_TEMPENTITY);
-		WRITE_BYTE(TE_BEAMPOINTS);
-		WRITE_COORD(pev->origin.x);
-		WRITE_COORD(pev->origin.y);
-		WRITE_COORD(pev->origin.z);
-		WRITE_COORD(pev->origin.x);
-		WRITE_COORD(pev->origin.y);
-		WRITE_COORD(pev->origin.z + 1024);
-		WRITE_SHORT(m_spriteTexture);
-		WRITE_BYTE(0); // framerate
-		WRITE_BYTE(0); // framerate
-		WRITE_BYTE(1); // life
-		WRITE_BYTE(40); // width
-		WRITE_BYTE(0); // noise
-		WRITE_BYTE(255); // r, g, b
-		WRITE_BYTE(160); // r, g, b
-		WRITE_BYTE(100); // r, g, b
-		WRITE_BYTE(128); // brightness
-		WRITE_BYTE(0); // speed
+	WRITE_BYTE(TE_BEAMPOINTS);
+	WRITE_COORD(pev->origin.x);
+	WRITE_COORD(pev->origin.y);
+	WRITE_COORD(pev->origin.z);
+	WRITE_COORD(pev->origin.x);
+	WRITE_COORD(pev->origin.y);
+	WRITE_COORD(pev->origin.z + 1024);
+	WRITE_SHORT(m_spriteTexture);
+	WRITE_BYTE(0); // framerate
+	WRITE_BYTE(0); // framerate
+	WRITE_BYTE(1); // life
+	WRITE_BYTE(40); // width
+	WRITE_BYTE(0); // noise
+	WRITE_BYTE(255); // r, g, b
+	WRITE_BYTE(160); // r, g, b
+	WRITE_BYTE(100); // r, g, b
+	WRITE_BYTE(128); // brightness
+	WRITE_BYTE(0); // speed
 	MESSAGE_END();
 
 	TraceResult tr;

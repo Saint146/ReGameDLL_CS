@@ -74,7 +74,7 @@ public:
 	virtual const char *GetName() const = 0;
 };
 
-class IdleState: public BotState
+class IdleState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -89,7 +89,7 @@ public:
 #endif
 };
 
-class HuntState: public BotState
+class HuntState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -110,7 +110,7 @@ private:
 	CNavArea *m_huntArea;
 };
 
-class AttackState: public BotState
+class AttackState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -156,7 +156,7 @@ protected:
 	CountdownTimer m_retreatTimer;
 };
 
-class InvestigateNoiseState: public BotState
+class InvestigateNoiseState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -177,7 +177,7 @@ private:
 	Vector m_checkNoisePosition;
 };
 
-class BuyState: public BotState
+class BuyState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -205,7 +205,7 @@ private:
 	bool m_buyPistol;
 };
 
-class MoveToState: public BotState
+class MoveToState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -231,7 +231,7 @@ private:
 	bool m_askedForCover;
 };
 
-class FetchBombState: public BotState
+class FetchBombState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -247,7 +247,7 @@ public:
 
 };
 
-class PlantBombState: public BotState
+class PlantBombState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -265,7 +265,7 @@ public:
 
 };
 
-class DefuseBombState: public BotState
+class DefuseBombState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -282,7 +282,7 @@ public:
 #endif
 };
 
-class HideState: public BotState
+class HideState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -326,7 +326,7 @@ private:
 	Vector m_leaderAnchorPos;
 };
 
-class EscapeFromBombState: public BotState
+class EscapeFromBombState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -344,7 +344,7 @@ public:
 
 };
 
-class FollowState: public BotState
+class FollowState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -394,7 +394,7 @@ private:
 	CountdownTimer m_idleTimer;
 };
 
-class UseEntityState: public BotState
+class UseEntityState : public BotState
 {
 public:
 	virtual void OnEnter(CCSBot *me);
@@ -417,7 +417,7 @@ private:
 };
 
 // The Counter-strike Bot
-class CCSBot: public CBot
+class CCSBot : public CBot
 {
 public:
 	CCSBot();														// constructor initializes all values to zero
@@ -438,7 +438,7 @@ public:
 
 	virtual void OnEvent(GameEventType event, CBaseEntity *entity = NULL, CBaseEntity *other = NULL);			// invoked when event occurs in the game (some events have NULL entity)
 
-	#define CHECK_FOV true
+#define CHECK_FOV true
 	virtual bool IsVisible(const Vector *pos, bool testFOV = false) const;							// return true if we can see the point
 	virtual bool IsVisible(CBasePlayer *player, bool testFOV = false, unsigned char *visParts = NULL) const;		// return true if we can see any part of the player
 
@@ -483,7 +483,7 @@ public:
 	// behaviors
 	void Idle();
 	void Hide(CNavArea *searchFromArea = NULL, float duration = -1.0f, float hideRange = 750.0f, bool holdPosition = false);						// DEPRECATED: Use TryToHide() instead
-	#define USE_NEAREST true
+#define USE_NEAREST true
 	bool TryToHide(CNavArea *searchFromArea = NULL, float duration = -1.0f, float hideRange = 750.0f, bool holdPosition = false, bool useNearest = false);			// try to hide nearby, return false if cannot
 
 	void Hide(const Vector *hidingSpot, float duration = -1.0f, bool holdPosition = false);											// move to the given hiding place
@@ -652,7 +652,7 @@ public:
 	bool IsOutnumbered() const;								// return true if we are outnumbered by enemies
 	int OutnumberedCount() const;								// return number of enemies we are outnumbered by
 
-	#define ONLY_VISIBLE_ENEMIES true
+#define ONLY_VISIBLE_ENEMIES true
 	CBasePlayer *GetImportantEnemy(bool checkVisibility = false) const;			// return the closest "important" enemy for the given scenario (bomb carrier, VIP, hostage escorter)
 
 	void UpdateReactionQueue();								// update our reaction time queue
@@ -687,7 +687,7 @@ public:
 		END_OF_PATH,	// we reached the end of the path
 		PATH_FAILURE,	// we failed to reach the end of the path
 	};
-	#define NO_SPEED_CHANGE false
+#define NO_SPEED_CHANGE false
 	PathResult UpdatePathMovement(bool allowSpeedChange = true);					// move along our computed path - if allowSpeedChange is true, bot will walk when near goal to ensure accuracy
 
 	bool AStarSearch(CNavArea *startArea, CNavArea *goalArea);					// find shortest path from startArea to goalArea - don't actually buid the path
@@ -750,12 +750,12 @@ public:
 	void SetHidingSpotCheckTimestamp(HidingSpot *spot);			// set the timestamp of the given spot to now
 
 	// weapon query and equip
-	#define MUST_EQUIP true
+#define MUST_EQUIP true
 	void EquipBestWeapon(bool mustEquip = false);				// equip the best weapon we are carrying that has ammo
 	void EquipPistol();							// equip our pistol
 	void EquipKnife();							// equip our knife
 
-	#define DONT_USE_SMOKE_GRENADE true
+#define DONT_USE_SMOKE_GRENADE true
 	bool EquipGrenade(bool noSmoke = false);				// equip a grenade, return false if we cant
 
 	bool IsUsingKnife() const;						// returns true if we have knife equipped
@@ -871,7 +871,7 @@ private:
 	float m_jumpCrouchTimestamp;
 
 	// path navigation data
-	enum { 	MAX_PATH_LENGTH = 256 };
+	enum { MAX_PATH_LENGTH = 256 };
 	struct ConnectInfo
 	{
 		CNavArea *area;			// the area along the path
@@ -902,7 +902,7 @@ private:
 	CountdownTimer m_politeTimer;				// we'll wait for friend to move until this runs out
 	bool m_isWaitingBehindFriend;				// true if we are waiting for a friend to move
 
-	#define ONLY_JUMP_DOWN true
+#define ONLY_JUMP_DOWN true
 	bool DiscontinuityJump(float ground, bool onlyJumpDown = false, bool mustJump = false);					// check if we need to jump due to height change
 
 	enum LadderNavState
@@ -1094,7 +1094,7 @@ private:
 	void RespondToRadioCommands();
 	bool IsRadioCommand(GameEventType event) const;		// returns true if the radio message is an order to do something
 
-	#define NO_FORCE false
+#define NO_FORCE false
 	void EndVoiceFeedback(bool force = true);
 	float m_lastRadioRecievedTimestamp;			// time we recieved a radio message
 	float m_lastRadioSentTimestamp;				// time when we send a radio message

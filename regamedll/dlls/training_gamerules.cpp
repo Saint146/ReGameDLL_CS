@@ -108,7 +108,7 @@ void CHalfLifeTraining::__MAKE_VHOOK(PlayerThink)(CBasePlayer *pPlayer)
 
 	if (pPlayer->HasNamedPlayerItem("weapon_c4"))
 	{
-		if (pPlayer->m_rgAmmo[ pPlayer->GetAmmoIndex("C4") ] <= 0)
+		if (pPlayer->m_rgAmmo[pPlayer->GetAmmoIndex("C4")] <= 0)
 		{
 			pPlayer->m_bHasC4 = false;
 
@@ -149,11 +149,11 @@ void CHalfLifeTraining::__MAKE_VHOOK(PlayerThink)(CBasePlayer *pPlayer)
 			if (!fVisitedBuyArea)
 			{
 				MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pPlayer->pev);
-					WRITE_BYTE(STATUSICON_FLASH);
-					WRITE_STRING("buyzone");
-					WRITE_BYTE(0);
-					WRITE_BYTE(160);
-					WRITE_BYTE(0);
+				WRITE_BYTE(STATUSICON_FLASH);
+				WRITE_STRING("buyzone");
+				WRITE_BYTE(0);
+				WRITE_BYTE(160);
+				WRITE_BYTE(0);
 				MESSAGE_END();
 			}
 		}
@@ -168,15 +168,15 @@ void CHalfLifeTraining::__MAKE_VHOOK(PlayerThink)(CBasePlayer *pPlayer)
 			if (!fVisitedBuyArea)
 			{
 				MESSAGE_BEGIN(MSG_ONE, gmsgBlinkAcct, NULL, pPlayer->pev);
-					WRITE_BYTE(3);
+				WRITE_BYTE(3);
 				MESSAGE_END();
 
 				MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pPlayer->pev);
-					WRITE_BYTE(STATUSICON_SHOW);
-					WRITE_STRING("buyzone");
-					WRITE_BYTE(0);
-					WRITE_BYTE(160);
-					WRITE_BYTE(0);
+				WRITE_BYTE(STATUSICON_SHOW);
+				WRITE_STRING("buyzone");
+				WRITE_BYTE(0);
+				WRITE_BYTE(160);
+				WRITE_BYTE(0);
 				MESSAGE_END();
 
 				fVisitedBuyArea = TRUE;
@@ -509,7 +509,7 @@ void CFuncWeaponCheck::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 	{
 		if (iItemCount < MAX_ITEM_COUNTS)
 		{
-			sItemName[ iItemCount++ ] = ALLOC_STRING(pkvd->szValue);
+			sItemName[iItemCount++] = ALLOC_STRING(pkvd->szValue);
 		}
 
 		pkvd->fHandled = TRUE;

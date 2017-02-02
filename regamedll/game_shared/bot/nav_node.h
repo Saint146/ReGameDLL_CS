@@ -76,7 +76,7 @@ private:
 
 	Vector m_pos;				// position of this node in the world
 	Vector m_normal;			// surface normal at this location
-	CNavNode *m_to[ NUM_DIRECTIONS ];	// links to north, south, east, and west. NULL if no link
+	CNavNode *m_to[NUM_DIRECTIONS];	// links to north, south, east, and west. NULL if no link
 	unsigned int m_id;			// unique ID of this node
 	unsigned char m_attributeFlags;		// set of attribute bit flags (see NavAttributeType)
 
@@ -95,7 +95,7 @@ private:
 
 inline CNavNode *CNavNode::GetConnectedNode(NavDirType dir) const
 {
-	return m_to[ dir ];
+	return m_to[dir];
 }
 
 inline const Vector *CNavNode::GetPosition() const

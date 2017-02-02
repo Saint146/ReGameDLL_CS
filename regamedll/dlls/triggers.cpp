@@ -327,9 +327,9 @@ void CMultiManager::ManagerThink()
 	float time;
 
 	time = gpGlobals->time - m_startTime;
-	while (m_index < m_cTargets && m_flTargetDelay[ m_index ] <= time)
+	while (m_index < m_cTargets && m_flTargetDelay[m_index] <= time)
 	{
-		FireTargets(STRING(m_iTargetName[ m_index ]), m_hActivator, this, USE_TOGGLE, 0);
+		FireTargets(STRING(m_iTargetName[m_index]), m_hActivator, this, USE_TOGGLE, 0);
 		m_index++;
 	}
 
@@ -347,7 +347,7 @@ void CMultiManager::ManagerThink()
 		SetUse(&CMultiManager::ManagerUse);
 	}
 	else
-		pev->nextthink = m_startTime + m_flTargetDelay[ m_index ];
+		pev->nextthink = m_startTime + m_flTargetDelay[m_index];
 }
 
 CMultiManager *CMultiManager::Clone()
@@ -1216,8 +1216,8 @@ void CChangeLevel::__MAKE_VHOOK(Spawn)()
 void CChangeLevel::ExecuteChangeLevel()
 {
 	MESSAGE_BEGIN(MSG_ALL, SVC_CDTRACK);
-		WRITE_BYTE(3);
-		WRITE_BYTE(3);
+	WRITE_BYTE(3);
+	WRITE_BYTE(3);
 	MESSAGE_END();
 
 	MESSAGE_BEGIN(MSG_ALL, SVC_INTERMISSION);
@@ -1340,11 +1340,11 @@ int CChangeLevel::AddTransitionToList(LEVELLIST *pLevelList, int listCount, cons
 		}
 	}
 
-	Q_strcpy(pLevelList[ listCount ].mapName, pMapName);
-	Q_strcpy(pLevelList[ listCount ].landmarkName, pLandmarkName);
+	Q_strcpy(pLevelList[listCount].mapName, pMapName);
+	Q_strcpy(pLevelList[listCount].landmarkName, pLandmarkName);
 
-	pLevelList[ listCount ].pentLandmark = pentLandmark;
-	pLevelList[ listCount ].vecLandmarkOrigin = VARS(pentLandmark)->origin;
+	pLevelList[listCount].pentLandmark = pentLandmark;
+	pLevelList[listCount].vecLandmarkOrigin = VARS(pentLandmark)->origin;
 
 	return 1;
 }
@@ -1441,8 +1441,8 @@ int CChangeLevel::ChangeList(LEVELLIST *pLevelList, int maxList)
 		for (i = 0; i < count; ++i)
 		{
 			int j, entityCount = 0;
-			CBaseEntity *pEntList[ MAX_ENTITY ];
-			int entityFlags[ MAX_ENTITY ];
+			CBaseEntity *pEntList[MAX_ENTITY];
+			int entityFlags[MAX_ENTITY];
 
 			// Follow the linked list of entities in the PVS of the transition landmark
 			edict_t *pent = FIND_ENTITY_IN_PVS(pLevelList[i].pentLandmark);
@@ -1468,8 +1468,8 @@ int CChangeLevel::ChangeList(LEVELLIST *pLevelList, int maxList)
 
 						if (flags)
 						{
-							pEntList[ entityCount ] = pEntity;
-							entityFlags[ entityCount ] = flags;
+							pEntList[entityCount] = pEntity;
+							entityFlags[entityCount] = flags;
 							entityCount++;
 
 							if (entityCount > MAX_ENTITY)
@@ -1628,7 +1628,7 @@ void CTriggerPush::__MAKE_VHOOK(Touch)(CBaseEntity *pOther)
 			Vector vecPush = (pev->speed * pev->movedir);
 			if (pevToucher->flags & FL_BASEVELOCITY)
 			{
-				vecPush = vecPush +  pevToucher->basevelocity;
+				vecPush = vecPush + pevToucher->basevelocity;
 			}
 
 			pevToucher->basevelocity = vecPush;
@@ -2297,17 +2297,17 @@ void CClientFog::__MAKE_VHOOK(KeyValue)(KeyValueData *pkvd)
 	}
 	else
 #endif
-	if (FStrEq(pkvd->szKeyName, "density"))
-	{
-		m_fDensity = Q_atof(pkvd->szValue);
+		if (FStrEq(pkvd->szKeyName, "density"))
+		{
+			m_fDensity = Q_atof(pkvd->szValue);
 
-		if (m_fDensity < 0 || m_fDensity > 0.01)
-			m_fDensity = 0;
+			if (m_fDensity < 0 || m_fDensity > 0.01)
+				m_fDensity = 0;
 
-		pkvd->fHandled = TRUE;
-	}
-	else
-		CBaseEntity::KeyValue(pkvd);
+			pkvd->fHandled = TRUE;
+		}
+		else
+			CBaseEntity::KeyValue(pkvd);
 }
 
 void CClientFog::__MAKE_VHOOK(Spawn)()

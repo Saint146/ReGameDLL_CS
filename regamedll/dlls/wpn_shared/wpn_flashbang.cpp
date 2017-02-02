@@ -244,12 +244,12 @@ void CFlashbang::__MAKE_VHOOK(WeaponIdle)()
 			}
 			else
 			{
-			#ifdef REGAMEDLL_FIXES
+#ifdef REGAMEDLL_FIXES
 				iAnim = FLASHBANG_IDLE;
-			#else
+#else
 				// TODO: This is a bug?
 				iAnim = *(int *)&flRand;
-			#endif
+#endif
 				m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 75.0f / 30.0f;
 			}
 

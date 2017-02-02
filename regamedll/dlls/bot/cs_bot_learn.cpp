@@ -38,7 +38,7 @@ inline CNavNode *LadderEndSearch(CBaseEntity *entity, const Vector *pos, NavDirT
 #ifdef REGAMEDLL_FIXES
 			|| result.fStartSolid
 #endif
-		)
+			)
 			continue;
 
 		// if no node exists here, create one and continue the search
@@ -118,24 +118,24 @@ CNavNode *CCSBot::AddNode(const Vector *destPos, const Vector *normal, NavDirTyp
 void drawProgressMeter(float progress, char *title)
 {
 	MESSAGE_BEGIN(MSG_ALL, gmsgBotProgress);
-		WRITE_BYTE(FLAG_PROGRESS_DRAW);
-		WRITE_BYTE(int(progress * 100.0f));
-		WRITE_STRING(title);
+	WRITE_BYTE(FLAG_PROGRESS_DRAW);
+	WRITE_BYTE(int(progress * 100.0f));
+	WRITE_STRING(title);
 	MESSAGE_END();
 }
 
 void startProgressMeter(const char *title)
 {
 	MESSAGE_BEGIN(MSG_ALL, gmsgBotProgress);
-		WRITE_BYTE(FLAG_PROGRESS_START);
-		WRITE_STRING(title);
+	WRITE_BYTE(FLAG_PROGRESS_START);
+	WRITE_STRING(title);
 	MESSAGE_END();
 }
 
 void hideProgressMeter()
 {
 	MESSAGE_BEGIN(MSG_ALL, gmsgBotProgress);
-		WRITE_BYTE(FLAG_PROGRESS_HIDE);
+	WRITE_BYTE(FLAG_PROGRESS_HIDE);
 	MESSAGE_END();
 }
 
@@ -215,10 +215,10 @@ bool CCSBot::LearnStep()
 				// attempt to move to adjacent node
 				switch (dir)
 				{
-					case NORTH:		cy -= GenerationStepSize; break;
-					case SOUTH:		cy += GenerationStepSize; break;
-					case EAST:		cx += GenerationStepSize; break;
-					case WEST:		cx -= GenerationStepSize; break;
+				case NORTH:		cy -= GenerationStepSize; break;
+				case SOUTH:		cy += GenerationStepSize; break;
+				case EAST:		cx += GenerationStepSize; break;
+				case WEST:		cx -= GenerationStepSize; break;
 				}
 
 				pos.x = cx;

@@ -115,11 +115,11 @@ bool EXT_FUNC CCSPlayer::JoinTeam(TeamName team)
 	}
 
 	MESSAGE_BEGIN(MSG_ALL, gmsgScoreInfo);
-		WRITE_BYTE(ENTINDEX(pPlayer->edict()));
-		WRITE_SHORT(int(pPlayer->pev->frags));
-		WRITE_SHORT(pPlayer->m_iDeaths);
-		WRITE_SHORT(0);
-		WRITE_SHORT(0);
+	WRITE_BYTE(ENTINDEX(pPlayer->edict()));
+	WRITE_SHORT(int(pPlayer->pev->frags));
+	WRITE_SHORT(pPlayer->m_iDeaths);
+	WRITE_SHORT(0);
+	WRITE_SHORT(0);
 	MESSAGE_END();
 
 	// Switch their actual team...
@@ -153,8 +153,8 @@ bool EXT_FUNC CCSPlayer::RemovePlayerItem(const char* pszItemName)
 			pPlayer->pev->body = 0;
 
 			MESSAGE_BEGIN(MSG_ONE, gmsgStatusIcon, NULL, pPlayer->pev);
-				WRITE_BYTE(STATUSICON_HIDE);
-				WRITE_STRING("defuser");
+			WRITE_BYTE(STATUSICON_HIDE);
+			WRITE_STRING("defuser");
 			MESSAGE_END();
 
 			pPlayer->SendItemStatus();
@@ -180,7 +180,7 @@ bool EXT_FUNC CCSPlayer::RemovePlayerItem(const char* pszItemName)
 			pPlayer->pev->armorvalue = 0;
 
 			MESSAGE_BEGIN(MSG_ONE, gmsgArmorType, NULL, pPlayer->pev);
-				WRITE_BYTE(0);
+			WRITE_BYTE(0);
 			MESSAGE_END();
 		}
 		// item_kevlar
@@ -214,7 +214,7 @@ bool EXT_FUNC CCSPlayer::RemovePlayerItem(const char* pszItemName)
 
 			if (pWeapon->m_iId == WEAPON_HEGRENADE || pWeapon->m_iId == WEAPON_FLASHBANG || pWeapon->m_iId == WEAPON_SMOKEGRENADE)
 			{
-				if (pPlayer->m_rgAmmo[ pWeapon->m_iPrimaryAmmoType ] <= 0)
+				if (pPlayer->m_rgAmmo[pWeapon->m_iPrimaryAmmoType] <= 0)
 					g_pGameRules->GetNextBestWeapon(pPlayer, pWeapon);
 			}
 
@@ -276,7 +276,8 @@ CBaseEntity *EXT_FUNC CCSPlayer::GiveNamedItemEx(const char *pszName)
 		if (pPlayer->m_iTeam == TERRORIST) {
 			pPlayer->pev->body = 1;
 		}
-	} else if (FStrEq(pszName, "weapon_shield")) {
+	}
+	else if (FStrEq(pszName, "weapon_shield")) {
 		pPlayer->DropPrimary();
 		pPlayer->GiveShield();
 		return nullptr;
