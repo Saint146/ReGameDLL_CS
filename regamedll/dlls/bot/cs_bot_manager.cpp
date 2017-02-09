@@ -302,6 +302,7 @@ void CCSBotManager::__MAKE_VHOOK(AddServerCommands)()
 	AddServerCommand("bot_nav_crouch");
 	AddServerCommand("bot_nav_jump");
 	AddServerCommand("bot_nav_precise");
+	AddServerCommand("bot_nav_walk");
 	AddServerCommand("bot_nav_no_jump");
 	AddServerCommand("bot_nav_analyze");
 	AddServerCommand("bot_nav_strip");
@@ -558,6 +559,10 @@ void CCSBotManager::__MAKE_VHOOK(ServerCommand)(const char *pcmd)
 	else if (FStrEq(pcmd, "bot_nav_precise"))
 	{
 		IMPL(m_editCmd) = EDIT_ATTRIB_PRECISE;
+	}
+	else if (FStrEq(pcmd, "bot_nav_walk"))
+	{
+		IMPL(m_editCmd) = EDIT_ATTRIB_WALK;
 	}
 	else if (FStrEq(pcmd, "bot_nav_no_jump"))
 	{

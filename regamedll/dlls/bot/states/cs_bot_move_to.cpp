@@ -20,13 +20,16 @@ void MoveToState::__MAKE_VHOOK(OnEnter)(CCSBot *me)
 	case CCSBot::DEFUSE_BOMB:
 	case CCSBot::MOVE_TO_LAST_KNOWN_ENEMY_POSITION:
 		route = FASTEST_ROUTE;
+		// if all enemies are dead and bomb is ticking, grab a knife to be quick
+		if (!me->GetEnemiesRemaining())
+			me->EquipKnife();
 		break;
 
 	default:
 		route = SAFEST_ROUTE;
 		break;
 	}
-
+	
 	// build path to, or nearly to, goal position
 	me->ComputePath(TheNavAreaGrid.GetNavArea(&m_goalPosition), &m_goalPosition, route);
 

@@ -124,6 +124,7 @@ bool CCSBot::__MAKE_VHOOK(Initialize)(const BotProfile *profile)
 
 	m_navNodeList = NULL;
 	m_currentNode = NULL;
+	m_prefersSilencer = RANDOM_LONG(0, 2) == 2;
 
 	// set initial safe time guess for this map
 	m_safeTime = 15.0f + 5.0f * GetProfile()->GetAggression();

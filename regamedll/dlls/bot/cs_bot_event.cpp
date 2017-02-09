@@ -46,7 +46,7 @@ void CCSBot::__MAKE_VHOOK(OnEvent)(GameEventType event, CBaseEntity *entity, CBa
 				CBasePlayer *killer = static_cast<CBasePlayer *>(other);
 
 				// check that attacker is an enemy (for friendly fire, etc)
-				if (killer != NULL && killer->IsPlayer())
+				if (killer != NULL && killer->IsPlayer() && BotRelationship(killer) == BOT_ENEMY)
 				{
 					// check if we saw our friend die - dont check FOV - assume we're aware of our surroundings in combat
 					// snipers stay put

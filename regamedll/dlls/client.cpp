@@ -513,6 +513,11 @@ void EXT_FUNC ClientPutInServer(edict_t *pEntity)
 		TheBots->OnEvent(EVENT_PLAYER_CHANGED_TEAM, (CBaseEntity *)pPlayer);
 	}
 
+	if (StatsManager)
+	{
+		StatsManager->PlayerPutInServer(pPlayer);
+	}
+
 	pPlayer->m_iJoiningState = SHOWLTEXT;
 
 	static char sName[128];
@@ -1951,6 +1956,11 @@ void Radio3(CBasePlayer *player, int slot)
 		else
 			player->Radio("%!MRAD_ROGER", "#Roger_that");
 
+#ifdef _DEBUG
+		if (StatsManager)
+			StatsManager->Test();
+#endif
+
 		break;
 	case 2:
 		player->Radio("%!MRAD_ENEMYSPOT", "#Enemy_spotted");
@@ -3365,6 +3375,11 @@ void EXT_FUNC ServerActivate(edict_t *pEdictList, int edictCount, int clientMax)
 	if (TheBots)
 	{
 		TheBots->ServerActivate();
+	}
+
+	if (StatsManager)
+	{
+		StatsManager->ServerActivate();
 	}
 
 	if (g_pHostages)

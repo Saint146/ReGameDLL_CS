@@ -1045,6 +1045,7 @@ CGrenade *CGrenade::ShootSatchelCharge(entvars_t *pevOwner, Vector vecStart, Vec
 	pGrenade->m_flC4Blow = gpGlobals->time + CSGameRules()->m_iC4Timer;
 	pGrenade->m_flNextFreqInterval = float(CSGameRules()->m_iC4Timer / 4);
 	pGrenade->m_flNextFreq = gpGlobals->time;
+	pGrenade->m_flNextSecond = gpGlobals->time + 1.0f;
 
 	pGrenade->m_iCurWave = 0;
 	pGrenade->m_fAttenu = 0;
@@ -1128,6 +1129,12 @@ void CGrenade::C4Think()
 	}
 
 	pev->nextthink = gpGlobals->time + 0.12f;
+
+	if (StatsManager && gpGlobals->time >= m_flNextSecond)
+	{
+		StatsManager->BombTick(m_flC4Blow - gpGlobals->time);
+		m_flNextSecond++;
+	}
 
 	if (gpGlobals->time >= m_flNextFreq)
 	{
@@ -1281,6 +1288,11 @@ void CGrenade::C4Think()
 			if (TheBots)
 			{
 				TheBots->OnEvent(EVENT_BOMB_DEFUSED, (CBaseEntity *)m_pBombDefuser);
+			}
+
+			if (StatsManager)
+			{
+				StatsManager->BombDefused();
 			}
 
 			MESSAGE_BEGIN(MSG_SPEC, SVC_DIRECTOR);

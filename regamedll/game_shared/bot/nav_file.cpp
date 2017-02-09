@@ -130,12 +130,13 @@ void CNavArea::Save(FILE *fp) const
 	Q_fprintf(fp, "v  %f %f %f\n", m_extent.lo.x, m_extent.hi.y, m_swZ);
 
 	static int base = 1;
-	Q_fprintf(fp, "\n\ng %04dArea%s%s%s%s\n", m_id,
+	Q_fprintf(fp, "\n\ng %04dArea%s%s%s%s%s\n", m_id,
 		(GetAttributes() & NAV_CROUCH) ? "CROUCH" : "", (GetAttributes() & NAV_JUMP) ? "JUMP" : "",
-		(GetAttributes() & NAV_PRECISE) ? "PRECISE" : "", (GetAttributes() & NAV_NO_JUMP) ? "NO_JUMP" : "");
+		(GetAttributes() & NAV_PRECISE) ? "PRECISE" : "", (GetAttributes() & NAV_NO_JUMP) ? "NO_JUMP" : "",
+		(GetAttributes() & NAV_WALK) ? "WALK" : "");
 
-	Q_fprintf(fp, "f %d %d %d %d\n\n", base, base + 1, base + 2, base + 3);
-	base += 4;
+	Q_fprintf(fp, "f %d %d %d %d %d\n\n", base, base + 1, base + 2, base + 3, base + 4);
+	base += 5;
 }
 
 void CNavArea::Save(int fd, unsigned int version)
@@ -465,7 +466,7 @@ NavErrorType CNavArea::PostLoad()
 	// connect areas together
 	for (int d = 0; d < NUM_DIRECTIONS; ++d)
 	{
-		for (auto connect : m_connect[d])
+		for (auto& connect : m_connect[d])
 		{
 			auto id = connect.id;
 			connect.area = TheNavAreaGrid.GetNavAreaByID(id);
@@ -503,7 +504,7 @@ NavErrorType CNavArea::PostLoad()
 	}
 
 	// resolve spot encounter IDs
-	for (auto spote : m_spotEncounterList)
+	for (auto& spote : m_spotEncounterList)
 	{
 		spote.from.area = TheNavAreaGrid.GetNavAreaByID(spote.from.id);
 		if (spote.from.area == NULL)
@@ -532,7 +533,7 @@ NavErrorType CNavArea::PostLoad()
 		}
 
 		// resolve HidingSpot IDs
-		for (auto order : spote.spotList)
+		for (auto& order : spote.spotList)
 		{
 			order.spot = GetHidingSpotByID(order.id);
 			if (order.spot == NULL)

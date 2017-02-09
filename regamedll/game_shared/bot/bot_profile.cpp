@@ -280,10 +280,13 @@ void BotProfileManager::Init(const char *filename, unsigned int *checksum)
 			// HACK HACK
 			// Until we have a generalized means of storing bot preferences, we're going to hardcode the bot's
 			// preference towards silencers based on his name.
-			if (profile->m_name[0] % 2)
-			{
-				profile->m_prefersSilencer = true;
-			}
+
+			// EDIT: moved m_prefersSilencer to CSSBot to be more random
+
+			//if (profile->m_name[0] % 2)
+			//{
+			//	profile->m_prefersSilencer = true;
+			//}
 		}
 
 		// read attributes for this profile

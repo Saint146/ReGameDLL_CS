@@ -2381,6 +2381,18 @@ void CNavArea::Draw(byte red, byte green, byte blue, int duration)
 		UTIL_DrawBeamPoints(down, left, duration, red, green, blue);
 		UTIL_DrawBeamPoints(left, up, duration, red, green, blue);
 	}
+	if (GetAttributes() & NAV_WALK)
+	{
+		float size = 8.0f;
+		Vector up(m_center.x - size, m_center.y - size, m_center.z + cv_bot_nav_zdraw.value);
+		Vector down(m_center.x + size, m_center.y + size, m_center.z + cv_bot_nav_zdraw.value);
+		Vector left(m_center.x - size, m_center.y + size, m_center.z + cv_bot_nav_zdraw.value);
+		Vector right(m_center.x + size, m_center.y - size, m_center.z + cv_bot_nav_zdraw.value);
+		UTIL_DrawBeamPoints(up, right, duration, red, green, blue);
+		UTIL_DrawBeamPoints(right, down, duration, red, green, blue);
+		UTIL_DrawBeamPoints(down, left, duration, red, green, blue);
+		UTIL_DrawBeamPoints(left, up, duration, red, green, blue);
+	}
 }
 
 // Draw selected corner for debugging
@@ -3848,11 +3860,12 @@ void EditNavAreas(NavEditCmdType cmd)
 				}
 				else
 				{
-					Q_sprintf(attrib, "%s%s%s%s",
+					Q_sprintf(attrib, "%s%s%s%s%s",
 						(area->GetAttributes() & NAV_CROUCH) ? "CROUCH " : "",
 						(area->GetAttributes() & NAV_JUMP) ? "JUMP " : "",
 						(area->GetAttributes() & NAV_PRECISE) ? "PRECISE " : "",
-						(area->GetAttributes() & NAV_NO_JUMP) ? "NO_JUMP " : "");
+						(area->GetAttributes() & NAV_NO_JUMP) ? "NO_JUMP " : "",
+						(area->GetAttributes() & NAV_WALK) ? "WALK " : "");
 				}
 
 				Q_sprintf(buffer, "Area #%d %s %s\n", area->GetID(), locName, attrib);
@@ -3995,6 +4008,10 @@ void EditNavAreas(NavEditCmdType cmd)
 				case EDIT_ATTRIB_PRECISE:
 					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
 					area->SetAttributes(area->GetAttributes() ^ NAV_PRECISE);
+					break;
+				case EDIT_ATTRIB_WALK:
+					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);
+					area->SetAttributes(area->GetAttributes() ^ NAV_WALK);
 					break;
 				case EDIT_ATTRIB_NO_JUMP:
 					EMIT_SOUND_DYN(ENT(UTIL_GetLocalPlayer()->pev), CHAN_ITEM, "buttons/bell1.wav", 1, ATTN_NORM, 0, 100);

@@ -80,7 +80,7 @@ public:
 		m_attackDelay = 0.0f;
 		m_teams = BOT_TEAM_ANY;
 		m_voiceBank = 0;
-		m_prefersSilencer = false;
+		//m_prefersSilencer = false;
 	}
 	const char *GetName() const { return m_name; }
 	float GetAggression() const { return m_aggression; }
@@ -99,7 +99,7 @@ public:
 	float GetAttackDelay() const { return m_attackDelay; }
 	int GetVoiceBank() const { return m_voiceBank; }
 	bool IsValidForTeam(BotProfileTeamType team) const;
-	bool PrefersSilencer() const { return m_prefersSilencer; }
+	//bool PrefersSilencer() const { return m_prefersSilencer; } // moved to CSSBot
 
 private:
 	void Inherit(const BotProfile *parent, const BotProfile *baseline);
@@ -123,7 +123,7 @@ private:
 	float m_reactionTime;
 	float m_attackDelay;
 	enum BotProfileTeamType m_teams;
-	bool m_prefersSilencer;
+	//bool m_prefersSilencer; // moved to CSSBot
 	int m_voiceBank;
 };
 

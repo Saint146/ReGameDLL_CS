@@ -776,14 +776,14 @@ void CCSBot::SilencerCheck()
 		bool isSilencerOn = (myGun->m_iWeaponState & (WPNSTATE_M4A1_SILENCED | WPNSTATE_USP_SILENCED)) != 0;
 
 #ifndef REGAMEDLL_FIXES
-		if (isSilencerOn != GetProfile()->PrefersSilencer() && !HasShield())
+		if (isSilencerOn != PrefersSilencer() && !HasShield())
 #else
 
 		if (myGun->m_flNextSecondaryAttack >= gpGlobals->time)
 			return;
 
 		// equip silencer if we want to and we don't have a shield.
-		if (isSilencerOn != (GetProfile()->PrefersSilencer() || GetProfile()->GetSkill() > 0.7f) && !HasShield())
+			if (isSilencerOn != (PrefersSilencer() /*|| GetProfile()->GetSkill() > 0.7f*/) && !HasShield())
 #endif
 		{
 			PrintIfWatched("%s silencer!\n", (isSilencerOn) ? "Unequipping" : "Equipping");

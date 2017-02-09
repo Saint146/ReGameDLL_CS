@@ -1340,6 +1340,11 @@ BOOL EXT_FUNC CBasePlayer::__API_VHOOK(TakeDamage)(entvars_t *pevInflictor, entv
 			TheBots->OnEvent(EVENT_PLAYER_TOOK_DAMAGE, this, pAttack);
 		}
 
+		if (StatsManager)
+		{
+			StatsManager->PlayerDamaged(this, pAttack);
+		}
+
 		if (CSGameRules()->IsCareer())
 		{
 			for (int i = 1; i <= gpGlobals->maxClients; ++i)
@@ -2032,7 +2037,7 @@ void EXT_FUNC CBasePlayer::__API_VHOOK(Killed)(entvars_t *pevAttacker, int iGib)
 
 	if (StatsManager)
 	{
-		StatsManager->PlayerDied(this, pAttackerEntity, GetWeaponName(g_pevLastInflictor, pevAttacker), m_bHeadshotKilled);
+		StatsManager->PlayerDied(this, pAttackerEntity, GetWeaponName(g_pevLastInflictor, pevAttacker), m_bHeadshotKilled, m_bKilledByBomb);
 	}
 
 	if (CSGameRules()->IsCareer())
@@ -2757,7 +2762,7 @@ void EXT_FUNC CBasePlayer::__API_HOOK(SetAnimation)(PLAYER_ANIM playerAnim)
 				break;
 			case 3:
 			case 4:
-				m_iThrowDirection = THROW_FORWARD;
+				m_iThrowDirection = THROW_NONE;
 				break;
 			case 5:
 			case 6:
@@ -4897,7 +4902,8 @@ void EXT_FUNC CBasePlayer::__API_VHOOK(PostThink)()
 				if (flFallDamage > pev->health)
 				{
 					// NOTE: play on item channel because we play footstep landing on body channel
-					EMIT_SOUND(ENT(pev), CHAN_ITEM, "common/bodysplat.wav", VOL_NORM, ATTN_NORM);
+					// EDIT: play on WEAPON channel instead because sound didn't play if player has not got an armor
+					EMIT_SOUND(ENT(pev), CHAN_WEAPON, "common/bodysplat.wav", VOL_NORM, ATTN_NORM);
 				}
 				if (flFallDamage > 0)
 				{

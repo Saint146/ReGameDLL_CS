@@ -173,7 +173,7 @@ void CSmokeGrenade::__MAKE_VHOOK(WeaponIdle)()
 
 	if (m_flStartThrow)
 	{
-		m_pPlayer->Radio("%!MRAD_FIREINHOLE", "#Fire_in_the_hole");
+		m_pPlayer->Radio("%!MRAD_FIREINHOLE", "Smoke out!");
 
 		Vector angThrow = m_pPlayer->pev->v_angle + m_pPlayer->pev->punchangle;
 

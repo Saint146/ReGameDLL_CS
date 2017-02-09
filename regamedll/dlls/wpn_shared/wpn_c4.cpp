@@ -170,6 +170,11 @@ void CC4::__MAKE_VHOOK(PrimaryAttack)()
 						TheBots->OnEvent(EVENT_BOMB_PLANTED, m_pPlayer, pBomb);
 					}
 
+					if (StatsManager)
+					{
+						StatsManager->BombPlanted();
+					}
+
 					if (TheCareerTasks && CSGameRules()->IsCareer() && !m_pPlayer->IsBot())
 					{
 						TheCareerTasks->HandleEvent(EVENT_BOMB_PLANTED, m_pPlayer);

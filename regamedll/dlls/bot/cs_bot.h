@@ -796,6 +796,7 @@ public:
 	void AdjustSafeTime();							// called when enemy seen to adjust safe time for this round
 	void EXPORT BotTouch(CBaseEntity *other);
 	bool HasAnyAmmo(CBasePlayerWeapon *weapon) const;
+	bool PrefersSilencer() { return m_prefersSilencer; }
 
 #ifndef HOOK_GAMEDLL
 private:
@@ -827,6 +828,7 @@ private:
 	EHANDLE m_leader;					// the ID of who we are following
 	float m_followTimestamp;				// when we started following
 	float m_allowAutoFollowTime;				// time when we can auto follow
+	bool m_prefersSilencer = false;				// moved here from profile
 
 	CountdownTimer m_hurryTimer;				// if valid, bot is in a hurry
 
@@ -1759,6 +1761,15 @@ public:
 				}
 
 				cost += crouchPenalty * dist;
+			}
+
+			// if this is a "walk" area, add penalty
+			if (area->GetAttributes() & NAV_CROUCH)
+			{
+				// these areas are kinda slow to move through
+				float_precision walkPenalty = (m_route == FASTEST_ROUTE) ? 2.5f : 1.5f;
+
+				cost += walkPenalty * dist;
 			}
 
 			// if this is a "jump" area, add penalty
