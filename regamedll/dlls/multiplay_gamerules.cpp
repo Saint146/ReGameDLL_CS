@@ -272,6 +272,8 @@ void CHalfLifeMultiplay::EndRoundMessage(const char *sentence, int event)
 		case ROUND_HOSTAGE_NOT_RESCUED:
 		case ROUND_VIP_NOT_ESCAPED:
 			team = GetTeam(TERRORIST);
+			if (StatsManager)
+				StatsManager->TeamScores(TERRORIST);
 			// tell bots the terrorists won the round
 			if (TheBots)
 			{
@@ -287,6 +289,8 @@ void CHalfLifeMultiplay::EndRoundMessage(const char *sentence, int event)
 		case ROUND_TARGET_SAVED:
 		case ROUND_TERRORISTS_NOT_ESCAPED:
 			team = GetTeam(CT);
+			if (StatsManager)
+				StatsManager->TeamScores(CT);
 			// tell bots the CTs won the round
 			if (TheBots)
 			{
@@ -1137,10 +1141,6 @@ bool EXT_FUNC CHalfLifeMultiplay::VIP_Escaped_internal(int winStatus, ScenarioEv
 	{
 		TheBots->OnEvent(EVENT_VIP_ESCAPED);
 	}
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(CT);
-	}
 	TerminateRound(tmDelay, winStatus);
 
 	if (IsCareer())
@@ -1169,10 +1169,6 @@ bool EXT_FUNC CHalfLifeMultiplay::VIP_Died_internal(int winStatus, ScenarioEvent
 	if (TheBots)
 	{
 		TheBots->OnEvent(EVENT_VIP_ASSASSINATED);
-	}
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(TERRORIST);
 	}
 	TerminateRound(tmDelay, winStatus);
 
@@ -1218,11 +1214,6 @@ bool EXT_FUNC CHalfLifeMultiplay::Prison_Escaped_internal(int winStatus, Scenari
 	EndRoundMessage("#Terrorists_Escaped", event);
 	TerminateRound(tmDelay, winStatus);
 
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(TERRORIST);
-	}
-
 	if (IsCareer())
 	{
 		QueueCareerRoundEndMenu(tmDelay, winStatus);
@@ -1246,11 +1237,6 @@ bool EXT_FUNC CHalfLifeMultiplay::Prison_PreventEscape_internal(int winStatus, S
 
 	EndRoundMessage("#CTs_PreventEscape", event);
 	TerminateRound(tmDelay, winStatus);
-
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(CT);
-	}
 
 	if (IsCareer())
 	{
@@ -1276,11 +1262,6 @@ bool EXT_FUNC CHalfLifeMultiplay::Prison_Neutralized_internal(int winStatus, Sce
 	EndRoundMessage("#Escaping_Terrorists_Neutralized", event);
 	TerminateRound(tmDelay, winStatus);
 
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(CT);
-	}
-	
 	if (IsCareer())
 	{
 		QueueCareerRoundEndMenu(tmDelay, winStatus);
@@ -1329,11 +1310,6 @@ bool CHalfLifeMultiplay::Target_Bombed_internal(int winStatus, ScenarioEventEndR
 	EndRoundMessage("#Target_Bombed", event);
 	TerminateRound(tmDelay, winStatus);
 
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(TERRORIST);
-	}
-
 	if (IsCareer())
 	{
 		QueueCareerRoundEndMenu(tmDelay, winStatus);
@@ -1357,11 +1333,6 @@ bool CHalfLifeMultiplay::Target_Defused_internal(int winStatus, ScenarioEventEnd
 
 	EndRoundMessage("#Bomb_Defused", event);
 	TerminateRound(tmDelay, winStatus);
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(CT);
-	}
-
 	if (IsCareer())
 	{
 		QueueCareerRoundEndMenu(tmDelay, winStatus);
@@ -1399,11 +1370,6 @@ bool CHalfLifeMultiplay::Round_Cts_internal(int winStatus, ScenarioEventEndRound
 
 	EndRoundMessage("#CTs_Win", event);
 	TerminateRound(tmDelay, winStatus);
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(CT);
-	}
-
 	if (IsCareer())
 	{
 		QueueCareerRoundEndMenu(tmDelay, winStatus);
@@ -1426,10 +1392,6 @@ bool CHalfLifeMultiplay::Round_Ts_internal(int winStatus, ScenarioEventEndRound 
 
 	EndRoundMessage("#Terrorists_Win", event);
 	TerminateRound(tmDelay, winStatus);
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(TERRORIST);
-	}
 
 	if (IsCareer())
 	{
@@ -1505,10 +1467,6 @@ bool CHalfLifeMultiplay::Hostage_Rescue_internal(int winStatus, ScenarioEventEnd
 	if (TheBots)
 	{
 		TheBots->OnEvent(EVENT_ALL_HOSTAGES_RESCUED);
-	}
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(CT);
 	}
 
 	if (IsCareer())
@@ -2912,10 +2870,6 @@ bool CHalfLifeMultiplay::Target_Saved_internal(int winStatus, ScenarioEventEndRo
 
 	EndRoundMessage("#Target_Saved", event);
 	TerminateRound(tmDelay, winStatus);
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(CT);
-	}
 
 	if (IsCareer())
 	{
@@ -2948,10 +2902,6 @@ bool CHalfLifeMultiplay::Hostage_NotRescued_internal(int winStatus, ScenarioEven
 
 	EndRoundMessage("#Hostages_Not_Rescued", event);
 	TerminateRound(tmDelay, winStatus);
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(TERRORIST);
-	}
 
 	if (IsCareer())
 	{
@@ -2983,10 +2933,6 @@ bool CHalfLifeMultiplay::Prison_NotEscaped_internal(int winStatus, ScenarioEvent
 
 	EndRoundMessage("#Terrorists_Not_Escaped", event);
 	TerminateRound(tmDelay, winStatus);
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(CT);
-	}
 
 	if (IsCareer())
 	{
@@ -3018,10 +2964,6 @@ bool CHalfLifeMultiplay::VIP_NotEscaped_internal(int winStatus, ScenarioEventEnd
 
 	EndRoundMessage("#VIP_Not_Escaped", event);
 	TerminateRound(tmDelay, winStatus);
-	if (StatsManager)
-	{
-		StatsManager->TeamScores(TERRORIST);
-	}
 
 	if (IsCareer())
 	{

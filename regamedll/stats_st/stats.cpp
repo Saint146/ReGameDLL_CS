@@ -20,18 +20,6 @@ Stats::~Stats()
 void Stats::Test()
 {
 	auto *me = UTIL_GetLocalPlayer();
-
-	//NotifyMessage("0", 0, me);
-	//NotifyMessage("1", 1, me);
-	//NotifyMessage("2", 2, me);
-	//NotifyMessage("3", 3, me);
-	//NotifyMessage("4", 4, me);
-
-	//UTIL_ShowMessage("ShowMessage", me);
-
-	//SetHudMessage(150, 0, 100, -1, -1, 2, 0.0, 7.0, 0.1, 2.0, 1);
-	//ShowHudMessage("WHAT THE FUCK sdg klsdfjg ldfjkgh ldfjkgh ldfkjg !!!");
-
 }
 
 #endif

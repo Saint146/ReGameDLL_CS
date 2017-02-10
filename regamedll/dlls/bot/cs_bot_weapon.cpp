@@ -423,6 +423,10 @@ void CCSBot::EquipBestWeapon(bool mustEquip)
 	if (!mustEquip && m_equipTimer.GetElapsedTime() < minEquipInterval)
 		return;
 
+	// check if there is anybody to shoot at
+	if (TheCSBots()->IsBombPlanted() && !GetEnemiesRemaining())
+		return;
+	
 	CBasePlayerWeapon *primary = static_cast<CBasePlayerWeapon *>(m_rgpPlayerItems[PRIMARY_WEAPON_SLOT]);
 
 	if (primary != NULL)
