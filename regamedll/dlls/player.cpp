@@ -5066,7 +5066,8 @@ void EXT_FUNC CBasePlayer::__API_HOOK(PostThink)()
 				if (flFallDamage > pev->health)
 				{
 					// NOTE: play on item channel because we play footstep landing on body channel
-					EMIT_SOUND(ENT(pev), CHAN_ITEM, "common/bodysplat.wav", VOL_NORM, ATTN_NORM);
+					// UPD: disregard that, it was preventing sound from playing when player had no armor
+					EMIT_SOUND(ENT(pev), CHAN_BODY, "common/bodysplat.wav", VOL_NORM, ATTN_NORM);
 				}
 
 #ifdef REGAMEDLL_FIXES
