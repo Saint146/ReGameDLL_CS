@@ -468,7 +468,7 @@ NOXREF void UTIL_DrawBeamFromEnt(int iIndex, Vector vecEnd, int iLifetime, byte 
 		WRITE_BYTE(0);
 		WRITE_BYTE(0);
 		WRITE_BYTE(iLifetime);
-		WRITE_BYTE(10);
+		WRITE_BYTE(3);
 		WRITE_BYTE(0);
 		WRITE_BYTE(bRed);
 		WRITE_BYTE(bGreen);
@@ -492,7 +492,7 @@ void UTIL_DrawBeamPoints(Vector vecStart, Vector vecEnd, int iLifetime, byte bRe
 		WRITE_BYTE(0);
 		WRITE_BYTE(0);
 		WRITE_BYTE(iLifetime);
-		WRITE_BYTE(10);
+		WRITE_BYTE(3);
 		WRITE_BYTE(0);
 		WRITE_BYTE(bRed);
 		WRITE_BYTE(bGreen);

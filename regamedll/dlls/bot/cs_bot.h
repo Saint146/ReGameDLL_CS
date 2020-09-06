@@ -1639,6 +1639,15 @@ public:
 				cost += crouchPenalty * dist;
 			}
 
+			// if this is a "walk" area, add penalty
+			if (area->GetAttributes() & NAV_WALK)
+			{
+				// these areas are kinda slow to move through
+				real_t walkPenalty = (m_route == FASTEST_ROUTE) ? 2.5f : 1.5f;
+
+				cost += walkPenalty * dist;
+			}
+
 			// if this is a "jump" area, add penalty
 			if (area->GetAttributes() & NAV_JUMP)
 			{

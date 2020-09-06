@@ -1393,6 +1393,32 @@ CCSBot::PathResult CCSBot::UpdatePathMovement(bool allowSpeedChange)
 			StandUp();
 		}
 		// end crouching logic
+
+		// Walking
+		bool didWalk = false;
+
+		for (int i = prevIndex; i < m_pathLength; ++i)
+		{
+			const CNavArea* to = m_path[i].area;
+
+			Vector close;
+			to->GetClosestPointOnArea(&pev->origin, &close);
+
+			if ((close - pev->origin).Make2D().IsLengthGreaterThan(crouchRange))
+				break;
+
+			if (to->GetAttributes() & NAV_WALK)
+			{
+				Walk();
+				didWalk = true;
+				break;
+			}
+		}
+
+		if (!didWalk)
+		{
+			Run();
+		}
 	}
 
 	// compute our forward facing angle
