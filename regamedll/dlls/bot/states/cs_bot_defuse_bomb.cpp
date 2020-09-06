@@ -33,7 +33,14 @@ void DefuseBombState::OnEnter(CCSBot *me)
 {
 	me->Crouch();
 	me->SetDisposition(CCSBot::SELF_DEFENSE);
-	me->GetChatter()->Say("DefusingBomb");
+	if (me->m_bHasDefuser)
+	{
+		me->GetChatter()->Say("DefusingBombWithKits");
+	}
+	else
+	{
+		me->GetChatter()->Say("DefusingBomb");
+	}
 }
 
 // Defuse the bomb
