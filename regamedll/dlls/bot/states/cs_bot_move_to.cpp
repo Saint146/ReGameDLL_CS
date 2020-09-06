@@ -48,6 +48,11 @@ void MoveToState::OnEnter(CCSBot *me)
 	case CCSBot::DEFUSE_BOMB:
 	case CCSBot::MOVE_TO_LAST_KNOWN_ENEMY_POSITION:
 		route = FASTEST_ROUTE;
+		// if all enemies are dead and the bomb is ticking, grab a knife to be quick
+		if (!me->GetEnemiesRemaining())
+		{
+			me->EquipKnife();
+		}
 		break;
 
 	default:
