@@ -559,6 +559,9 @@
     <ClCompile Include="..\public\FileSystem.cpp">
       <Filter>public</Filter>
     </ClCompile>
+    <ClCompile Include="..\dlls\addons\saint_announcer.cpp">
+      <Filter>dlls\addons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\version\version.h">
@@ -1054,6 +1057,9 @@
       <Filter>dlls\addons</Filter>
     </ClInclude>
     <ClInclude Include="..\dlls\addons\point_command.h">
+      <Filter>dlls\addons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dlls\addons\saint_announcer.h">
       <Filter>dlls\addons</Filter>
     </ClInclude>
   </ItemGroup>

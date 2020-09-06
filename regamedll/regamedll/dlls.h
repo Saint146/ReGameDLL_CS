@@ -129,6 +129,9 @@ using FloatRef = float;
 
 #include "bot/cs_bot.h"
 
+// Saint Announcer
+#include "addons/saint_announcer.h"
+
 // Addons
 #include "addons/item_airbox.h"
 #include "addons/trigger_setorigin.h"

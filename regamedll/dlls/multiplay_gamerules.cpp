@@ -508,6 +508,7 @@ CHalfLifeMultiplay::CHalfLifeMultiplay()
 
 #ifndef CSTRIKE
 	InstallBotControl();
+	InstallSaintAnnouncer();
 #endif
 
 	InstallHostageManager();

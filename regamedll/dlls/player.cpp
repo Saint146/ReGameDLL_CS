@@ -2028,6 +2028,11 @@ void EXT_FUNC CBasePlayer::__API_HOOK(Killed)(entvars_t *pevAttacker, int iGib)
 		TheBots->OnEvent(EVENT_PLAYER_DIED, this, pAttackerEntity);
 	}
 
+	if (StAnnouncer)
+	{
+		StAnnouncer->PlayerDied(this, pAttackerEntity, GetWeaponName(g_pevLastInflictor, pevAttacker), m_bHeadshotKilled);
+	}
+
 	if (CSGameRules()->IsCareer())
 	{
 		bool killerHasShield = false;
