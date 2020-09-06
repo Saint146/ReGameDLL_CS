@@ -3812,7 +3812,11 @@ void ClientPrecache()
 	PRECACHE_SOUND("player/die1.wav");
 	PRECACHE_SOUND("player/die2.wav");
 	PRECACHE_SOUND("player/die3.wav");
-	PRECACHE_SOUND("player/death6.wav");
+	PRECACHE_SOUND("player/die4.wav");
+	PRECACHE_SOUND("player/die5.wav");
+	PRECACHE_SOUND("player/die6.wav");
+	PRECACHE_SOUND("player/die7.wav");
+	PRECACHE_SOUND("player/die8.wav");
 	PRECACHE_SOUND("radio/locknload.wav");
 	PRECACHE_SOUND("radio/letsgo.wav");
 	PRECACHE_SOUND("radio/moveout.wav");

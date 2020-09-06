@@ -538,13 +538,16 @@ int TrainSpeed(int iSpeed, int iMax)
 
 void CBasePlayer::DeathSound()
 {
-	// temporarily using pain sounds for death sounds
-	switch (RANDOM_LONG(1, 4))
+	switch (RANDOM_LONG(1, 8))
 	{
 	case 1: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/die1.wav", VOL_NORM, ATTN_NORM); break;
 	case 2: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/die2.wav", VOL_NORM, ATTN_NORM); break;
 	case 3: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/die3.wav", VOL_NORM, ATTN_NORM); break;
-	case 4: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/death6.wav", VOL_NORM, ATTN_NORM); break;
+	case 4: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/die4.wav", VOL_NORM, ATTN_NORM); break;
+	case 5: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/die5.wav", VOL_NORM, ATTN_NORM); break;
+	case 6: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/die6.wav", VOL_NORM, ATTN_NORM); break;
+	case 7: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/die7.wav", VOL_NORM, ATTN_NORM); break;
+	case 8: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/die8.wav", VOL_NORM, ATTN_NORM); break;
 	}
 }
 
