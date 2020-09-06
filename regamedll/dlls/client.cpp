@@ -719,6 +719,11 @@ void EXT_FUNC ClientPutInServer(edict_t *pEntity)
 	}
 #endif
 
+	if (StAnnouncer)
+	{
+		StAnnouncer->PlayerPutInServer(pPlayer);
+	}
+
 	if (TheBots)
 	{
 		TheBots->OnEvent(EVENT_PLAYER_CHANGED_TEAM, (CBaseEntity *)pPlayer);
@@ -3708,6 +3713,11 @@ void EXT_FUNC ServerActivate(edict_t *pEdictList, int edictCount, int clientMax)
 	if (g_pGameRules)
 	{
 		g_pGameRules->CheckMapConditions();
+	}
+
+	if (StAnnouncer)
+	{
+		StAnnouncer->ServerActivate();
 	}
 
 	if (TheBots)

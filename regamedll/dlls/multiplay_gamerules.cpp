@@ -223,6 +223,12 @@ void CHalfLifeMultiplay::EndRoundMessage(const char *sentence, ScenarioEventEndR
 		case ROUND_HOSTAGE_NOT_RESCUED:
 		case ROUND_VIP_NOT_ESCAPED:
 			team = GetTeam(TERRORIST);
+
+			if (StAnnouncer)
+			{
+				StAnnouncer->TeamScores(TERRORIST);
+			}
+
 			// tell bots the terrorists won the round
 			if (TheBots)
 			{
@@ -238,6 +244,12 @@ void CHalfLifeMultiplay::EndRoundMessage(const char *sentence, ScenarioEventEndR
 		case ROUND_TARGET_SAVED:
 		case ROUND_TERRORISTS_NOT_ESCAPED:
 			team = GetTeam(CT);
+
+			if (StAnnouncer)
+			{
+				StAnnouncer->TeamScores(CT);
+			}
+
 			// tell bots the CTs won the round
 			if (TheBots)
 			{
@@ -1654,6 +1666,11 @@ void EXT_FUNC CHalfLifeMultiplay::__API_HOOK(RestartRound)()
 	if (TheBots)
 	{
 		TheBots->RestartRound();
+	}
+
+	if (StAnnouncer)
+	{
+		StAnnouncer->RestartRound();
 	}
 
 	if (g_pHostages)

@@ -198,6 +198,12 @@ void CC4::PrimaryAttack()
 				MESSAGE_END();
 
 				UTIL_ClientPrintAll(HUD_PRINTCENTER, "#Bomb_Planted");
+
+				if (StAnnouncer)
+				{
+					StAnnouncer->BombPlanted();
+				}
+
 				if (TheBots)
 				{
 					TheBots->OnEvent(EVENT_BOMB_PLANTED, m_pPlayer, pBomb);

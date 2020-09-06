@@ -1041,6 +1041,11 @@ void CGrenade::__API_HOOK(DefuseBombEnd)(CBasePlayer *pPlayer, bool bDefused)
 				Broadcast("BOMBDEF");
 			}
 
+			if (StAnnouncer)
+			{
+				StAnnouncer->BombDefused();
+			}
+
 			if (TheBots)
 			{
 				TheBots->OnEvent(EVENT_BOMB_DEFUSED, (CBaseEntity *)m_pBombDefuser);
@@ -1222,6 +1227,7 @@ CGrenade *CGrenade::__API_HOOK(ShootSatchelCharge)(entvars_t *pevOwner, VectorRe
 	pGrenade->m_flC4Blow = gpGlobals->time + CSGameRules()->m_iC4Timer;
 	pGrenade->m_flNextFreqInterval = float(CSGameRules()->m_iC4Timer / 4);
 	pGrenade->m_flNextFreq = gpGlobals->time;
+	pGrenade->m_flNextSecond = gpGlobals->time + 1.0f;
 
 	pGrenade->m_iCurWave = 0;
 	pGrenade->m_fAttenu = 0;
@@ -1328,6 +1334,12 @@ void CGrenade::C4Think()
 #else
 	pev->nextthink = gpGlobals->time + 0.12f;
 #endif
+
+	if (StAnnouncer && gpGlobals->time >= m_flNextSecond)
+	{
+		StAnnouncer->BombTick(m_flC4Blow - gpGlobals->time);
+		m_flNextSecond++;
+	}
 
 	if (gpGlobals->time >= m_flNextFreq)
 	{

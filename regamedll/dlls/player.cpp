@@ -963,6 +963,11 @@ BOOL EXT_FUNC CBasePlayer::__API_HOOK(TakeDamage)(entvars_t *pevInflictor, entva
 				TheBots->OnEvent(EVENT_PLAYER_TOOK_DAMAGE, this, pAttack);
 			}
 
+			if (StAnnouncer)
+			{
+				StAnnouncer->PlayerDamaged(this, pAttack);
+			}
+
 			if (TheCareerTasks)
 			{
 				CBasePlayer *pPlayerAttacker = CBasePlayer::Instance(pevAttacker);
@@ -2030,7 +2035,7 @@ void EXT_FUNC CBasePlayer::__API_HOOK(Killed)(entvars_t *pevAttacker, int iGib)
 
 	if (StAnnouncer)
 	{
-		StAnnouncer->PlayerDied(this, pAttackerEntity, GetWeaponName(g_pevLastInflictor, pevAttacker), m_bHeadshotKilled);
+		StAnnouncer->PlayerDied(this, pAttackerEntity, GetWeaponName(g_pevLastInflictor, pevAttacker), m_bHeadshotKilled, m_bKilledByBomb);
 	}
 
 	if (CSGameRules()->IsCareer())

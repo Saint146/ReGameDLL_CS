@@ -245,6 +245,7 @@ public:
 	float m_flNextFreqInterval;
 	float m_flNextBeep;
 	float m_flNextFreq;
+	float m_flNextSecond;
 	char *m_sBeepName;
 	float m_fAttenu;
 	float m_flNextBlink;
