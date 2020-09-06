@@ -1473,16 +1473,16 @@ void BotChatterInterface::Update()
 	{
 		nextSay = say->m_next;
 
+		// don't interrupt ourselves
+		if (say->IsSpeaking())
+			continue;
+
 		// check statement conditions
 		if (!say->IsValid())
 		{
 			RemoveStatement(say);
 			continue;
 		}
-
-		// don't interrupt ourselves
-		if (say->IsSpeaking())
-			continue;
 
 		// check for obsolete statements
 		if (say->IsObsolete())
